@@ -120,7 +120,7 @@ void InspectorScreen::drawTransformTable(AGameObject* gameObject)
 					gameObject->setPosition(Vector3D(values[0], values[1], values[2]));
 					break;
 				case 1:
-					gameObject->setRotation(Vector3D(values[0], values[1], values[2]));
+					gameObject->setRotation(values[0], values[1], values[2]);
 					break;
 				case 2:
 					gameObject->setScale(Vector3D(values[0], values[1], values[2]));

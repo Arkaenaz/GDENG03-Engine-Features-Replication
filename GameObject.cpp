@@ -83,12 +83,16 @@ namespace GDEngine
 
 	void AGameObject::setRotation(float x, float y, float z)
 	{
+		reactphysics3d::Quaternion quat = reactphysics3d::Quaternion::fromEulerAngles(x, y, z);
 		this->m_localRotation = Vector3D(x, y, z);
+		this->m_orientation = Vector4D(quat.x, quat.y, quat.z, quat.w);
 	}
 
 	void AGameObject::setRotation(Vector3D rotation)
 	{
 		this->m_localRotation = rotation;
+		reactphysics3d::Quaternion quat = reactphysics3d::Quaternion::fromEulerAngles(rotation.x, rotation.y, rotation.z);
+		this->m_orientation = Vector4D(quat.x, quat.y, quat.z, quat.w);
 	}
 
 	void AGameObject::setOrientation(AQuaternion orientation)
@@ -273,15 +277,17 @@ namespace GDEngine
 
 		// Scale * Rotation
 		rotation.setIdentity();
-		rotation.setRotationZ(this->m_localRotation.z);
+		/*rotation.setRotationZ(this->m_orientation.z);
 
 		temp.setIdentity();
-		temp.setRotationY(this->m_localRotation.y);
+		temp.setRotationY(this->m_orientation.y);
 		rotation *= temp;
 
 		temp.setIdentity();
-		temp.setRotationX(this->m_localRotation.x);
-		rotation *= temp;
+		temp.setRotationX(this->m_orientation.x);
+		rotation *= temp;*/
+
+		rotation.setRotation(this->m_orientation);
 
 		transform *= rotation;
 		// Scale * Rotation * Translation
