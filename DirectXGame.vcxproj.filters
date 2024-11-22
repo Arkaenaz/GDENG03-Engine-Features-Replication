@@ -342,9 +342,6 @@
     <ClCompile Include="ActionHistory.cpp">
       <Filter>GameEngine\Backend</Filter>
     </ClCompile>
-    <ClCompile Include="ActionScreen.cpp">
-      <Filter>Editor\Screens</Filter>
-    </ClCompile>
     <ClCompile Include="PlaybackScreen.cpp">
       <Filter>Editor\Screens</Filter>
     </ClCompile>
@@ -577,9 +574,6 @@
     </ClInclude>
     <ClInclude Include="ActionHistory.h">
       <Filter>GameEngine\Backend</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionScreen.h">
-      <Filter>Editor\Screens</Filter>
     </ClInclude>
     <ClInclude Include="PlaybackScreen.h">
       <Filter>Editor\Screens</Filter>

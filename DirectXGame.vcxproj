@@ -140,7 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ActionHistory.cpp" />
-    <ClCompile Include="ActionScreen.cpp" />
     <ClCompile Include="Armadillo.cpp" />
     <ClCompile Include="BaseComponentSystem.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -218,7 +217,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionHistory.h" />
-    <ClInclude Include="ActionScreen.h" />
     <ClInclude Include="Armadillo.h" />
     <ClInclude Include="BaseComponentSystem.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

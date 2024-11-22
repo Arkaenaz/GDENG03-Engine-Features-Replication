@@ -19,7 +19,6 @@
 #include "ViewportScreen.h"
 #include "ToolsScreen.h"
 #include "PlaybackScreen.h"
-#include "ActionScreen.h"
 #include "ColorPickerScreen.h"
 #include "CreditsScreen.h"
 
@@ -224,6 +223,10 @@ UIManager::UIManager(HWND hwnd)
 	ImGui_ImplDX11_Init(renderSystem->getDirectXDevice(), renderSystem->getImmediateDeviceContext()->getContext());
 
 	UINames uiNames;
+	PlaybackScreen* playbackScreen = new PlaybackScreen();
+	this->mapUI[uiNames.PLAYBACK_SCREEN] = playbackScreen;
+	this->listUI.push_back(playbackScreen);
+
 	MenuScreen* menuScreen = new MenuScreen();
 	this->mapUI[uiNames.MENU_SCREEN] = menuScreen;
 	this->listUI.push_back(menuScreen);
@@ -247,14 +250,6 @@ UIManager::UIManager(HWND hwnd)
 	ColorPickerScreen* colorPickerScreen = new ColorPickerScreen();
 	this->mapUI[uiNames.COLOR_PICKER_SCREEN] = colorPickerScreen;
 	this->listUI.push_back(colorPickerScreen);
-
-	ActionScreen* actionScreen = new ActionScreen();
-	this->mapUI[uiNames.ACTION_SCREEN] = actionScreen;
-	this->listUI.push_back(actionScreen);
-
-	PlaybackScreen* playbackScreen = new PlaybackScreen();
-	this->mapUI[uiNames.PLAYBACK_SCREEN] = playbackScreen;
-	this->listUI.push_back(playbackScreen);
 
 	ViewportManager::getInstance()->createViewport();
 
