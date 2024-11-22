@@ -35,7 +35,6 @@ void InspectorScreen::draw()
 
 void InspectorScreen::drawInspector()
 {
-	ImGui::ShowDemoWindow();
 	std::string name = m_selectedObject->getName();
 	bool isActive = m_selectedObject->isActive();
 
@@ -168,7 +167,6 @@ void InspectorScreen::drawComponentList(AGameObject* gameObject)
 				bool gravity = physicsComponent->getUseGravity();
 
 				ImGui::DragFloat("Mass", &mass);
-				ImGui::DragFloat("Linear Drag", &linearDrag);
 				ImGui::DragFloat("Angular Drag", &angularDrag);
 				ImGui::Checkbox("Gravity", &gravity);
 

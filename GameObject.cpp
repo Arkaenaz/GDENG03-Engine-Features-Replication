@@ -5,6 +5,7 @@
 #include "PhysicsSystem.h"
 
 #include "EditorAction.h"
+#include "PhysicsComponent.h"
 
 namespace GDEngine
 {
@@ -399,6 +400,15 @@ namespace GDEngine
 			m_localScale = m_lastEditState->getStoredScale();
 			m_orientation = m_lastEditState->getStoredOrientation();
 			m_localMatrix = m_lastEditState->getStoredMatrix();
+
+			ComponentList physicsList = getComponentsOfType(AComponent::Physics);
+			for (AComponent* component : physicsList)
+			{
+				PhysicsComponent* physicsComponent = dynamic_cast<PhysicsComponent*>(component);
+				physicsComponent->setTransformFromOpenGL(m_localMatrix.getMatrix());
+				physicsComponent->getRigidBody()->setAngularVelocity(Vector3(0, 0, 0));
+				physicsComponent->getRigidBody()->setLinearVelocity(Vector3(0, 0, 0));
+			}
 
 			m_lastEditState = nullptr;
 		}
