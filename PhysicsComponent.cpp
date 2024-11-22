@@ -133,13 +133,19 @@ void PhysicsComponent::setType(const BodyType type) const
 	this->m_rigidBody->setType(type);
 }
 
-void PhysicsComponent::setLinearDrag(const float linearDrag)
+void PhysicsComponent::setLinearDrag(float linearDrag)
 {
+	if (linearDrag < 0)
+		linearDrag = 0;
+
 	this->m_rigidBody->setLinearDamping(linearDrag);
 }
 
-void PhysicsComponent::setAngularDrag(const float angularDrag)
+void PhysicsComponent::setAngularDrag(float angularDrag)
 {
+	if (angularDrag < 0)
+		angularDrag = 0;
+
 	this->m_rigidBody->setAngularDamping(angularDrag);
 }
 
