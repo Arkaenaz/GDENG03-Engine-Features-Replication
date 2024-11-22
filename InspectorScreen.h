@@ -18,6 +18,7 @@ namespace GDEditor
 		virtual void draw() override;
 		void drawInspector();
 		void drawTransformTable(AGameObject* gameObject);
+		void drawComponentList(AGameObject* gameObject);
 
 	private:
 		AGameObject* m_selectedObject = nullptr;

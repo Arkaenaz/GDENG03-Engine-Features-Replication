@@ -50,7 +50,13 @@ void InspectorScreen::drawInspector()
 	}
 
 	this->drawTransformTable(m_selectedObject);
-	
+	this->drawComponentList(m_selectedObject);
+
+	if (ImGui::Button("Add Component", ImVec2(ImGui::GetWindowSize().x - 15, 20)))
+	{
+		
+	}
+
 	if (ImGui::Button("Delete", ImVec2(ImGui::GetWindowSize().x - 15, 20)))
 	{
 		GameObjectManager::getInstance()->setSelectedObject(nullptr);
@@ -112,7 +118,9 @@ void InspectorScreen::drawTransformTable(AGameObject* gameObject)
 				m_isLeftDown = true;
 			}
 			else
+			{
 				m_isLeftDown = false;
+			}
 
 			if (m_hasChanged && !m_isLeftDown)
 			{
@@ -121,5 +129,36 @@ void InspectorScreen::drawTransformTable(AGameObject* gameObject)
 		}
 
 		ImGui::EndTable();
+	}
+}
+
+void InspectorScreen::drawComponentList(AGameObject* gameObject)
+{
+	AGameObject::ComponentList componentList = gameObject->getComponentsOfType(AComponent::Physics);
+	for (AComponent* component : componentList)
+	{
+		if (component->getName().find("PhysicsComponent") != std::string::npos)
+		{
+			ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 0);
+			if (ImGui::CollapsingHeader("Rigidbody", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_DefaultOpen))
+			{
+				ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.800000190734863f);
+				float mass; // TODO: place mass here
+				bool gravity; // TODO: place gravity here
+				ImGui::DragFloat("Mass", &mass);
+				ImGui::Checkbox("Gravity", &gravity);
+
+				// TODO: set mass and gravity
+
+				ImGui::PopStyleVar();
+
+				std::string buttonName = "Delete##" + component->getName();
+				if (ImGui::Button(buttonName.c_str(), ImVec2(ImGui::GetWindowSize().x - 15, 20)))
+				{
+					component->detachOwner();
+				}
+			}
+			ImGui::PopStyleVar();
+		}
 	}
 }
