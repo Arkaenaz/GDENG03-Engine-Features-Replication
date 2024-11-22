@@ -23,7 +23,7 @@ PhysicsComponent::PhysicsComponent(std::string name, AGameObject* owner) : AComp
 	Transform transform;
 	transform.setFromOpenGL(this->getOwner()->getPhysicsLocalMatrix());
 
-	BoxShape* boxShape = physicsCommon->createBoxShape(Vector3(scale.x / 1.9, scale.y / 1.9, scale.z / 1.9));
+	BoxShape* boxShape = physicsCommon->createBoxShape(Vector3(scale.x / 1.0f, scale.y / 1.0f, scale.z / 1.0f));
 
 	this->m_rigidBody = physicsWorld->createRigidBody(transform);
 	this->m_rigidBody->addCollider(boxShape, transform);
@@ -59,7 +59,7 @@ void PhysicsComponent::perform(float deltaTime)
 	const Vector3 position = transform.getPosition();
 	const Quaternion orientation = transform.getOrientation();
 	const Vector3 rotation = orientation.getVectorV();
-	
+
 	this->getOwner()->setPosition(Vector3D(position.x, position.y, position.z));
 	//this->getOwner()->setRotation(Vector3D(rotation.x, rotation.y, rotation.z));*/
 	Transform transform = this->m_rigidBody->getTransform();
@@ -68,7 +68,7 @@ void PhysicsComponent::perform(float deltaTime)
 
 	//this->getOwner()->setPosition(Vector3D(position.x, position.y, position.z));
 	//this->getOwner()->setOrientation(Vector4D(orientation.x, orientation.y, orientation.z, orientation.w));
-	
+
 	//this->m_rigidBody->setTransform(Transform(position, orientation));
 	//transform = Transform(position, quaternion);
 	//this->m_rigidBody->setTransform(transform);
@@ -85,4 +85,79 @@ void PhysicsComponent::perform(float deltaTime)
 RigidBody* PhysicsComponent::getRigidBody()
 {
 	return this->m_rigidBody;
+}
+
+float PhysicsComponent::getMass()
+{
+	return m_mass;
+}
+
+bool PhysicsComponent::getUseGravity()
+{
+	return this->m_rigidBody->isGravityEnabled();
+}
+
+BodyType PhysicsComponent::getType()
+{
+	return this->m_rigidBody->getType();
+}
+
+float PhysicsComponent::getLinearDrag()
+{
+	return this->m_rigidBody->getLinearDamping();
+}
+
+float PhysicsComponent::getAngularDrag()
+{
+	return this->m_rigidBody->getAngularDamping();
+}
+
+bool PhysicsComponent::getConstraint(EConstraints constraint)
+{
+	return (m_constraints & static_cast<int>(constraint)) == static_cast<int>(constraint);
+}
+
+void PhysicsComponent::setMass(float mass)
+{
+	this->m_mass = mass;
+	this->m_rigidBody->setMass(mass);
+}
+
+void PhysicsComponent::setUseGravity(const bool isUsingGravity)
+{
+	this->m_rigidBody->enableGravity(isUsingGravity);
+}
+
+void PhysicsComponent::setType(const BodyType type) const
+{
+	this->m_rigidBody->setType(type);
+}
+
+void PhysicsComponent::setLinearDrag(const float linearDrag)
+{
+	this->m_rigidBody->setLinearDamping(linearDrag);
+}
+
+void PhysicsComponent::setAngularDrag(const float angularDrag)
+{
+	this->m_rigidBody->setAngularDamping(angularDrag);
+}
+
+void PhysicsComponent::setConstraints(EConstraints constraints)
+{
+	this->m_constraints |= static_cast<int>(constraints);
+
+	// getConstraint returns 1 if true. AxisFactor of ReactPhysics3D is 0 to freeze.
+	const Vector3 freezePosition = Vector3(
+		!getConstraint(EConstraints::FreezePositionX), 
+		!getConstraint(EConstraints::FreezePositionY),
+		!getConstraint(EConstraints::FreezePositionZ));
+
+	const Vector3 freezeRotation = Vector3(
+		!getConstraint(EConstraints::FreezeRotationX),
+		!getConstraint(EConstraints::FreezeRotationY),
+		!getConstraint(EConstraints::FreezeRotationZ));
+
+	this->m_rigidBody->setLinearLockAxisFactor(freezePosition);
+	this->m_rigidBody->setAngularLockAxisFactor(freezeRotation);
 }

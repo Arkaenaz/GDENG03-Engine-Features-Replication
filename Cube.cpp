@@ -26,15 +26,15 @@ Cube::Cube(std::string name) : AGameObject(name)
 
 	vertex vertexList[] =
 	{
-		{Vector3D(-0.5f,-0.5f,-0.5f),color3, color7 },
-		{Vector3D(-0.5f,0.5f, -0.5f),color1, color5 },
-		{Vector3D(0.5f, 0.5f, -0.5f),color1, color5 },
-		{Vector3D(0.5f, -0.5f,-0.5f),color3, color7 },
+		{Vector3D(-1.0f,-1.0f,-1.0f),color3, color7 },
+		{Vector3D(-1.0f,1.0f, -1.0f),color1, color5 },
+		{Vector3D(1.0f, 1.0f, -1.0f),color1, color5 },
+		{Vector3D(1.0f, -1.0f,-1.0f),color3, color7 },
 																									
-		{Vector3D(0.5f, -0.5f,0.5f), color4, color8 },
-		{Vector3D(0.5f, 0.5f, 0.5f), color2, color6 },
-		{Vector3D(-0.5f,0.5f, 0.5f), color2, color6 },
-		{Vector3D(-0.5f,-0.5f,0.5f), color4, color8 }
+		{Vector3D(1.0f, -1.0f,1.0f), color4, color8 },
+		{Vector3D(1.0f, 1.0f, 1.0f), color2, color6 },
+		{Vector3D(-1.0f,1.0f, 1.0f), color2, color6 },
+		{Vector3D(-1.0f,-1.0f,1.0f), color4, color8 }
 	};
 
 	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
