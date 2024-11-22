@@ -47,6 +47,8 @@ namespace GDEngine
 		void restoreEditStates();
 		void applyAction(EditorAction* action);
 
+		void setPhysics(bool physics);
+
 	private:
 		static GameObjectManager* P_SHARED_INSTANCE;
 

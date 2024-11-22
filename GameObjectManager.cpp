@@ -249,6 +249,17 @@ void GameObjectManager::applyAction(EditorAction* action)
 	}
 }
 
+void GameObjectManager::setPhysics(bool physics)
+{
+	for (AGameObject* gameObject : m_gameObjectList)
+	{
+		AGameObject::ComponentList physicsList = gameObject->getComponentsOfType(AComponent::Physics);
+
+		if (physicsList.size() != 0)
+			gameObject->setPhysics(physics);
+	}
+}
+
 GameObjectManager::GameObjectManager()
 {
 	Logger::log(P_SHARED_INSTANCE, "Initialized");

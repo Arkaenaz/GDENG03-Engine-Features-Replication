@@ -62,11 +62,13 @@ void AppWindow::onUpdate()
 	EngineBackend* backend = EngineBackend::getInstance();
 	if (backend->getMode() == EngineBackend::EditorMode::PLAY)
 	{
+		GameObjectManager::getInstance()->setPhysics(true);
 		GameObjectManager::getInstance()->update(deltaTime);
 		BaseComponentSystem::getInstance()->getPhysicsSystem()->updateAllComponents();
 	}
 	else if (backend->getMode() == EngineBackend::EditorMode::EDITOR)
 	{
+		GameObjectManager::getInstance()->setPhysics(false);
 		GameObjectManager::getInstance()->update(deltaTime);
 	}
 	else if (backend->getMode() == EngineBackend::EditorMode::PAUSED)

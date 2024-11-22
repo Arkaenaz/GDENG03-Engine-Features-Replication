@@ -250,6 +250,7 @@ void InspectorScreen::drawComponentList(AGameObject* gameObject)
 				if (ImGui::Button(buttonName.c_str(), ImVec2(ImGui::GetWindowSize().x - 15, 20)))
 				{
 					gameObject->detachComponent(component);
+					gameObject->setPhysics(false);
 				}
 				ImGui::PopStyleVar();
 			}
