@@ -114,7 +114,7 @@ float PhysicsComponent::getAngularDrag()
 
 bool PhysicsComponent::getConstraint(EConstraints constraint)
 {
-	return (m_constraints & static_cast<int>(constraint)) == static_cast<int>(constraint);
+	return (m_constraints & static_cast<uint8_t>(constraint)) == static_cast<uint8_t>(constraint);
 }
 
 void PhysicsComponent::setMass(float mass)
@@ -145,7 +145,7 @@ void PhysicsComponent::setAngularDrag(const float angularDrag)
 
 void PhysicsComponent::setConstraints(EConstraints constraints)
 {
-	this->m_constraints |= static_cast<int>(constraints);
+	this->m_constraints = static_cast<uint8_t>(constraints);
 
 	// getConstraint returns 1 if true. AxisFactor of ReactPhysics3D is 0 to freeze.
 	const Vector3 freezePosition = Vector3(

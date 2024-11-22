@@ -6,12 +6,13 @@
 #include "imgui_stdlib.h"
 #include "UIManager.h"
 #include "GameObjectManager.h"
+#include "PhysicsComponent.h"
 
 using namespace GDEditor;
 
 InspectorScreen::InspectorScreen() : UIScreen("InspectorScreen")
 {
-	Logger::log(this, "Initialized");
+	GDEngine::Logger::log(this, "Initialized");
 }
 
 InspectorScreen::~InspectorScreen()
@@ -28,7 +29,7 @@ void InspectorScreen::draw()
 	{
 		this->drawInspector();
 	}
-	
+
 	ImGui::End();
 }
 
@@ -65,7 +66,9 @@ void InspectorScreen::drawInspector()
 	{
 		if (ImGui::Selectable("Rigidbody", false, 0, buttonSize))
 		{
-			// TODO : ADD RIGIDBODY TO OBJECT
+			// ADD RIGIDBODY TO OBJECT
+			m_selectedObject->setPhysics(true);
+			m_selectedObject->attachComponent(new PhysicsComponent("PhysicsComponent " + m_selectedObject->getName(), m_selectedObject));
 		}
 		ImGui::EndPopup();
 	}
@@ -81,7 +84,7 @@ void InspectorScreen::drawTransformTable(AGameObject* gameObject)
 {
 	int rows = 3;
 
-	std::string labels[] = { "Position", "Rotation", "Scale"};
+	std::string labels[] = { "Position", "Rotation", "Scale" };
 
 	Vector3D vectorValues[3];
 	vectorValues[0] = gameObject->getLocalPosition();
@@ -105,7 +108,7 @@ void InspectorScreen::drawTransformTable(AGameObject* gameObject)
 
 			if (ImGui::DragFloat3(dragLabel.c_str(), values, 0.01f))
 			{
-				if(!m_hasChanged)
+				if (!m_hasChanged)
 				{
 					ActionHistory::getInstance()->recordAction(gameObject);
 				}
@@ -152,25 +155,26 @@ void InspectorScreen::drawComponentList(AGameObject* gameObject)
 	{
 		if (component->getName().find("PhysicsComponent") != std::string::npos)
 		{
+			PhysicsComponent* physicsComponent = dynamic_cast<PhysicsComponent*>(component);
+
 			ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 0);
 			if (ImGui::CollapsingHeader("Rigidbody", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_DefaultOpen))
 			{
 				ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.800000190734863f);
 
-				float mass; // TODO: place mass here
-				float linearDrag; // TODO : place linear drag here
-				float angularDrag; // TODO : place angular drag here
-				bool gravity; // TODO: place gravity here
+				float mass = physicsComponent->getMass();
+				float linearDrag = physicsComponent->getLinearDrag();
+				float angularDrag = physicsComponent->getAngularDrag();
+				bool gravity = physicsComponent->getUseGravity();
 
 				ImGui::DragFloat("Mass", &mass);
 				ImGui::DragFloat("Linear Drag", &linearDrag);
 				ImGui::DragFloat("Angular Drag", &angularDrag);
 				ImGui::Checkbox("Gravity", &gravity);
 
-				// TODO : set current body type somewhere in this code below
-				const char* items[] = { "Dynamic", "Kinematic" };
-				static int item_selected_idx = 0; // Here we store our selection data as an index.
-
+				BodyType bodyType = physicsComponent->getType();
+				const char* items[] = { "Static", "Kinematic", "Dynamic" };
+				int item_selected_idx = static_cast<int>(bodyType); // Here we store our selection data as an index.
 				// Pass in the preview value visible before opening the combo (it could technically be different contents or not pulled from items[])
 				const char* combo_preview_value = items[item_selected_idx];
 
@@ -191,12 +195,13 @@ void InspectorScreen::drawComponentList(AGameObject* gameObject)
 
 				if (ImGui::TreeNode("Constraints"))
 				{
-					bool freezePosX; // TODO: place pos constraint x here
-					bool freezePosY; // TODO: place pos constraint y here
-					bool freezePosZ; // TODO: place pos constraint z here
-					bool freezeRotX; // TODO: place rot constraint x here
-					bool freezeRotY; // TODO: place rot constraint y here
-					bool freezeRotZ; // TODO: place rot constraint z here
+					bool freezePosX = physicsComponent->getConstraint(PhysicsComponent::EConstraints::FreezePositionX);
+					bool freezePosY = physicsComponent->getConstraint(PhysicsComponent::EConstraints::FreezePositionY);
+					bool freezePosZ = physicsComponent->getConstraint(PhysicsComponent::EConstraints::FreezePositionZ);
+					bool freezeRotX = physicsComponent->getConstraint(PhysicsComponent::EConstraints::FreezeRotationX);
+					bool freezeRotY = physicsComponent->getConstraint(PhysicsComponent::EConstraints::FreezeRotationY);
+					bool freezeRotZ = physicsComponent->getConstraint(PhysicsComponent::EConstraints::FreezeRotationZ);
+
 					if (ImGui::BeginTable("ConstraintsTable", 4, ImGuiTableFlags_SizingFixedFit))
 					{
 						ImGui::TableSetupColumn("Label", ImGuiTableColumnFlags_WidthStretch);
@@ -226,9 +231,22 @@ void InspectorScreen::drawComponentList(AGameObject* gameObject)
 						ImGui::EndTable();
 					}
 					ImGui::TreePop();
+
+					physicsComponent->setConstraints(
+						static_cast<PhysicsComponent::EConstraints>(
+							freezePosX << 0
+							| freezePosY << 1
+							| freezePosZ << 2
+							| freezeRotX << 3
+							| freezeRotY << 4
+							| freezeRotZ << 5));
 				}
-	
-				// TODO: set rigidbody properties
+
+				physicsComponent->setMass(mass);
+				physicsComponent->setLinearDrag(linearDrag);
+				physicsComponent->setAngularDrag(angularDrag);
+				physicsComponent->setUseGravity(gravity);
+				physicsComponent->setType(static_cast<BodyType>(item_selected_idx));
 
 				std::string buttonName = "Delete##" + component->getName();
 				if (ImGui::Button(buttonName.c_str(), ImVec2(ImGui::GetWindowSize().x - 15, 20)))
@@ -240,6 +258,6 @@ void InspectorScreen::drawComponentList(AGameObject* gameObject)
 			ImGui::PopStyleVar();
 			ImGui::Separator();
 		}
-		
+
 	}
 }
