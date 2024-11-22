@@ -43,6 +43,7 @@ namespace GDEngine
 		float getAngularDrag();
 		bool getConstraint(EConstraints constraint);
 
+		void setTransformFromOpenGL(float* matrix);
 		void setMass(float mass);
 		void setUseGravity(bool isUsingGravity);
 		void setType(BodyType type) const;

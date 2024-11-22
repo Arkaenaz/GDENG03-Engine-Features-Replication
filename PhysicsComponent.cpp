@@ -117,6 +117,13 @@ bool PhysicsComponent::getConstraint(EConstraints constraint)
 	return (m_constraints & static_cast<uint8_t>(constraint)) == static_cast<uint8_t>(constraint);
 }
 
+void PhysicsComponent::setTransformFromOpenGL(float* matrix)
+{
+	Transform transform;
+	transform.setFromOpenGL(matrix);
+	this->m_rigidBody->setTransform(transform);
+}
+
 void PhysicsComponent::setMass(float mass)
 {
 	this->m_mass = mass;
