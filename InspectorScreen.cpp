@@ -34,6 +34,7 @@ void InspectorScreen::draw()
 
 void InspectorScreen::drawInspector()
 {
+	ImGui::ShowDemoWindow();
 	std::string name = m_selectedObject->getName();
 	bool isActive = m_selectedObject->isActive();
 
@@ -54,7 +55,19 @@ void InspectorScreen::drawInspector()
 
 	if (ImGui::Button("Add Component", ImVec2(ImGui::GetWindowSize().x - 15, 20)))
 	{
-		
+		ImGui::SetNextWindowPos(ImGui::GetCursorScreenPos());
+		ImGui::OpenPopup("SelectComponent");
+	}
+	ImVec2 buttonSize = ImGui::GetItemRectSize();
+	buttonSize.x -= 17;
+	buttonSize.y = 0;
+	if (ImGui::BeginPopup("SelectComponent"))
+	{
+		if (ImGui::Selectable("Rigidbody", false, 0, buttonSize))
+		{
+			// TODO : ADD RIGIDBODY TO OBJECT
+		}
+		ImGui::EndPopup();
 	}
 
 	if (ImGui::Button("Delete", ImVec2(ImGui::GetWindowSize().x - 15, 20)))
@@ -143,22 +156,90 @@ void InspectorScreen::drawComponentList(AGameObject* gameObject)
 			if (ImGui::CollapsingHeader("Rigidbody", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_DefaultOpen))
 			{
 				ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.800000190734863f);
+
 				float mass; // TODO: place mass here
+				float linearDrag; // TODO : place linear drag here
+				float angularDrag; // TODO : place angular drag here
 				bool gravity; // TODO: place gravity here
+
 				ImGui::DragFloat("Mass", &mass);
+				ImGui::DragFloat("Linear Drag", &linearDrag);
+				ImGui::DragFloat("Angular Drag", &angularDrag);
 				ImGui::Checkbox("Gravity", &gravity);
 
-				// TODO: set mass and gravity
+				// TODO : set current body type somewhere in this code below
+				const char* items[] = { "Dynamic", "Kinematic" };
+				static int item_selected_idx = 0; // Here we store our selection data as an index.
 
-				ImGui::PopStyleVar();
+				// Pass in the preview value visible before opening the combo (it could technically be different contents or not pulled from items[])
+				const char* combo_preview_value = items[item_selected_idx];
+
+				if (ImGui::BeginCombo("Body Type", combo_preview_value))
+				{
+					for (int n = 0; n < IM_ARRAYSIZE(items); n++)
+					{
+						const bool is_selected = (item_selected_idx == n);
+						if (ImGui::Selectable(items[n], is_selected))
+							item_selected_idx = n;
+
+						// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+						if (is_selected)
+							ImGui::SetItemDefaultFocus();
+					}
+					ImGui::EndCombo();
+				}
+
+				if (ImGui::TreeNode("Constraints"))
+				{
+					bool freezePosX; // TODO: place pos constraint x here
+					bool freezePosY; // TODO: place pos constraint y here
+					bool freezePosZ; // TODO: place pos constraint z here
+					bool freezeRotX; // TODO: place rot constraint x here
+					bool freezeRotY; // TODO: place rot constraint y here
+					bool freezeRotZ; // TODO: place rot constraint z here
+					if (ImGui::BeginTable("ConstraintsTable", 4, ImGuiTableFlags_SizingFixedFit))
+					{
+						ImGui::TableSetupColumn("Label", ImGuiTableColumnFlags_WidthStretch);
+						ImGui::TableSetupColumn("X", ImGuiTableColumnFlags_WidthFixed);
+						ImGui::TableSetupColumn("Y", ImGuiTableColumnFlags_WidthFixed);
+						ImGui::TableSetupColumn("Z", ImGuiTableColumnFlags_WidthFixed);
+
+						ImGui::TableNextRow();
+						ImGui::TableNextColumn();
+						ImGui::Text("Freeze Position");
+						ImGui::TableNextColumn();
+						ImGui::Checkbox("X##Pos", &freezePosX);
+						ImGui::TableNextColumn();
+						ImGui::Checkbox("Y##Pos", &freezePosY);
+						ImGui::TableNextColumn();
+						ImGui::Checkbox("Z##Pos", &freezePosZ);
+
+						ImGui::TableNextColumn();
+						ImGui::Text("Freeze Rotation");
+						ImGui::TableNextColumn();
+						ImGui::Checkbox("X##Rot", &freezeRotX);
+						ImGui::TableNextColumn();
+						ImGui::Checkbox("Y##Rot", &freezeRotY);
+						ImGui::TableNextColumn();
+						ImGui::Checkbox("Z##Rot", &freezeRotZ);
+
+						ImGui::EndTable();
+					}
+					ImGui::TreePop();
+				}
+	
+				// TODO: set rigidbody properties
 
 				std::string buttonName = "Delete##" + component->getName();
 				if (ImGui::Button(buttonName.c_str(), ImVec2(ImGui::GetWindowSize().x - 15, 20)))
 				{
-					component->detachOwner();
+					gameObject->detachComponent(component);
 				}
+				ImGui::PopStyleVar();
 			}
 			ImGui::PopStyleVar();
+			ImGui::Separator();
 		}
+		
 	}
 }

@@ -27,6 +27,7 @@ namespace GDEditor
 		float m_rotation[3];
 		bool m_hasChanged = false;
 		bool m_isLeftDown = false;
+		bool m_addComponent = false;
 
 	};
 }
