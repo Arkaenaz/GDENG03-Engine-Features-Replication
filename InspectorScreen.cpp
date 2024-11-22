@@ -167,6 +167,7 @@ void InspectorScreen::drawComponentList(AGameObject* gameObject)
 				bool gravity = physicsComponent->getUseGravity();
 
 				ImGui::DragFloat("Mass", &mass);
+				ImGui::DragFloat("Linear Drag", &linearDrag);
 				ImGui::DragFloat("Angular Drag", &angularDrag);
 				ImGui::Checkbox("Gravity", &gravity);
 
