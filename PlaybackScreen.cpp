@@ -17,7 +17,7 @@ namespace GDEngine
 
 	void PlaybackScreen::draw()
 	{
-		ImGui::Begin("Playback", &isActive);
+		/*ImGui::Begin("Playback", &isActive);
 
 		EngineBackend* backend = EngineBackend::getInstance();
 		if (ImGui::Button("Play"))
@@ -32,6 +32,8 @@ namespace GDEngine
 			}
 
 		}
+		
+		ImGui::SameLine();
 		if (ImGui::Button("Pause"))
 		{
 			if (backend->getMode() == EngineBackend::PLAY)
@@ -43,14 +45,17 @@ namespace GDEngine
 				backend->setMode(EngineBackend::PLAY);
 			}
 		}
+		ImGui::SameLine();
 		if (ImGui::Button("Step"))
 		{
 			if (backend->getMode() == EngineBackend::PAUSED)
 			{
 				backend->startFrameStep();
 			}
-		}
+		}*/
 
-		ImGui::End();
+		
+
+		
 	}
 }

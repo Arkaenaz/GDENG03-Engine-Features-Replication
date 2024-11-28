@@ -37,9 +37,12 @@ public:
 		static int RESIZE_HEIGHT;
 
 		void draw();
+		void drawDockspace();
 		void setActive(std::string name);
 		void setUIStyle();
 		void addViewport(UIScreen* viewport);
+
+		void AlignForWidth(float width, float alignment = 0.5f);
 
 	private:
 		static UIManager* P_SHARED_INSTANCE;

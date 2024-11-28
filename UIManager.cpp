@@ -21,6 +21,7 @@
 #include "PlaybackScreen.h"
 #include "ColorPickerScreen.h"
 #include "CreditsScreen.h"
+#include "EngineBackend.h"
 
 namespace GDEngine {
 
@@ -36,8 +37,99 @@ namespace GDEngine {
 		ImGui::NewFrame();
 
 		// Make Main Viewport into a Dock Space
+
+		this->drawDockspace();
+
+		for (UIScreen* screen : listUI)
+		{
+			if (screen->isActive)
+				screen->draw();
+		}
+
+		ViewportManager::getInstance()->update();
+
+		ImGui::Render();
+		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+		if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+		}
+	}
+
+	void UIManager::drawDockspace()
+	{
+		//ImGuiID id = ImGui::GetID("Main Window");
+		//ImGui::DockSpaceOverViewport(id, ImGui::GetMainViewport());
+
+		ImGuiViewport* viewport = ImGui::GetMainViewport();
+
+		ImGui::SetNextWindowPos(viewport->WorkPos);
+		ImGui::SetNextWindowSize(viewport->WorkSize);
+		ImGui::SetNextWindowViewport(viewport->ID);
+
+		ImGuiWindowFlags host_window_flags = 0;
+		host_window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoDocking;
+		host_window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+		ImGui::Begin("Main Window", NULL, host_window_flags);
+		ImGui::PopStyleVar(3);
+
+		ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 0.0f);
+
+		ImGuiStyle& style = ImGui::GetStyle();
+		float width = 0.0f;
+		width += ImGui::CalcTextSize("Play").x;
+		width += style.ItemSpacing.x;
+		width += ImGui::CalcTextSize("Pause").x;
+		width += style.ItemSpacing.x;
+		width += ImGui::CalcTextSize("Step").x;
+		AlignForWidth(width);
+
+		EngineBackend* backend = EngineBackend::getInstance();
+		if (ImGui::Button("Play"))
+		{
+			if (backend->getMode() == EngineBackend::EDITOR)
+			{
+				backend->setMode(EngineBackend::PLAY);
+			}
+			else
+			{
+				backend->setMode(EngineBackend::EDITOR);
+			}
+
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Button("Pause"))
+		{
+			if (backend->getMode() == EngineBackend::PLAY)
+			{
+				backend->setMode(EngineBackend::PAUSED);
+			}
+			else if (backend->getMode() == EngineBackend::PAUSED)
+			{
+				backend->setMode(EngineBackend::PLAY);
+			}
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Step"))
+		{
+			if (backend->getMode() == EngineBackend::PAUSED)
+			{
+				backend->startFrameStep();
+			}
+		}
+		ImGui::PopStyleVar();
+
 		ImGuiID id = ImGui::GetID("Main Window");
-		ImGui::DockSpaceOverViewport(id, ImGui::GetMainViewport());
+		ImGui::DockSpace(id);
+
+		ImGui::End();
 
 		if (firstTime)
 		{
@@ -79,22 +171,6 @@ namespace GDEngine {
 
 			firstTime = false;
 			Logger::log(this, "Initialized Dock Space on First Run");
-		}
-
-		for (UIScreen* screen : listUI)
-		{
-			if (screen->isActive)
-				screen->draw();
-		}
-
-		ViewportManager::getInstance()->update();
-
-		ImGui::Render();
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-		if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-		{
-			ImGui::UpdatePlatformWindows();
-			ImGui::RenderPlatformWindowsDefault();
 		}
 	}
 
@@ -200,6 +276,15 @@ namespace GDEngine {
 		UINames uiNames;
 		this->mapUI[uiNames.VIEWPORT_SCREEN] = viewport;
 		this->listUI.push_back(viewport);
+	}
+
+	void UIManager::AlignForWidth(float width, float alignment)
+	{
+		ImGuiStyle& style = ImGui::GetStyle();
+		float avail = ImGui::GetContentRegionAvail().x;
+		float off = (avail - width) * alignment;
+		if (off > 0.0f)
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + off);
 	}
 
 	UIManager::UIManager(HWND hwnd)
