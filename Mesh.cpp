@@ -6,6 +6,7 @@
 
 #include <locale>
 #include <codecvt>
+#include <filesystem>
 
 #include "GraphicsEngine.h"
 #include "Logger.h"
@@ -23,7 +24,7 @@ namespace GDEngine {
 		std::string warn;
 		std::string err;
 
-		std::string inputFile = std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(fullPath);
+		std::string inputFile = std::filesystem::path(fullPath).string();
 
 		Logger::log(L"Creating mesh from : " + std::wstring(fullPath));
 		bool result = tinyobj::LoadObj(&attribs, &shapes, &materials, &warn, &err, inputFile.c_str());

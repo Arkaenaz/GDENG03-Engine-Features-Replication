@@ -136,6 +136,12 @@
     <Filter Include="GameEngine\Backend">
       <UniqueIdentifier>{4970389f-5716-4bf2-b16d-5c14be1509e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\FileSystem">
+      <UniqueIdentifier>{5d871d4b-cf00-4b19-bcb2-5d1ae9f50662}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\ComponentSystem\Renderer">
+      <UniqueIdentifier>{d51f7776-93b5-4eaa-b6ff-c00a4fdf0ec5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -344,6 +350,21 @@
     </ClCompile>
     <ClCompile Include="PlaybackScreen.cpp">
       <Filter>Editor\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneWriter.cpp">
+      <Filter>GameEngine\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneReader.cpp">
+      <Filter>GameEngine\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtility.cpp">
+      <Filter>GameEngine\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp">
+      <Filter>GameEngine\ComponentSystem\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="EmptyGameObject.cpp">
+      <Filter>GameEngine\Hierarchy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -577,6 +598,24 @@
     </ClInclude>
     <ClInclude Include="PlaybackScreen.h">
       <Filter>Editor\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneWriter.h">
+      <Filter>GameEngine\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneReader.h">
+      <Filter>GameEngine\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtility.h">
+      <Filter>GameEngine\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderer.h">
+      <Filter>GameEngine\ComponentSystem\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="EmptyGameObject.h">
+      <Filter>GameEngine\Hierarchy</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui-filebrowser\imfilebrowser.h">
+      <Filter>IMGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

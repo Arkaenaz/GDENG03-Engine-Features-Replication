@@ -26,14 +26,9 @@ void HierarchyScreen::draw()
 
 	for (AGameObject* gameObject : list)
 	{
-		std::string guidString;
-		GUID guid = gameObject->getGuid();
-		RPC_CSTR rpcString = NULL;
-
-		UuidToStringA(&guid, &rpcString);
-		guidString = (char*)rpcString;
+		std::string guidString = gameObject->getGuidString();
+		
 		std::string label = gameObject->getName() + "###" + guidString;
-		::RpcStringFreeA(&rpcString);
 
 		if (ImGui::Button(label.c_str(), ImVec2(ImGui::GetWindowSize().x - 15, 20)))
 		{

@@ -9,7 +9,7 @@ namespace GDEngine
 {
 	class GameObjectManager
 	{
-	private:
+	public:
 		typedef std::unordered_map<std::string, AGameObject*> GameObjectTable;
 		typedef std::vector<AGameObject*> GameObjectList;
 
@@ -48,6 +48,8 @@ namespace GDEngine
 		void applyAction(EditorAction* action);
 
 		void setPhysics(bool physics);
+
+		void createObjectFromFile(std::string objectGuid, std::string objectName, Vector3D position, Vector3D rotation, Vector3D scale);
 
 	private:
 		static GameObjectManager* P_SHARED_INSTANCE;

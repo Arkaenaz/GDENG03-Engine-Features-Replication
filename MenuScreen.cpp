@@ -5,16 +5,27 @@
 #include "UIManager.h"
 #include "GraphicsEngine.h"
 #include "GameObjectManager.h"
+#include "SceneReader.h"
+#include "SceneWriter.h"
 #include "ViewportManager.h"
 
 namespace GDEngine {
     MenuScreen::MenuScreen() : UIScreen("MenuScreen")
     {
+        m_openSceneDialog = new ImGui::FileBrowser();
+        m_openSceneDialog->SetTitle("Open Scene");
+        m_openSceneDialog->SetTypeFilters({ ".iet" });
+
+        m_saveSceneDialog = new ImGui::FileBrowser(ImGuiFileBrowserFlags_EnterNewFilename);
+        m_saveSceneDialog->SetTitle("Save Scene");
+        m_saveSceneDialog->SetTypeFilters({ ".iet" });
         Logger::log(this, "Initialized");
     }
 
     MenuScreen::~MenuScreen()
     {
+        delete m_openSceneDialog;
+        delete m_saveSceneDialog;
     }
 
     void MenuScreen::draw()
@@ -26,10 +37,13 @@ namespace GDEngine {
                 if (ImGui::MenuItem("Create")) {
                 }
                 if (ImGui::MenuItem("Open", "Ctrl+O")) {
+                    m_openSceneDialog->Open();
                 }
                 if (ImGui::MenuItem("Save", "Ctrl+S")) {
+                    m_saveSceneDialog->Open();
                 }
                 if (ImGui::MenuItem("Save as..")) {
+                    m_saveSceneDialog->Open();
                 }
                 ImGui::EndMenu();
             }
@@ -157,6 +171,26 @@ namespace GDEngine {
                 ImGui::EndMenu();
             }
             ImGui::EndMainMenuBar();
+        }
+
+        m_openSceneDialog->Display();
+        m_saveSceneDialog->Display();
+
+        if (m_saveSceneDialog->HasSelected())
+        {
+            SceneWriter writer = SceneWriter(m_saveSceneDialog->GetSelected().string());
+            writer.writeToFile();
+
+            m_saveSceneDialog->ClearSelected();
+            m_saveSceneDialog->Close();
+        }
+
+        else if (m_openSceneDialog->HasSelected()) {
+            SceneReader reader = SceneReader(m_openSceneDialog->GetSelected().string());
+            reader.readFromFile();
+
+            m_openSceneDialog->ClearSelected();
+            m_openSceneDialog->Close();
         }
     }
 }

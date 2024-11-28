@@ -4,3 +4,6 @@
 [submodule "libs/DirectXTex"]
 	path = libs/DirectXTex
 	url = https://github.com/microsoft/DirectXTex
+[submodule "libs/imgui-filebrowser"]
+	path = libs/imgui-filebrowser
+	url = https://github.com/AirGuanZ/imgui-filebrowser.git

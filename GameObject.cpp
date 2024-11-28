@@ -6,6 +6,7 @@
 
 #include "EditorAction.h"
 #include "PhysicsComponent.h"
+#include "StringUtility.h"
 
 namespace GDEngine
 {
@@ -14,6 +15,31 @@ namespace GDEngine
 		HRESULT result = CoCreateGuid(&m_guid);
 		if (!Logger::log(this, result)) {
 			Logger::throw_exception("Game Object GUID creation failed");
+		}
+
+		this->m_name = name;
+		this->m_localPosition = Vector3D::zero();
+		this->m_localRotation = Vector3D::zero();
+		this->m_localScale = Vector3D::one();
+		this->m_orientation = AQuaternion(0, 0, 0, 1);
+		this->m_physics = false;
+
+		this->updateLocalMatrix();
+
+		this->m_active = true;
+	}
+
+	AGameObject::AGameObject(std::string guid, std::string name)
+	{
+		std::wstring temp = std::wstring(guid.begin(), guid.end());
+		Logger::log(temp);
+		LPCWSTR guidstr = temp.c_str();
+
+		HRESULT result = IIDFromString(guidstr, &m_guid);
+		Logger::log(StringUtility::GuidToString(m_guid));
+		Logger::log(name);
+		if (!Logger::log(this, result)) {
+			Logger::throw_exception("Conversion of GUID failed");
 		}
 
 		this->m_name = name;
@@ -123,6 +149,16 @@ namespace GDEngine
 	GUID AGameObject::getGuid()
 	{
 		return this->m_guid;
+	}
+
+	std::string AGameObject::getGuidString()
+	{
+		/*RPC_CSTR rpcString = NULL;
+
+		UuidToStringA(&m_guid, &rpcString);
+		std::string guidString = (char*)rpcString;
+		::RpcStringFreeA(&rpcString);*/
+		return StringUtility::GuidToString(m_guid);
 	}
 
 	void AGameObject::updateLocalMatrix()

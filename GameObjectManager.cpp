@@ -13,6 +13,7 @@
 #include "TexturedCube.h"
 
 #include "EditorAction.h"
+#include "EmptyGameObject.h"
 
 #include "Logger.h"
 
@@ -258,6 +259,16 @@ void GameObjectManager::setPhysics(bool physics)
 		if (physicsList.size() != 0)
 			gameObject->setPhysics(physics);
 	}
+}
+
+void GameObjectManager::createObjectFromFile(std::string objectGuid, std::string objectName, Vector3D position, Vector3D rotation,
+	Vector3D scale)
+{
+	EmptyGameObject* gameObject = new EmptyGameObject(objectGuid, objectName);
+	gameObject->setPosition(position);
+	gameObject->setRotation(rotation);
+	gameObject->setScale(scale);
+	this->addObject(gameObject);
 }
 
 GameObjectManager::GameObjectManager()

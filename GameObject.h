@@ -26,7 +26,7 @@ namespace GDEngine {
 			float time;
 		};
 
-		virtual void update(float deltaTime) = 0;
+		virtual void update(float deltaTime);
 		virtual void draw(int width, int height);
 		virtual void onCreate();
 		virtual void onDestroy();
@@ -34,6 +34,7 @@ namespace GDEngine {
 		void setName(std::string name);
 		std::string getName();
 		GUID getGuid();
+		std::string getGuidString();
 
 		void setPosition(float x, float y, float z);
 		void setPosition(Vector3D position);
@@ -82,6 +83,7 @@ namespace GDEngine {
 		};
 
 		AGameObject(std::string name);
+		AGameObject(std::string guid, std::string name);
 		virtual ~AGameObject();
 
 		GUID m_guid;
