@@ -7,6 +7,8 @@
 #include "UIManager.h"
 #include "GameObjectManager.h"
 #include "PhysicsComponent.h"
+#include "TextureComponent.h"
+#include "Texture.h"
 
 namespace GDEngine {
 	InspectorScreen::InspectorScreen() : UIScreen("InspectorScreen")
@@ -67,6 +69,11 @@ namespace GDEngine {
 				// ADD RIGIDBODY TO OBJECT
 				m_selectedObject->setPhysics(true);
 				m_selectedObject->attachComponent(new PhysicsComponent("PhysicsComponent " + m_selectedObject->getName(), m_selectedObject));
+			}
+			if (ImGui::Selectable("Texture", false, 0, buttonSize))
+			{
+				// ADD TEXTURE COMPONENT TO OBJECT
+				m_selectedObject->attachComponent(new TextureComponent("TextureComponent " + m_selectedObject->getName(), m_selectedObject));
 			}
 			ImGui::EndPopup();
 		}
@@ -258,6 +265,37 @@ namespace GDEngine {
 				ImGui::Separator();
 			}
 
+			if (component->getName().find("TextureComponent") != std::string::npos) 
+			{
+				TextureComponent* textureComponent = dynamic_cast<TextureComponent*>(component);
+
+				ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 0);
+				if (ImGui::CollapsingHeader("Texture", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.800000190734863f);
+
+					//DRAW TEXTURE COMPONENT UI
+					if (textureComponent->getTexture() != nullptr)
+						ImGui::Image((ImTextureID)textureComponent->getTexture()->m_shaderResourceView, ImVec2(128, 128));
+					else
+						ImGui::TextColored(ImVec4(1, 0, 0, 1), "Invalid File Path!");
+
+					ImGui::InputText("File Path", &textureComponent->filePath);
+					if (ImGui::Button("Set Texture"))
+						textureComponent->setTexture(textureComponent->filePath);
+
+					std::string buttonName = "Delete##" + component->getName();
+					if (ImGui::Button(buttonName.c_str(), ImVec2(ImGui::GetWindowSize().x - 15, 20)))
+					{
+						gameObject->detachComponent(component);
+						gameObject->setHasTexture(false);
+					}
+
+					ImGui::PopStyleVar();
+				}
+				ImGui::PopStyleVar();
+				ImGui::Separator();
+			}
 		}
 	}
 }

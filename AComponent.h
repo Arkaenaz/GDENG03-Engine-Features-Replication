@@ -8,7 +8,7 @@ namespace GDEngine
 	class AComponent
 	{
 	public:
-		enum ComponentType { NotSet = -1, Script = 0, Renderer = 1, Input = 2, Physics = 3 };
+		enum ComponentType { NotSet = -1, Script = 0, Renderer = 1, Input = 2, Physics = 3, Tex = 4 };
 
 	protected:
 		AGameObject* m_owner;

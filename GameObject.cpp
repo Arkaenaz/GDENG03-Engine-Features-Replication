@@ -334,6 +334,16 @@ namespace GDEngine
 		return transform.getMatrix();
 	}
 
+	void AGameObject::setTexture(Texture* tex)
+	{
+		this->texture = tex;
+	}
+
+	Texture* AGameObject::getTexture()
+	{
+		return this->texture;
+	}
+
 	bool AGameObject::isActive()
 	{
 		return this->m_active;
@@ -353,6 +363,16 @@ namespace GDEngine
 	void AGameObject::setPhysics(bool physics)
 	{
 		this->m_physics = physics;
+	}
+
+	bool AGameObject::hasTexture()
+	{
+		return this->m_texture;
+	}
+
+	void AGameObject::setHasTexture(bool texture)
+	{
+		this->m_texture = texture;
 	}
 
 	void AGameObject::attachComponent(AComponent* component)

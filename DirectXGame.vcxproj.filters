@@ -366,6 +366,7 @@
     <ClCompile Include="EmptyGameObject.cpp">
       <Filter>GameEngine\Hierarchy</Filter>
     </ClCompile>
+    <ClCompile Include="TextureComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -617,6 +618,7 @@
     <ClInclude Include="libs\imgui-filebrowser\imfilebrowser.h">
       <Filter>IMGUI</Filter>
     </ClInclude>
+    <ClInclude Include="TextureComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasePixelShader.hlsl">

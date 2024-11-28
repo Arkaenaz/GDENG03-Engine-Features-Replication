@@ -8,6 +8,7 @@
 #include "VertexBuffer.h"
 #include "ConstantBuffer.h"
 #include "IndexBuffer.h"
+#include "TextureComponent.h"
 
 using namespace GDEngine;
 
@@ -116,8 +117,21 @@ void Cube::draw(int height, int width)
 	ShaderNames shaderNames;
 	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
 
-	VertexShader* vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.BASE_VERTEX_SHADER_NAME);
-	PixelShader* pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.BASE_PIXEL_SHADER_NAME);
+	VertexShader* vertexShader;
+	PixelShader* pixelShader;
+
+	if (!this->m_texture) 
+	{
+		vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.BASE_VERTEX_SHADER_NAME);
+		pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.BASE_PIXEL_SHADER_NAME);
+	}
+	else 
+	{
+
+		vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.TEXTURED_VERTEX_SHADER_NAME);
+		pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.TEXTURED_PIXEL_SHADER_NAME);
+		renderSystem->getImmediateDeviceContext()->setTexture(this->texture);
+	}
 
 	renderSystem->getImmediateDeviceContext()->setConstantBuffer(m_constantBuffer, 0);
 

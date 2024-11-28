@@ -208,6 +208,7 @@
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="Teapot.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureComponent.cpp" />
     <ClCompile Include="TexturedCube.cpp" />
     <ClCompile Include="TexturedVertexBuffer.cpp" />
     <ClCompile Include="TextureManager.cpp" />
@@ -259,6 +260,7 @@
     <ClInclude Include="SceneWriter.h" />
     <ClInclude Include="StringUtility.h" />
     <ClInclude Include="Teapot.h" />
+    <ClInclude Include="TextureComponent.h" />
     <ClInclude Include="VertexMesh.h" />
     <ClInclude Include="HierarchyScreen.h" />
     <ClInclude Include="InspectorScreen.h" />

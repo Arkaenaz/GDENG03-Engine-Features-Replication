@@ -57,11 +57,17 @@ namespace GDEngine {
 		float* getLocalMatrix();
 		float* getPhysicsLocalMatrix();
 
+		void setTexture(Texture* tex);
+		Texture* getTexture();
+
 		bool isActive();
 		void setActive(bool active);
 
 		bool isPhysics();
 		void setPhysics(bool physics);
+
+		bool hasTexture();
+		void setHasTexture(bool texture);
 
 		void attachComponent(AComponent* component);
 		void detachComponent(AComponent* component);
@@ -96,12 +102,14 @@ namespace GDEngine {
 		Matrix4x4 m_localMatrix;
 
 		ComponentList m_componentList;
+		Texture* texture;
 
-	private:
+	protected:
 		friend class GameObjectManager;
 
 		bool m_active;
 		bool m_physics;
+		bool m_texture;
 		EditorAction* m_lastEditState = nullptr;
 	};
 }
