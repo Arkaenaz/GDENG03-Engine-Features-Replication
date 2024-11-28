@@ -7,8 +7,7 @@
 #include "GameObjectManager.h"
 #include "ViewportManager.h"
 
-namespace GDEditor {
-    using namespace GDEngine;
+namespace GDEngine {
     MenuScreen::MenuScreen() : UIScreen("MenuScreen")
     {
         Logger::log(this, "Initialized");

@@ -2,7 +2,7 @@
 
 #include "UIScreen.h"
 
-namespace GDEditor
+namespace GDEngine
 {
 	class MenuScreen : public UIScreen
 	{

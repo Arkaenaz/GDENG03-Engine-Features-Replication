@@ -7,7 +7,7 @@
 
 #include "UIScreen.h"
 
-namespace GDEditor
+namespace GDEngine
 {
 class UINames {
 public:

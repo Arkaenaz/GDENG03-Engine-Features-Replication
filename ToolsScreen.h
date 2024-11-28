@@ -2,7 +2,7 @@
 
 #include "UIScreen.h"
 
-namespace GDEditor
+namespace GDEngine
 {
 	class ToolsScreen : public UIScreen
 	{

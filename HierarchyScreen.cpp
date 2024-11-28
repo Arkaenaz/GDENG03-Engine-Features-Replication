@@ -6,9 +6,8 @@
 #include "UIManager.h"
 #include "GameObjectManager.h"
 
-using namespace GDEditor;
-using namespace GDEngine;
-
+namespace GDEngine
+{
 HierarchyScreen::HierarchyScreen() : UIScreen("HierarchyScreen")
 {
 	Logger::log(this, "Initialized");
@@ -44,4 +43,5 @@ void HierarchyScreen::draw()
 	}
 
 	ImGui::End();
+}
 }

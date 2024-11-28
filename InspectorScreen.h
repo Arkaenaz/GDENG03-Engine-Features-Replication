@@ -2,9 +2,8 @@
 #include "GameObject.h"
 #include "UIScreen.h"
 
-namespace GDEditor
+namespace GDEngine
 {
-	using namespace GDEngine;
 	class InspectorScreen : public UIScreen
 	{
 	private:

@@ -1,7 +1,7 @@
 #pragma once
 #include "UIScreen.h"
 
-namespace GDEditor
+namespace GDEngine
 {
 	class HierarchyScreen : public UIScreen
 	{

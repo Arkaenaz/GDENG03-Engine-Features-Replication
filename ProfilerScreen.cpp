@@ -3,24 +3,24 @@
 #include "imgui.h"
 #include "Logger.h"
 
-using namespace GDEditor;
-using namespace GDEngine;
-
-ProfilerScreen::ProfilerScreen() : UIScreen("ProfilerScreen")
+namespace GDEngine
 {
-    Logger::log(this, "Initialized");
-}
+    ProfilerScreen::ProfilerScreen() : UIScreen("ProfilerScreen")
+    {
+        Logger::log(this, "Initialized");
+    }
 
-ProfilerScreen::~ProfilerScreen()
-{
-}
+    ProfilerScreen::~ProfilerScreen()
+    {
+    }
 
-void ProfilerScreen::draw()
-{
-    ImGui::Begin("Profiler", &isActive);
+    void ProfilerScreen::draw()
+    {
+        ImGui::Begin("Profiler", &isActive);
 
-    ImGui::Text("%.3f ms/frame, %.1f FPS", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-    //ImGui::PlotLines()
+        ImGui::Text("%.3f ms/frame, %.1f FPS", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        //ImGui::PlotLines()
 
-    ImGui::End();
+        ImGui::End();
+    }
 }

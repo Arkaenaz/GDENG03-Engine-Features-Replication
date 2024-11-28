@@ -3,7 +3,7 @@
 #include "UIManager.h"
 #include <vector>
 
-namespace GDEditor
+namespace GDEngine
 {
 	class ViewportManager
 	{

@@ -1,106 +1,106 @@
 #include "ViewportManager.h"
 
-using namespace GDEditor;
+namespace GDEngine {
+	ViewportManager* ViewportManager::P_SHARED_INSTANCE = nullptr;
 
-ViewportManager* ViewportManager::P_SHARED_INSTANCE = nullptr;
-
-ViewportManager::ViewportManager()
-{
-	Logger::log(this, "Initialized");
-}
-
-ViewportManager::~ViewportManager()
-{
-	Logger::log(this, "Destroyed");
-}
-
-ViewportManager::ViewportManager(const ViewportManager&) {}
-
-ViewportManager* ViewportManager::getInstance()
-{
-	//if (P_SHARED_INSTANCE == NULL)
-	//	P_SHARED_INSTANCE = new ViewportManager();
-
-	return P_SHARED_INSTANCE;
-}
-
-void ViewportManager::initialize()
-{
-	if (P_SHARED_INSTANCE)
+	ViewportManager::ViewportManager()
 	{
-		Logger::throw_exception("Viewport Manager already created");
-	}
-	P_SHARED_INSTANCE = new ViewportManager();
-}
-
-void ViewportManager::destroy()
-{
-	delete P_SHARED_INSTANCE;
-}
-
-void ViewportManager::update()
-{
-	for (ViewportScreen* viewport : this->viewports) 
-	{
-		viewport->draw();
+		Logger::log(this, "Initialized");
 	}
 
-}
-
-void ViewportManager::createViewport()
-{
-	ViewportScreen* viewport = new ViewportScreen(this->viewports.size());
-
-	this->viewports.push_back(viewport);
-	//UIManager::getInstance()->addViewport(viewport);
-}
-
-void ViewportManager::deleteViewport(ViewportScreen* viewport)
-{
-	int index = 0;
-	for (int i = 0; i < this->viewports.size(); i++) 
+	ViewportManager::~ViewportManager()
 	{
-		if (this->viewports[i] == viewport) 
+		Logger::log(this, "Destroyed");
+	}
+
+	ViewportManager::ViewportManager(const ViewportManager&) {}
+
+	ViewportManager* ViewportManager::getInstance()
+	{
+		//if (P_SHARED_INSTANCE == NULL)
+		//	P_SHARED_INSTANCE = new ViewportManager();
+
+		return P_SHARED_INSTANCE;
+	}
+
+	void ViewportManager::initialize()
+	{
+		if (P_SHARED_INSTANCE)
 		{
-			this->viewports.erase(this->viewports.begin() + index);
+			Logger::throw_exception("Viewport Manager already created");
+		}
+		P_SHARED_INSTANCE = new ViewportManager();
+	}
+
+	void ViewportManager::destroy()
+	{
+		delete P_SHARED_INSTANCE;
+	}
+
+	void ViewportManager::update()
+	{
+		for (ViewportScreen* viewport : this->viewports)
+		{
+			viewport->draw();
 		}
 
-		index++;
 	}
-	delete viewport;
-}
 
-void ViewportManager::deleteAllViewports()
-{
-	for (ViewportScreen* viewport : this->viewports)
+	void ViewportManager::createViewport()
 	{
-		delete viewport; 
+		ViewportScreen* viewport = new ViewportScreen(this->viewports.size());
+
+		this->viewports.push_back(viewport);
+		//UIManager::getInstance()->addViewport(viewport);
 	}
 
-	this->viewports.clear();
-}
-
-void ViewportManager::addViewport(UIScreen* viewport)
-{
-	ViewportScreen* c_viewport = (ViewportScreen*)viewport;
-	this->viewports.push_back(c_viewport);
-
-}
-
-void ViewportManager::setNumViewports(int count)
-{
-	while (viewports.size() > count)
+	void ViewportManager::deleteViewport(ViewportScreen* viewport)
 	{
-		this->deleteViewport(viewports.back());
+		int index = 0;
+		for (int i = 0; i < this->viewports.size(); i++)
+		{
+			if (this->viewports[i] == viewport)
+			{
+				this->viewports.erase(this->viewports.begin() + index);
+			}
+
+			index++;
+		}
+		delete viewport;
 	}
 
-	while (viewports.size() < count)
+	void ViewportManager::deleteAllViewports()
 	{
-		this->createViewport();
-	}
-}
+		for (ViewportScreen* viewport : this->viewports)
+		{
+			delete viewport;
+		}
 
-std::vector<ViewportScreen*> ViewportManager::getViewports()
-{
-	return this->viewports;
+		this->viewports.clear();
+	}
+
+	void ViewportManager::addViewport(UIScreen* viewport)
+	{
+		ViewportScreen* c_viewport = (ViewportScreen*)viewport;
+		this->viewports.push_back(c_viewport);
+
+	}
+
+	void ViewportManager::setNumViewports(int count)
+	{
+		while (viewports.size() > count)
+		{
+			this->deleteViewport(viewports.back());
+		}
+
+		while (viewports.size() < count)
+		{
+			this->createViewport();
+		}
+	}
+
+	std::vector<ViewportScreen*> ViewportManager::getViewports()
+	{
+		return this->viewports;
+	}
 }

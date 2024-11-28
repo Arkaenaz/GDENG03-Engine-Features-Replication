@@ -1,6 +1,6 @@
 #include "UIScreen.h"
 
-using namespace GDEditor;
+using namespace GDEngine;
 
 UIScreen::UIScreen(std::string name)
 {

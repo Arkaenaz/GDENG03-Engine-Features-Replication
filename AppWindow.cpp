@@ -28,7 +28,6 @@
 
 #include "Logger.h"
 
-using namespace GDEditor;
 using namespace GDEngine;
 
 __declspec(align(16))

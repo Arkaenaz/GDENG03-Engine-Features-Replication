@@ -4,9 +4,8 @@
 #include "imgui.h"
 #include "Logger.h"
 
-namespace GDEditor
+namespace GDEngine
 {
-	using namespace GDEngine;
 	PlaybackScreen::PlaybackScreen() : UIScreen("PlaybackScreen")
 	{
 		Logger::log(this, "Initialized");

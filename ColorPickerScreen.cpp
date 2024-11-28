@@ -3,27 +3,26 @@
 #include "imgui.h"
 #include "Logger.h"
 
-using namespace GDEditor;
-using namespace GDEngine;
-
-ColorPickerScreen::ColorPickerScreen() : UIScreen("ColorPickerScreen")
-{
-    isActive = false;
-    Logger::log(this, "Initialized");
-}
-
-ColorPickerScreen::~ColorPickerScreen()
-{
-}
-
-void ColorPickerScreen::draw()
-{
-    ImGui::Begin("Color Picker", &isActive);
-
-    if (ImGui::ColorPicker4("Color", color, ImGuiColorEditFlags_PickerHueWheel))
+namespace GDEngine {
+    ColorPickerScreen::ColorPickerScreen() : UIScreen("ColorPickerScreen")
     {
-	    
-    };
+        isActive = false;
+        Logger::log(this, "Initialized");
+    }
 
-    ImGui::End();
+    ColorPickerScreen::~ColorPickerScreen()
+    {
+    }
+
+    void ColorPickerScreen::draw()
+    {
+        ImGui::Begin("Color Picker", &isActive);
+
+        if (ImGui::ColorPicker4("Color", color, ImGuiColorEditFlags_PickerHueWheel))
+        {
+
+        };
+
+        ImGui::End();
+    }
 }

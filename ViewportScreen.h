@@ -16,7 +16,7 @@ enum EFillMode
 
 struct ImVec2;
 
-namespace GDEditor
+namespace GDEngine
 {
 	using namespace GDEngine;
 	class ViewportScreen : public UIScreen

@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace GDEditor
+namespace GDEngine
 {
 	class UIManager;
 	class UIScreen

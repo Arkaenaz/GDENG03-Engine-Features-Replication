@@ -7,8 +7,6 @@
 #include "UIManager.h"
 
 using namespace GDEngine;
-using namespace GDEditor;
-
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND windowHandle, UINT msg, WPARAM wParam, LPARAM lParam);
 
 LRESULT CALLBACK WndProc(HWND windowHandle, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -70,8 +68,6 @@ LRESULT CALLBACK WndProc(HWND windowHandle, UINT msg, WPARAM wParam, LPARAM lPar
 }
 
 namespace GDEngine {
-	using namespace GDEditor;
-
 	Window::Window()
 	{
 		WNDCLASSEX wc;
