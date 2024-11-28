@@ -43,6 +43,8 @@ namespace GDEngine
 
 	public:
 		virtual void draw() override;
+		SceneCamera* getCamera();
+		std::string getName();
 
 	private:
 		void handleInput();

@@ -1,5 +1,11 @@
 #include "ViewportManager.h"
 
+#ifndef IMGUIZMO_IMGUI_FOLDER 
+#define IMGUIZMO_IMGUI_FOLDER
+#endif
+
+#include "GizmoLayer.h"
+
 namespace GDEngine {
 	ViewportManager* ViewportManager::P_SHARED_INSTANCE = nullptr;
 
@@ -42,6 +48,7 @@ namespace GDEngine {
 		for (ViewportScreen* viewport : this->viewports)
 		{
 			viewport->draw();
+			GizmoLayer::getInstance()->draw(viewport);
 		}
 
 	}

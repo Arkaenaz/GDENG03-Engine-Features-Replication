@@ -1,5 +1,9 @@
 #include "CreditsScreen.h"
 
+#ifndef IMGUI_DEFINE_MATH_OPERATORS
+#define IMGUI_DEFINE_MATH_OPERATORS
+#endif
+
 #include "EngineTime.h"
 #include "GraphicsEngine.h"
 #include "imgui.h"

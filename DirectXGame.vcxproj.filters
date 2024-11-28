@@ -142,6 +142,12 @@
     <Filter Include="GameEngine\ComponentSystem\Renderer">
       <UniqueIdentifier>{d51f7776-93b5-4eaa-b6ff-c00a4fdf0ec5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IMGuizmo">
+      <UniqueIdentifier>{e3f93a8f-a748-4a46-8169-e0cef951e90d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Gizmo">
+      <UniqueIdentifier>{89a038ca-eca7-48a9-a663-6a377ec0dbe2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -365,6 +371,15 @@
     </ClCompile>
     <ClCompile Include="EmptyGameObject.cpp">
       <Filter>GameEngine\Hierarchy</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\imguizmo\ImGuizmo.cpp">
+      <Filter>IMGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="GizmoLayer.cpp">
+      <Filter>Editor\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\ImGuIZMO.quat\imGuIZMO.quat\imGuIZMOquat.cpp">
+      <Filter>IMGuizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -616,6 +631,27 @@
     </ClInclude>
     <ClInclude Include="libs\imgui-filebrowser\imfilebrowser.h">
       <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imguizmo\ImGuizmo.h">
+      <Filter>IMGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="GizmoLayer.h">
+      <Filter>Editor\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\ImGuIZMO.quat\imGuIZMO.quat\imGuIZMOquat.h">
+      <Filter>IMGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\ImGuIZMO.quat\imGuIZMO.quat\vgConfig.h">
+      <Filter>IMGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\ImGuIZMO.quat\imGuIZMO.quat\vGizmo.h">
+      <Filter>IMGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\ImGuIZMO.quat\imGuIZMO.quat\vGizmoMath.h">
+      <Filter>IMGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\ImGuIZMO.quat\imGuIZMO.quat\vgMath.h">
+      <Filter>IMGuizmo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

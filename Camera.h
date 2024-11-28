@@ -37,6 +37,7 @@ namespace GDEngine
 
 		Matrix4x4 getViewMatrix();
 		Matrix4x4 getProjMatrix();
+		Matrix4x4 getLocMatrix();
 		void setProjectionType(int type);
 
 		void setWidth(float width);

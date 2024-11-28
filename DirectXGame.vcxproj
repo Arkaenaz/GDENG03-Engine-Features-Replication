@@ -71,7 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>$(ProjectDir)\libs\ReactPhysics3D;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\libs\imgui;$(ProjectDir)\libs\ReactPhysics3D;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\libs\imgui;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LibraryPath>$(ProjectDir)\libs\ReactPhysics3D;$(LibraryPath)</LibraryPath>
@@ -112,7 +113,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NOMINMAX;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)libs\DirectXTex\DirectXTex;$(ProjectDir)libs\imgui\misc\cpp;$(ProjectDir)libs\imgui;$(ProjectDir)libs\imgui\backends;$(ProjectDir)libs\tinyobjloader;$(ProjectDir)libs\ReactPhysics3D\include;$(ProjectDir)libs\imgui-filebrowser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)libs\DirectXTex\DirectXTex;$(ProjectDir)libs\imgui\misc\cpp;$(ProjectDir)libs\imgui;$(ProjectDir)libs\imgui\backends;$(ProjectDir)libs\tinyobjloader;$(ProjectDir)libs\ReactPhysics3D\include;$(ProjectDir)libs\imgui-filebrowser;$(ProjectDir)libs\imGuIZMO.quat\imGuIZMO.quat;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -162,9 +163,12 @@
     <ClCompile Include="EmptyGameObject.cpp" />
     <ClCompile Include="EngineBackend.cpp" />
     <ClCompile Include="EngineTime.cpp" />
+    <ClCompile Include="GizmoLayer.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="HierarchyScreen.cpp" />
     <ClCompile Include="InspectorScreen.cpp" />
+    <ClCompile Include="libs\ImGuIZMO.quat\imGuIZMO.quat\imGuIZMOquat.cpp" />
+    <ClCompile Include="libs\imguizmo\ImGuizmo.cpp" />
     <ClCompile Include="libs\imgui\backends\imgui_impl_dx11.cpp" />
     <ClCompile Include="libs\imgui\backends\imgui_impl_win32.cpp" />
     <ClCompile Include="libs\imgui\imgui.cpp" />
@@ -245,8 +249,15 @@
     <ClInclude Include="EditorAction.h" />
     <ClInclude Include="EmptyGameObject.h" />
     <ClInclude Include="EngineBackend.h" />
+    <ClInclude Include="GizmoLayer.h" />
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="libs\imgui-filebrowser\imfilebrowser.h" />
+    <ClInclude Include="libs\ImGuIZMO.quat\imGuIZMO.quat\imGuIZMOquat.h" />
+    <ClInclude Include="libs\ImGuIZMO.quat\imGuIZMO.quat\vgConfig.h" />
+    <ClInclude Include="libs\ImGuIZMO.quat\imGuIZMO.quat\vGizmo.h" />
+    <ClInclude Include="libs\ImGuIZMO.quat\imGuIZMO.quat\vGizmoMath.h" />
+    <ClInclude Include="libs\ImGuIZMO.quat\imGuIZMO.quat\vgMath.h" />
+    <ClInclude Include="libs\imguizmo\ImGuizmo.h" />
     <ClInclude Include="MeshObject.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="PhysicsComponent.h">

@@ -24,6 +24,7 @@
 #include "DeviceContext.h"
 #include "ConstantBuffer.h"
 #include "EngineBackend.h"
+#include "GizmoLayer.h"
 #include "ShaderLibrary.h"
 
 #include "Logger.h"
@@ -80,7 +81,6 @@ void AppWindow::onUpdate()
 		}
 	}
 	
-	
 
 	UIManager::getInstance()->draw();
 
@@ -107,6 +107,7 @@ void AppWindow::onDestroy()
 	delete swapChain;
 
 	UIManager::destroy();
+	GizmoLayer::destroy();
 	CameraManager::destroy();
 	BaseComponentSystem::destroy();
 	GameObjectManager::destroy();
@@ -177,6 +178,7 @@ void AppWindow::initializeEngine()
 		GameObjectManager::initialize();
 		BaseComponentSystem::initialize();
 		CameraManager::initialize();
+		GizmoLayer::initialize();
 		UIManager::initialize(m_windowHandle);
 		
 	}

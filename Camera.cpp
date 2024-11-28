@@ -121,6 +121,11 @@ Matrix4x4 Camera::getProjMatrix()
 	return this->projMatrix;
 }
 
+Matrix4x4 Camera::getLocMatrix()
+{
+	return m_localMatrix;
+}
+
 void Camera::setProjectionType(int type)
 {
 	this->type = type;

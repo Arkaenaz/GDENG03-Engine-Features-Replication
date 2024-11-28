@@ -227,4 +227,14 @@ namespace GDEngine {
 			ImGui::EndCombo();
 		}
 	}
+
+	SceneCamera* ViewportScreen::getCamera()
+	{
+		return this->currentCamera;
+	}
+
+	std::string ViewportScreen::getName()
+	{
+		return this->name;
+	}
 }

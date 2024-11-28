@@ -1,5 +1,8 @@
 #include "UIManager.h"
 
+#ifndef IMGUIZMO_IMGUI_FOLDER 
+#define IMGUIZMO_IMGUI_FOLDER
+#endif
 
 #include "EngineTime.h"
 #include "imgui.h"
@@ -21,6 +24,7 @@
 #include "PlaybackScreen.h"
 #include "ColorPickerScreen.h"
 #include "CreditsScreen.h"
+#include "GizmoLayer.h"
 
 namespace GDEngine {
 
@@ -81,13 +85,14 @@ namespace GDEngine {
 			Logger::log(this, "Initialized Dock Space on First Run");
 		}
 
+		ViewportManager::getInstance()->update();
+		
 		for (UIScreen* screen : listUI)
 		{
 			if (screen->isActive)
 				screen->draw();
 		}
 
-		ViewportManager::getInstance()->update();
 
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
