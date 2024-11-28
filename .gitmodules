@@ -10,3 +10,6 @@
 [submodule "libs/imgui-filebrowser"]
 	path = libs/imgui-filebrowser
 	url = https://github.com/AirGuanZ/imgui-filebrowser.git
+[submodule "libs/imGuIZMO.quat"]
+	path = libs/imGuIZMO.quat
+	url = https://github.com/BrutPitt/imGuIZMO.quat
