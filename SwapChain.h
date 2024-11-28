@@ -3,16 +3,16 @@
 #include <d3d11.h>
 #include "Prerequisites.h"
 
-namespace graphics
+namespace GDEngine
 {
 	class SwapChain
 	{
 	private:
-		RenderSystem* system = nullptr;
+		RenderSystem* m_system = nullptr;
 
-		IDXGISwapChain* swapChain;
+		IDXGISwapChain* m_swapChain;
 
-		RenderTexture* renderTexture;
+		RenderTexture* m_renderTexture;
 
 	private:
 		friend class DeviceContext;

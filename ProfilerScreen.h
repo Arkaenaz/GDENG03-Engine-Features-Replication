@@ -2,15 +2,18 @@
 
 #include "UIScreen.h"
 
-class ProfilerScreen : public UIScreen
+namespace GDEngine
 {
-private:
-	ProfilerScreen();
-	~ProfilerScreen();
+	class ProfilerScreen : public UIScreen
+	{
+	private:
+		ProfilerScreen();
+		~ProfilerScreen();
 
-private:
-	friend class UIManager;
+	private:
+		friend class UIManager;
 
-private:
-	virtual void draw() override;
-};
+	private:
+		virtual void draw() override;
+	};
+}

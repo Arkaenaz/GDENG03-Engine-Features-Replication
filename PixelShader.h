@@ -3,13 +3,13 @@
 #include <d3d11.h>
 #include "Prerequisites.h"
 
-namespace graphics
+namespace GDEngine
 {
 	class PixelShader
 	{
 	private:
-		RenderSystem* system = nullptr;
-		ID3D11PixelShader* pixelShader;
+		RenderSystem* m_system = nullptr;
+		ID3D11PixelShader* m_pixelShader;
 
 	private:
 		friend class RenderSystem;

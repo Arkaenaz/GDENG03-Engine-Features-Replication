@@ -3,13 +3,13 @@
 #include <d3d11.h>
 #include "Prerequisites.h"
 
-namespace graphics
+namespace GDEngine
 {
 	class Viewport
 	{
 	private:
-		RenderSystem* system = nullptr;
-		D3D11_VIEWPORT vp;
+		RenderSystem* m_system = nullptr;
+		D3D11_VIEWPORT m_viewport;
 
 	private:
 		friend class DeviceContext;

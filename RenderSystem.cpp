@@ -6,6 +6,7 @@
 #include "SwapChain.h"
 #include "DeviceContext.h"
 #include "VertexBuffer.h"
+#include "TexturedVertexBuffer.h"
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
 #include "VertexShader.h"
@@ -15,7 +16,7 @@
 
 #include "Logger.h"
 
-using namespace graphics;
+using namespace GDEngine;
 
 RenderSystem::RenderSystem()
 {
@@ -37,7 +38,7 @@ RenderSystem::RenderSystem()
 	for (UINT driver_type_index = 0; driver_type_index < num_driver_types;)
 	{
 		result = D3D11CreateDevice(NULL, driver_types[driver_type_index], NULL, NULL, feature_levels,
-			num_feature_levels, D3D11_SDK_VERSION, &m_d3d_device, &m_feature_level, &m_imm_context);
+			num_feature_levels, D3D11_SDK_VERSION, &m_D3DDevice, &m_featureLevel, &m_immediateContext);
 
 		if (SUCCEEDED(result))
 			break;
@@ -45,34 +46,34 @@ RenderSystem::RenderSystem()
 		++driver_type_index;
 	}
 
-	if (!debug::Logger::log(this, result))
+	if (!Logger::log(this, result))
 		throw std::exception("RenderSystem not created successfully");
 
-	m_imm_device_context = new DeviceContext(this, m_imm_context);
+	m_immediateDeviceContext = new DeviceContext(this, m_immediateContext);
 
-	m_d3d_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&m_dxgi_device);
-	m_dxgi_device->GetParent(__uuidof(IDXGIAdapter), (void**)&m_dxgi_adapter);
-	m_dxgi_adapter->GetParent(__uuidof(IDXGIFactory), (void**)&m_dxgi_factory);
+	m_D3DDevice->QueryInterface(__uuidof(IDXGIDevice), (void**)&m_dxgiDevice);
+	m_dxgiDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&m_dxgiAdapter);
+	m_dxgiAdapter->GetParent(__uuidof(IDXGIFactory), (void**)&m_dxgiFactory);
 
-	debug::Logger::log(this, "Initialized");
+	Logger::log(this, "Initialized");
 }
 
 RenderSystem::~RenderSystem()
 {
-	if (m_vsblob)
-		m_vsblob->Release();
-	if (m_psblob)
-		m_psblob->Release();
+	if (m_vertexShaderBlob)
+		m_vertexShaderBlob->Release();
+	if (m_pixelShaderBlob)
+		m_pixelShaderBlob->Release();
 
-	m_dxgi_device->Release();
-	m_dxgi_adapter->Release();
-	m_dxgi_factory->Release();
+	m_dxgiDevice->Release();
+	m_dxgiAdapter->Release();
+	m_dxgiFactory->Release();
 
-	delete m_imm_device_context;
+	delete m_immediateDeviceContext;
 
-	m_d3d_device->Release();
+	m_D3DDevice->Release();
 
-	debug::Logger::log(this, "Released");
+	Logger::log(this, "Destroyed");
 }
 
 SwapChain* RenderSystem::createSwapChain(HWND hwnd, UINT width, UINT height)
@@ -91,10 +92,23 @@ VertexBuffer* RenderSystem::createVertexBuffer(void* list_vertices, UINT size_ve
 	VertexBuffer* vertexBuffer = nullptr;
 	try
 	{
-		vertexBuffer = new VertexBuffer(this, list_vertices, size_vertex, size_list, shader_byte_code, size_byte_shader);
+		vertexBuffer = new VertexBuffer(this);
+		vertexBuffer->load(list_vertices, size_vertex, size_list, shader_byte_code, size_byte_shader);
 	}
 	catch (...) {}
 	return vertexBuffer;
+}
+
+TexturedVertexBuffer* RenderSystem::createTexturedVertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list, void* shader_byte_code, UINT size_byte_shader)
+{
+	TexturedVertexBuffer* texturedVertexBuffer = nullptr;
+	try
+	{
+		texturedVertexBuffer = new TexturedVertexBuffer(this);
+		texturedVertexBuffer->load(list_vertices, size_vertex, size_list, shader_byte_code, size_byte_shader);
+	}
+	catch (...) {}
+	return texturedVertexBuffer;
 }
 
 IndexBuffer* RenderSystem::createIndexBuffer(void* list_indices, UINT size_list)
@@ -166,17 +180,17 @@ RasterizerState* RenderSystem::createRasterizerState(D3D11_FILL_MODE fillMode, D
 
 DeviceContext* RenderSystem::getImmediateDeviceContext()
 {
-	return this->m_imm_device_context;
+	return this->m_immediateDeviceContext;
 }
 
 IDXGIFactory* RenderSystem::getDirectXFactory()
 {
-	return this->m_dxgi_factory;
+	return this->m_dxgiFactory;
 }
 
 ID3D11Device* RenderSystem::getDirectXDevice()
 {
-	return this->m_d3d_device;
+	return this->m_D3DDevice;
 }
 
 bool RenderSystem::compileVertexShader(const wchar_t* file_name, const char* entry_point_name, void** shader_byte_code, size_t* byte_code_size)

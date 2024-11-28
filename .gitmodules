@@ -7,3 +7,6 @@
 [submodule "libs/imguizmo"]
 	path = libs/imguizmo
 	url = https://github.com/CedricGuillemet/ImGuizmo
+[submodule "libs/imgui-filebrowser"]
+	path = libs/imgui-filebrowser
+	url = https://github.com/AirGuanZ/imgui-filebrowser.git

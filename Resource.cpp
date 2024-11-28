@@ -1,6 +1,8 @@
 #include "Resource.h"
 
-Resource::Resource(const wchar_t* fullPath) : fullPath(fullPath)
+using namespace GDEngine;
+
+Resource::Resource(const wchar_t* fullPath) : m_fullPath(fullPath)
 {
 }
 

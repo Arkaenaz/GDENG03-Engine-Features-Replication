@@ -37,9 +37,6 @@
     <Filter Include="GameEngine\Primitives\Cube">
       <UniqueIdentifier>{fbd6c00f-6bf1-422f-b2c6-033bdda412b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameEngine\Primitives\Quad">
-      <UniqueIdentifier>{6fc7811b-7d6e-4569-b6e8-5c4970c14ae8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameEngine\Primitives\Plane">
       <UniqueIdentifier>{fcb2f4b6-6dec-4895-9ca4-3031911e8a47}</UniqueIdentifier>
     </Filter>
@@ -105,6 +102,45 @@
     </Filter>
     <Filter Include="Editor\Screens\Viewport">
       <UniqueIdentifier>{4377089f-e82f-4b1b-85dc-07cdc36c42dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Primitives\TexturedCube">
+      <UniqueIdentifier>{610b1cce-4416-43a7-be11-19e49bbe92e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\ShaderLibrary">
+      <UniqueIdentifier>{e07960d7-e1af-4ded-a568-e0e371f34197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\ResourceManager\MeshManager">
+      <UniqueIdentifier>{415520e1-0b08-45d4-8e66-1aedc781740e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\ComponentSystem">
+      <UniqueIdentifier>{2be07752-b170-4496-86dd-762ec2c2518c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\ComponentSystem\PhysicsSystem">
+      <UniqueIdentifier>{b52907f7-0d2f-4b69-b8fa-fada23dde020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Primitives\Quad">
+      <UniqueIdentifier>{6fc7811b-7d6e-4569-b6e8-5c4970c14ae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Primitives\MeshObject">
+      <UniqueIdentifier>{45672926-284e-4317-bc4c-784bed0829c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Primitives\MeshObject\Teapot">
+      <UniqueIdentifier>{abd180ed-39af-464b-a9ca-745fc3f64e86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Primitives\MeshObject\Armadillo">
+      <UniqueIdentifier>{b446127e-b7bf-4ef0-aed6-e961cb85ec2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Primitives\MeshObject\Bunny">
+      <UniqueIdentifier>{3c30fc1c-44d2-4730-ae10-81776573ccab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Backend">
+      <UniqueIdentifier>{4970389f-5716-4bf2-b16d-5c14be1509e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\FileSystem">
+      <UniqueIdentifier>{5d871d4b-cf00-4b19-bcb2-5d1ae9f50662}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\ComponentSystem\Renderer">
+      <UniqueIdentifier>{d51f7776-93b5-4eaa-b6ff-c00a4fdf0ec5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +299,72 @@
     </ClCompile>
     <ClCompile Include="ViewportManager.cpp">
       <Filter>Editor\Screens\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturedCube.cpp">
+      <Filter>GameEngine\Primitives\TexturedCube</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturedVertexBuffer.cpp">
+      <Filter>GameEngine\GraphicsEngine\RenderSystem\VertexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderLibrary.cpp">
+      <Filter>GameEngine\GraphicsEngine\ShaderLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshManager.cpp">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager\MeshManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager\MeshManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Teapot.cpp">
+      <Filter>GameEngine\Primitives\MeshObject\Teapot</Filter>
+    </ClCompile>
+    <ClCompile Include="Bunny.cpp">
+      <Filter>GameEngine\Primitives\MeshObject\Bunny</Filter>
+    </ClCompile>
+    <ClCompile Include="Armadillo.cpp">
+      <Filter>GameEngine\Primitives\MeshObject\Armadillo</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseComponentSystem.cpp">
+      <Filter>GameEngine\ComponentSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>GameEngine\ComponentSystem\PhysicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AComponent.cpp">
+      <Filter>GameEngine\ComponentSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsSystem.cpp">
+      <Filter>GameEngine\ComponentSystem\PhysicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshObject.cpp">
+      <Filter>GameEngine\Primitives\MeshObject</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineBackend.cpp">
+      <Filter>GameEngine\Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorAction.cpp">
+      <Filter>GameEngine\Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionHistory.cpp">
+      <Filter>GameEngine\Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaybackScreen.cpp">
+      <Filter>Editor\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneWriter.cpp">
+      <Filter>GameEngine\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneReader.cpp">
+      <Filter>GameEngine\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtility.cpp">
+      <Filter>GameEngine\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp">
+      <Filter>GameEngine\ComponentSystem\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="EmptyGameObject.cpp">
+      <Filter>GameEngine\Hierarchy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -443,12 +545,93 @@
     <ClInclude Include="ViewportManager.h">
       <Filter>Editor\Screens\Viewport</Filter>
     </ClInclude>
+    <ClInclude Include="TexturedCube.h">
+      <Filter>GameEngine\Primitives\TexturedCube</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturedVertexBuffer.h">
+      <Filter>GameEngine\GraphicsEngine\RenderSystem\VertexBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderLibrary.h">
+      <Filter>GameEngine\GraphicsEngine\ShaderLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshManager.h">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager\MeshManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager\MeshManager</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexMesh.h">
+      <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Teapot.h">
+      <Filter>GameEngine\Primitives\MeshObject\Teapot</Filter>
+    </ClInclude>
+    <ClInclude Include="Bunny.h">
+      <Filter>GameEngine\Primitives\MeshObject\Bunny</Filter>
+    </ClInclude>
+    <ClInclude Include="Armadillo.h">
+      <Filter>GameEngine\Primitives\MeshObject\Armadillo</Filter>
+    </ClInclude>
+    <ClInclude Include="AComponent.h">
+      <Filter>GameEngine\ComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseComponentSystem.h">
+      <Filter>GameEngine\ComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>GameEngine\ComponentSystem\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsSystem.h">
+      <Filter>GameEngine\ComponentSystem\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshObject.h">
+      <Filter>GameEngine\Primitives\MeshObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineBackend.h">
+      <Filter>GameEngine\Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorAction.h">
+      <Filter>GameEngine\Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionHistory.h">
+      <Filter>GameEngine\Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaybackScreen.h">
+      <Filter>Editor\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneWriter.h">
+      <Filter>GameEngine\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneReader.h">
+      <Filter>GameEngine\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtility.h">
+      <Filter>GameEngine\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderer.h">
+      <Filter>GameEngine\ComponentSystem\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="EmptyGameObject.h">
+      <Filter>GameEngine\Hierarchy</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\imgui-filebrowser\imfilebrowser.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PixelShader.hlsl">
+    <FxCompile Include="BasePixelShader.hlsl">
       <Filter>GameEngine\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="VertexShader.hlsl">
+    <FxCompile Include="BaseVertexShader.hlsl">
+      <Filter>GameEngine\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="TexturedPixelShader.hlsl">
+      <Filter>GameEngine\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="TexturedVertexShader.hlsl">
+      <Filter>GameEngine\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="VertexMeshLayoutShader.hlsl">
       <Filter>GameEngine\Shaders</Filter>
     </FxCompile>
   </ItemGroup>

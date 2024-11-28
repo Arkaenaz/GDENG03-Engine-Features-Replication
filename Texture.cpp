@@ -1,21 +1,22 @@
 #include "Texture.h"
 #include <DirectXTex.h>
 
-#include "Logger.h"
 #include "GraphicsEngine.h"
 
-using namespace graphics;
+#include "Logger.h"
+
+using namespace GDEngine;
 
 Texture::Texture(const wchar_t* fullPath) : Resource(fullPath)
 {
 	DirectX::ScratchImage imageData;
 	HRESULT result = DirectX::LoadFromWICFile(fullPath, DirectX::WIC_FLAGS_NONE, nullptr, imageData);
 
-	if (debug::Logger::log(this, result))
+	if (Logger::log(this, result))
 	{
 		ID3D11Device* device = GraphicsEngine::getInstance()->getRenderSystem()->getDirectXDevice();
 		
-		result = DirectX::CreateTexture(device, imageData.GetImages(), imageData.GetImageCount(), imageData.GetMetadata(), &texture);
+		result = DirectX::CreateTexture(device, imageData.GetImages(), imageData.GetImageCount(), imageData.GetMetadata(), &m_texture);
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC desc = {};
 		desc.Format = imageData.GetMetadata().format;
@@ -23,16 +24,16 @@ Texture::Texture(const wchar_t* fullPath) : Resource(fullPath)
 		desc.Texture2D.MipLevels = (UINT)imageData.GetMetadata().mipLevels;
 		desc.Texture2D.MostDetailedMip = 0;
 
-		device->CreateShaderResourceView(this->texture, &desc, &shaderResourceView);
+		device->CreateShaderResourceView(this->m_texture, &desc, &m_shaderResourceView);
 	}
 	else
 	{
-		throw std::exception("Texture not created successfully");
+		Logger::throw_exception("Texture not created successfully");
 	}
 }
 
 Texture::~Texture()
 {
-	shaderResourceView->Release();
-	texture->Release();
+	m_shaderResourceView->Release();
+	m_texture->Release();
 }

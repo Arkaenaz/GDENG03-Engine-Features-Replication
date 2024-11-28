@@ -5,15 +5,15 @@
 #include "RenderSystem.h"
 #include "Logger.h"
 
-using namespace graphics;
+using namespace GDEngine;
 
-VertexShader::VertexShader(RenderSystem* system, const void* shaderByteCode, size_t byteCodeSize) : system(system)
+VertexShader::VertexShader(RenderSystem* system, const void* shaderByteCode, size_t byteCodeSize) : m_system(system)
 {
-	if (!debug::Logger::log(this, this->system->m_d3d_device->CreateVertexShader(shaderByteCode, byteCodeSize, nullptr, &vertexShader)))
-		throw std::exception("VertexShader not created successfully");
+	if (!Logger::log(this, this->m_system->m_D3DDevice->CreateVertexShader(shaderByteCode, byteCodeSize, nullptr, &m_vertexShader)))
+		Logger::throw_exception("VertexShader not created successfully");
 }
 
 VertexShader::~VertexShader()
 {
-	vertexShader->Release();
+	m_vertexShader->Release();
 }

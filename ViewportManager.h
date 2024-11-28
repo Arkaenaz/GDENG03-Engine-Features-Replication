@@ -2,15 +2,16 @@
 #include "ViewportScreen.h"
 #include "UIManager.h"
 #include <vector>
-#include <iostream>
 
-class ViewportManager
+namespace GDEngine
 {
+	class ViewportManager
+	{
 	private:
 		ViewportManager();
 		~ViewportManager();
 		ViewportManager(const ViewportManager&);
-		ViewportManager& operator=(const ViewportManager&);	
+		ViewportManager& operator=(const ViewportManager&);
 
 	private:
 		std::vector<ViewportScreen*> viewports;
@@ -20,17 +21,17 @@ class ViewportManager
 		static void initialize();
 		static void destroy();
 		void update();
-		
+
 		void createViewport();
 		void deleteViewport(ViewportScreen* viewport);
 		void deleteAllViewports();
 		void addViewport(UIScreen* viewport);
 		void setNumViewports(int count);
 		std::vector<ViewportScreen*> getViewports();
-		
+
 
 	private:
 		static ViewportManager* P_SHARED_INSTANCE;
 
-};
-
+	};
+}

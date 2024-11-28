@@ -1,19 +1,20 @@
 #pragma once
 
 #include "ResourceManager.h"
-#include "Prerequisites.h"
 
-class TextureManager : public ResourceManager
+namespace GDEngine
 {
-public:
-	TextureManager();
-	~TextureManager();
+	class TextureManager : public ResourceManager
+	{
+	public:
+		Texture* createTextureFromFile(const wchar_t* filePath);
 
-public:
-	Texture* createTextureFromFile(const wchar_t* filePath);
+	protected:
+		virtual Resource* createResourceFromFileConcrete(const wchar_t* filePath);
+		friend class GraphicsEngine;
 
-public:
-	virtual Resource* createResourceFromFileConcrete(const wchar_t* filePath);
-};
-
-
+	private:
+		TextureManager();
+		~TextureManager() override;
+	};
+}

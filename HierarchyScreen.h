@@ -1,15 +1,18 @@
 #pragma once
 #include "UIScreen.h"
 
-class HierarchyScreen : public UIScreen
+namespace GDEngine
 {
-private:
-	HierarchyScreen();
-	~HierarchyScreen();
+	class HierarchyScreen : public UIScreen
+	{
+	private:
+		HierarchyScreen();
+		~HierarchyScreen();
 
-private:
-	friend class UIManager;
+	private:
+		friend class UIManager;
 
-private:
-	virtual void draw() override;
-};
+	private:
+		virtual void draw() override;
+	};
+}

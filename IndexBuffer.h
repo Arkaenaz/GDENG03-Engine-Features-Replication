@@ -3,14 +3,14 @@
 #include <d3d11.h>
 #include "Prerequisites.h"
 
-namespace graphics
+namespace GDEngine
 {
 	class IndexBuffer
 	{
 	private:
-		RenderSystem* system = nullptr;
+		RenderSystem* m_system = nullptr;
 
-		UINT m_size_list;
+		UINT m_sizeList;
 		ID3D11Buffer* m_buffer;
 
 	private:

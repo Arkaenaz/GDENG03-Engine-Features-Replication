@@ -2,16 +2,33 @@
 
 #include <Windows.h>
 
+#include "ActionHistory.h"
+#include "imgui.h"
+
+#include "Random.h"
+#include "EngineTime.h"
+
+#include "GraphicsEngine.h"
+
+#include "BaseComponentSystem.h"
+#include "PhysicsSystem.h"
+
+#include "InputSystem.h"
+
 #include "GameObjectManager.h"
 #include "CameraManager.h"
+
 #include "UIManager.h"
 #include "ViewportManager.h"
 
-#include "InputSystem.h"
-#include "EngineTime.h"
-#include "imgui.h"
+#include "DeviceContext.h"
+#include "ConstantBuffer.h"
+#include "EngineBackend.h"
+#include "ShaderLibrary.h"
+
 #include "Logger.h"
-#include "Random.h"
+
+using namespace GDEngine;
 
 __declspec(align(16))
 struct CBEditor
@@ -41,7 +58,29 @@ void AppWindow::onUpdate()
 
 	renderSystem->getImmediateDeviceContext()->setViewportSize(width, height);
 
-	GameObjectManager::getInstance()->update(deltaTime);
+	EngineBackend* backend = EngineBackend::getInstance();
+	if (backend->getMode() == EngineBackend::EditorMode::PLAY)
+	{
+		GameObjectManager::getInstance()->setPhysics(true);
+		GameObjectManager::getInstance()->update(deltaTime);
+		BaseComponentSystem::getInstance()->getPhysicsSystem()->updateAllComponents();
+	}
+	else if (backend->getMode() == EngineBackend::EditorMode::EDITOR)
+	{
+		GameObjectManager::getInstance()->setPhysics(false);
+		GameObjectManager::getInstance()->update(deltaTime);
+	}
+	else if (backend->getMode() == EngineBackend::EditorMode::PAUSED)
+	{
+		if (backend->insideFrameStep())
+		{
+			GameObjectManager::getInstance()->update(deltaTime);
+			BaseComponentSystem::getInstance()->getPhysicsSystem()->updateAllComponents();
+			backend->endFrameStep();
+		}
+	}
+	
+	
 
 	UIManager::getInstance()->draw();
 
@@ -69,7 +108,12 @@ void AppWindow::onDestroy()
 
 	UIManager::destroy();
 	CameraManager::destroy();
+	BaseComponentSystem::destroy();
 	GameObjectManager::destroy();
+	ViewportManager::destroy();
+	ActionHistory::destroy();
+	EngineBackend::destroy();
+	ShaderLibrary::destroy();
 	GraphicsEngine::destroy();
 	InputSystem::destroy();
 }
@@ -94,7 +138,7 @@ void AppWindow::onKeyDown(int key)
 void AppWindow::onKeyUp(int key)
 {
 	if (key == VK_ESCAPE) {
-		//m_is_running = false;
+		//m_isRunning = false;
 	}
 }
 
@@ -124,17 +168,21 @@ void AppWindow::initializeEngine()
 	try
 	{
 		GraphicsEngine::initialize();
+		ShaderLibrary::initialize();
+		EngineBackend::initialize();
+		ActionHistory::initialize();
 		Random::initialize();
 		InputSystem::getInstance()->addListener(this);
 		ViewportManager::initialize();
 		GameObjectManager::initialize();
+		BaseComponentSystem::initialize();
 		CameraManager::initialize();
-		UIManager::initialize(m_hwnd);
+		UIManager::initialize(m_windowHandle);
 		
 	}
 	catch (...)
 	{
-		m_is_running = false;
+		m_isRunning = false;
 	}
 
 	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
@@ -145,7 +193,7 @@ void AppWindow::initializeEngine()
 	FLOAT width = windowRect.right - windowRect.left;
 	FLOAT height = windowRect.bottom - windowRect.top;
 
-	this->swapChain = renderSystem->createSwapChain(this->m_hwnd, width, height);
+	this->swapChain = renderSystem->createSwapChain(this->m_windowHandle, width, height);
 
 	// Initialize the Constant Buffer
 	CBEditor cbData;
@@ -153,26 +201,14 @@ void AppWindow::initializeEngine()
 
 	this->constantBuffer = renderSystem->createConstantBuffer(&cbData, sizeof(CBEditor));
 
-	// Initialize the Shaders
-	void* shaderByteCode = nullptr;
-	size_t sizeShader = 0;
-
-	renderSystem->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shaderByteCode, &sizeShader);
-	this->vertexShader = renderSystem->createVertexShader(shaderByteCode, sizeShader);
-	renderSystem->releaseCompiledShader();
-
-	renderSystem->compilePixelShader(L"PixelShader.hlsl", "psmain", &shaderByteCode, &sizeShader);
-	this->pixelShader = renderSystem->createPixelShader(shaderByteCode, sizeShader);
-	renderSystem->releaseCompiledShader();
-
 	// Initialize Rasterizer States
 	this->solidState = renderSystem->createRasterizerState(D3D11_FILL_SOLID, D3D11_CULL_BACK);
 	this->wireframeState = renderSystem->createRasterizerState(D3D11_FILL_WIREFRAME, D3D11_CULL_NONE);
 
-	debug::Logger::log(this, "Initialized Engine");
+	GDEngine::Logger::log(this, "Initialized Engine");
 }
 
-void AppWindow::draw(EFillMode fillMode)
+void AppWindow::draw(int width, int height, EFillMode fillMode)
 {
 	DeviceContext* context = GraphicsEngine::getInstance()->getRenderSystem()->getImmediateDeviceContext();
 
@@ -189,7 +225,7 @@ void AppWindow::draw(EFillMode fillMode)
 		break;
 	case SOLID_WIREFRAME:
 		context->setRasterizerState(solidState);
-		this->draw(SOLID);
+		this->draw(width, height, SOLID);
 		context->setRasterizerState(wireframeState);
 		cbData.wireframe = true;
 		break;
@@ -198,7 +234,7 @@ void AppWindow::draw(EFillMode fillMode)
 	context->setConstantBuffer(constantBuffer, 2);
 	this->constantBuffer->update(context, &cbData);
 
-	GameObjectManager::getInstance()->draw(this, vertexShader, pixelShader);
+	GameObjectManager::getInstance()->draw(width, height);
 }
 
 void AppWindow::update()
@@ -213,7 +249,7 @@ SwapChain* AppWindow::getSwapChain()
 AppWindow* AppWindow::P_SHARED_INSTANCE = NULL;
 AppWindow::AppWindow()
 {
-	debug::Logger::log(this, "Initialized");
+	GDEngine::Logger::log(this, "Initialized");
 }
 AppWindow::~AppWindow() {}
 AppWindow::AppWindow(const AppWindow&) {}
@@ -225,7 +261,7 @@ AppWindow* AppWindow::getInstance() {
 void AppWindow::initialize()
 {
 	if (P_SHARED_INSTANCE)
-		throw std::exception("App Window already created");
+		GDEngine::Logger::throw_exception("App Window already created");
 	P_SHARED_INSTANCE = new AppWindow();
 	
 }
@@ -235,6 +271,6 @@ void AppWindow::destroy()
 	if (P_SHARED_INSTANCE != NULL)
 	{
 		delete P_SHARED_INSTANCE->constantBuffer;
-		debug::Logger::log(P_SHARED_INSTANCE, "Released");
+		GDEngine::Logger::log(P_SHARED_INSTANCE, "Released");
 	}
 }

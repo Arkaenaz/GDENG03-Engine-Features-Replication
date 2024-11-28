@@ -2,12 +2,15 @@
 
 #include <string>
 
-class Resource
+namespace GDEngine
 {
-protected:
-	std::wstring fullPath;
+	class Resource
+	{
+	protected:
+		std::wstring m_fullPath;
 
-public:
-	Resource(const wchar_t* fullPath);
-	virtual ~Resource();
-};
+	public:
+		Resource(const wchar_t* fullPath);
+		virtual ~Resource();
+	};
+}

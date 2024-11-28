@@ -1,13 +1,18 @@
 #include "Circle.h"
 
 #include "AppWindow.h"
+#include "GraphicsEngine.h"
+#include "EngineTime.h"
 #include "Random.h"
+#include "ShaderLibrary.h"
 
-Circle::Circle(std::string name, float radius, int sides, void* shaderByteCode, size_t sizeShader) : GameObject(name)
+using namespace GDEngine;
+
+Circle::Circle(std::string name, float radius, int sides, void* shaderByteCode, size_t sizeShader) : AGameObject(name)
 {
 	this->radius = radius;
 	this->sides = sides;
-	vertexBuffer = nullptr;
+	m_vertexBuffer = nullptr;
 
 	RECT windowRect = AppWindow::getInstance()->getClientWindowRect();
 
@@ -32,11 +37,11 @@ Circle::Circle(std::string name, float radius, int sides, void* shaderByteCode, 
 
 	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
 
-	constantBuffer = renderSystem->createConstantBuffer(&cc, sizeof(CBObjectData));
+	m_constantBuffer = renderSystem->createConstantBuffer(&cc, sizeof(CBObjectData));
 
 	UINT size_list = list.size();
 
-	vertexBuffer = renderSystem->createVertexBuffer(list.data(), sizeof(vertex), size_list, shaderByteCode, sizeShader);
+	m_vertexBuffer = renderSystem->createVertexBuffer(list.data(), sizeof(vertex), size_list, shaderByteCode, sizeShader);
 }
 
 Circle::~Circle()
@@ -66,58 +71,63 @@ void Circle::update(float deltaTime)
 	float orthoWidth = width / 300.0f;
 	float orthoHeight = height / 300.0f;
 
-	if (localPosition.y + this->radius >= orthoHeight / 2)
+	if (m_localPosition.y + this->radius >= orthoHeight / 2)
 	{
 		direction.y = direction.y * -1.0f;
-		localPosition.y = (orthoHeight / 2) - this->radius;
+		m_localPosition.y = (orthoHeight / 2) - this->radius;
 	}
 		
-	if (localPosition.y - this->radius <= -orthoHeight / 2)
+	if (m_localPosition.y - this->radius <= -orthoHeight / 2)
 	{
 		direction.y = direction.y * -1.0f;
-		localPosition.y = -(orthoHeight / 2) + this->radius;
+		m_localPosition.y = -(orthoHeight / 2) + this->radius;
 	}
 
-	if (localPosition.x + this->radius >= orthoWidth / 2)
+	if (m_localPosition.x + this->radius >= orthoWidth / 2)
 	{
 		direction.x = direction.x * -1.0f;
-		localPosition.x = (orthoWidth / 2) - this->radius;
+		m_localPosition.x = (orthoWidth / 2) - this->radius;
 	}
 		
-	if (localPosition.x - this->radius <= -orthoWidth / 2)
+	if (m_localPosition.x - this->radius <= -orthoWidth / 2)
 	{
 		direction.x = direction.x * -1.0f;
-		localPosition.x = -(orthoWidth / 2) + this->radius;
+		m_localPosition.x = -(orthoWidth / 2) + this->radius;
 	}
 		
 
-	localPosition += direction * speed * EngineTime::getDeltaTime();
+	m_localPosition += direction * speed * EngineTime::getDeltaTime();
 
-	cc.worldMatrix.setTranslation(localPosition);
+	cc.worldMatrix.setTranslation(m_localPosition);
 
 	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
 
-	constantBuffer->update(renderSystem->getImmediateDeviceContext(), &cc);
+	m_constantBuffer->update(renderSystem->getImmediateDeviceContext(), &cc);
 }
 
 // Sets shaders and draws afterwards
-void Circle::draw(Window* window, VertexShader* vertexShader, PixelShader* pixelShader)
+void Circle::draw(int width, int height)
 {
+	ShaderNames shaderNames;
+
 	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
 
-	renderSystem->getImmediateDeviceContext()->setConstantBuffer(constantBuffer, 0);
+	VertexShader* vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.BASE_VERTEX_SHADER_NAME);
+	PixelShader* pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.BASE_PIXEL_SHADER_NAME);
+
+	renderSystem->getImmediateDeviceContext()->setConstantBuffer(m_constantBuffer, 0);
 
 	renderSystem->getImmediateDeviceContext()->setVertexShader(vertexShader);
 	renderSystem->getImmediateDeviceContext()->setPixelShader(pixelShader);
 
-	renderSystem->getImmediateDeviceContext()->setVertexBuffer(vertexBuffer);
+	renderSystem->getImmediateDeviceContext()->setVertexBuffer(m_vertexBuffer);
 
-	renderSystem->getImmediateDeviceContext()->drawTriangleStrip(vertexBuffer->getSizeVertexList(), 0);
+	renderSystem->getImmediateDeviceContext()->drawTriangleStrip(m_vertexBuffer->getSizeVertexList(), 0);
 }
 
 void Circle::onDestroy()
 {
-	delete vertexBuffer;
-	delete constantBuffer;
+	delete m_vertexBuffer;
+	delete m_constantBuffer;
 	delete this;
 }

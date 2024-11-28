@@ -1,33 +1,35 @@
 #pragma once
 
-#include <iostream>
 #include <chrono>
-#include <ctime>
 
-class Window;
-class EngineTime
+namespace GDEngine
 {
-private:
-	static EngineTime* P_SHARED_INSTANCE;
+	class EngineTime
+	{
+	private:
+		std::chrono::system_clock::time_point m_start;
+		std::chrono::system_clock::time_point m_end;
 
-	std::chrono::system_clock::time_point start;
-	std::chrono::system_clock::time_point end;
+		double m_deltaTime = 0.0f;
 
-	double deltaTime = 0.0f;
+	private:
+		static EngineTime* P_SHARED_INSTANCE;
 
-private:
-	EngineTime();
-	~EngineTime();
-	EngineTime(EngineTime const&);
-	EngineTime& operator = (EngineTime const&);
+	private:
+		EngineTime();
+		~EngineTime();
+		EngineTime(EngineTime const&);
+		EngineTime& operator = (EngineTime const&);
 
-	friend class Window;
+	private:
+		friend class Window;
 
-public:
-	static void initialize();
-	static double getDeltaTime();
+	public:
+		static void initialize();
+		static double getDeltaTime();
 
-private:
-	static void LogFrameStart();
-	static void LogFrameEnd();
-};
+	private:
+		static void LogFrameStart();
+		static void LogFrameEnd();
+	};
+}

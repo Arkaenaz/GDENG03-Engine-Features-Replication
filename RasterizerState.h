@@ -3,13 +3,13 @@
 #include <d3d11.h>
 #include "Prerequisites.h"
 
-namespace graphics
+namespace GDEngine
 {
 	class RasterizerState
 	{
 	private:
-		RenderSystem* system = nullptr;
-		ID3D11RasterizerState* m_rasterizer_state;
+		RenderSystem* m_system = nullptr;
+		ID3D11RasterizerState* m_rasterizerState;
 		// desc;
 
 	private:

@@ -9,8 +9,7 @@
 #include <filesystem>
 #endif
 
-using namespace graphics;
-
+using namespace GDEngine;
 
 ResourceManager::ResourceManager()
 {
@@ -18,6 +17,10 @@ ResourceManager::ResourceManager()
 
 ResourceManager::~ResourceManager()
 {
+	if (!this->m_resourceMap.empty())
+	{
+		this->m_resourceMap.clear();
+	} 
 }
 
 Resource* ResourceManager::createResourceFromFile(const wchar_t* filePath)
@@ -29,18 +32,20 @@ Resource* ResourceManager::createResourceFromFile(const wchar_t* filePath)
 #if _MSC_VER >= 1920 && __cplusplus > 201402L 
 	std::wstring fullPath = std::filesystem::absolute(filePath);
 #endif
-	auto it = mapResources.find(fullPath);
+	auto it = m_resourceMap.find(fullPath);
 
-	if (it != mapResources.end())
+	if (it != m_resourceMap.end())
 		return it->second;
 
 	Resource* rawResource = this->createResourceFromFileConcrete(fullPath.c_str());
 
 	if (rawResource)
 	{
-		mapResources[fullPath] = rawResource;
+		m_resourceMap[fullPath] = rawResource;
 		return rawResource;
 	}
 
 	return nullptr;
 }
+
+ResourceManager::ResourceManager(ResourceManager const&) {}

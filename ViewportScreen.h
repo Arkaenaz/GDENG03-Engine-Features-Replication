@@ -7,8 +7,6 @@
 #include "SceneCamera.h"
 #include "Viewport.h"
 
-struct ImVec2;
-
 enum EFillMode
 {
 	SOLID,
@@ -16,37 +14,42 @@ enum EFillMode
 	SOLID_WIREFRAME
 };
 
-using namespace graphics;
-class ViewportScreen : public UIScreen
+struct ImVec2;
+
+namespace GDEngine
 {
-private:
-	int index;
-	int camIndex;
+	using namespace GDEngine;
+	class ViewportScreen : public UIScreen
+	{
+	private:
+		int index;
+		int camIndex;
 
-	SceneCamera* currentCamera;
-	SceneCamera* ownCamera;
+		SceneCamera* currentCamera;
+		SceneCamera* ownCamera;
 
-	EFillMode currentFillMode = SOLID;
-	RenderTexture* renderTexture;
+		EFillMode currentFillMode = SOLID;
+		RenderTexture* renderTexture;
 
-	bool isRightMouseDown = false;
+		bool isRightMouseDown = false;
 
-	int selectedProj = 0; 
-	int selectedState = 0;       
-	int selectedCameraIndex; 
+		int selectedProj = 0;
+		int selectedState = 0;
+		int selectedCameraIndex;
 
-private:
-	ViewportScreen(int index);
-	~ViewportScreen();
+	private:
+		ViewportScreen(int index);
+		~ViewportScreen();
 
-public:
-	virtual void draw() override;
+	public:
+		virtual void draw() override;
 
-private:
-	void handleInput();
-	void drawViewportUI(ImVec2 position);
+	private:
+		void handleInput();
+		void drawViewportUI(ImVec2 position);
 
-private:
-	friend class UIManager;
-	friend class ViewportManager;
-};
+	private:
+		friend class UIManager;
+		friend class ViewportManager;
+	};
+}

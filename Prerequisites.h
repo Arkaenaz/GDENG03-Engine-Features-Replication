@@ -1,8 +1,9 @@
-namespace graphics
+namespace GDEngine
 {
 	class SwapChain;
 	class DeviceContext;
 	class VertexBuffer;
+	class TexturedVertexBuffer;
 	class IndexBuffer;
 	class VertexShader;
 	class ConstantBuffer;
@@ -12,8 +13,10 @@ namespace graphics
 	class RenderSystem;
 	class GraphicsEngine;
 	class RenderTexture;
+	class Resource;
+	class ResourceManager;
+	class Texture;
+	class TextureManager;
+	class Mesh;
+	class MeshManager;
 }
-class Resource;
-class ResourceManager;
-class Texture;
-class TextureManager;

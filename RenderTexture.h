@@ -2,18 +2,18 @@
 
 #include <d3d11.h>
 
-namespace graphics
+namespace GDEngine
 {
     class RenderTexture
     {
     private:
-        ID3D11Texture2D* renderTarget = nullptr;
-        ID3D11RenderTargetView* renderTargetView = nullptr;
-        ID3D11ShaderResourceView* shaderResourceView = nullptr;
-        ID3D11DepthStencilView* depthStencilView = nullptr;
+        ID3D11Texture2D* m_renderTarget = nullptr;
+        ID3D11RenderTargetView* m_renderTargetView = nullptr;
+        ID3D11ShaderResourceView* m_shaderResourceView = nullptr;
+        ID3D11DepthStencilView* m_depthStencilView = nullptr;
 
-        size_t width;
-        size_t height;
+        size_t m_width;
+        size_t m_height;
 
     private:
         friend class DeviceContext;

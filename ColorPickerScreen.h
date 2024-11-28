@@ -2,17 +2,20 @@
 
 #include "UIScreen.h"
 
-class ColorPickerScreen : public UIScreen
+namespace GDEngine
 {
-private:
-	float color[4] = {0,0,0,0};
-private:
-	ColorPickerScreen();
-	~ColorPickerScreen();
+	class ColorPickerScreen : public UIScreen
+	{
+	private:
+		float color[4] = { 0,0,0,0 };
+	private:
+		ColorPickerScreen();
+		~ColorPickerScreen();
 
-private:
-	friend class UIManager;
+	private:
+		friend class UIManager;
 
-private:
-	virtual void draw() override;
-};
+	private:
+		virtual void draw() override;
+	};
+}

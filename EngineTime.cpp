@@ -2,34 +2,41 @@
 
 #include "Logger.h"
 
-EngineTime* EngineTime::P_SHARED_INSTANCE = NULL;
-
-EngineTime::EngineTime()
+namespace GDEngine
 {
-	debug::Logger::log(P_SHARED_INSTANCE, "Initialized");
-}
-EngineTime::~EngineTime() {}
-EngineTime::EngineTime(EngineTime const&) {}
+	EngineTime* EngineTime::P_SHARED_INSTANCE = NULL;
 
-void EngineTime::initialize()
-{
-	P_SHARED_INSTANCE = new EngineTime();
-}
+	EngineTime::EngineTime()
+	{
+		Logger::log(P_SHARED_INSTANCE, "Initialized");
+	}
+	EngineTime::~EngineTime() {}
+	EngineTime::EngineTime(EngineTime const&) {}
 
-double EngineTime::getDeltaTime()
-{
-	return P_SHARED_INSTANCE->deltaTime;
-}
+	void EngineTime::initialize()
+	{
+		if (P_SHARED_INSTANCE)
+		{
+			Logger::throw_exception("Engine Time already created");
+		}
+		P_SHARED_INSTANCE = new EngineTime();
+	}
 
-void EngineTime::LogFrameStart()
-{
-	P_SHARED_INSTANCE->start = std::chrono::system_clock::now();
-}
+	double EngineTime::getDeltaTime()
+	{
+		return P_SHARED_INSTANCE->m_deltaTime;
+	}
 
-void EngineTime::LogFrameEnd()
-{
-	P_SHARED_INSTANCE->end = std::chrono::system_clock::now();
-	std::chrono::duration<double> elapsed_seconds = P_SHARED_INSTANCE->end - P_SHARED_INSTANCE->start;
+	void EngineTime::LogFrameStart()
+	{
+		P_SHARED_INSTANCE->m_start = std::chrono::system_clock::now();
+	}
 
-	P_SHARED_INSTANCE->deltaTime = elapsed_seconds.count();
+	void EngineTime::LogFrameEnd()
+	{
+		P_SHARED_INSTANCE->m_end = std::chrono::system_clock::now();
+		std::chrono::duration<double> elapsed_seconds = P_SHARED_INSTANCE->m_end - P_SHARED_INSTANCE->m_start;
+
+		P_SHARED_INSTANCE->m_deltaTime = elapsed_seconds.count();
+	}
 }

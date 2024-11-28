@@ -2,10 +2,11 @@
 
 #include <memory>
 
+#include "Logger.h"
 #include "Vector3D.h"
 #include "Vector4D.h"
 
-namespace math
+namespace GDEngine
 {
 	class Matrix4x4
 	{
@@ -62,6 +63,35 @@ namespace math
 			m_mat[0][1] = sin(z);
 			m_mat[1][0] = -sin(z);
 			m_mat[1][1] = cos(z);
+		}
+
+		void setRotation(Vector4D& orientation)
+		{
+			/*m_mat[0][0] = 2 * (orientation.x * orientation.x + orientation.y * orientation.y) - 1;
+			m_mat[0][1] = 2 * (orientation.y * orientation.z - orientation.x * orientation.w);
+			m_mat[0][2] = 2 * (orientation.y * orientation.w + orientation.x * orientation.z);
+
+			m_mat[1][0] = 2 * (orientation.y * orientation.z + orientation.x * orientation.w);
+			m_mat[1][1] = 2 * (orientation.x * orientation.x + orientation.z * orientation.z) - 1;
+			m_mat[1][2] = 2 * (orientation.z * orientation.w - orientation.x * orientation.y);
+
+			m_mat[2][0] = 2 * (orientation.y * orientation.w - orientation.x * orientation.z);
+			m_mat[2][1] = 2 * (orientation.z * orientation.w + orientation.x * orientation.y);
+			m_mat[2][2] = 2 * (orientation.x * orientation.x + orientation.w * orientation.w) - 1;*/
+
+			m_mat[0][0] = 2 * (orientation.w * orientation.w + orientation.x * orientation.x) - 1;
+			m_mat[0][1] = 2 * (orientation.x * orientation.y - orientation.w * orientation.z);
+			m_mat[0][2] = 2 * (orientation.x * orientation.z + orientation.w * orientation.y);
+
+			m_mat[1][0] = 2 * (orientation.x * orientation.y + orientation.w * orientation.z);
+			m_mat[1][1] = 2 * (orientation.w * orientation.w + orientation.y * orientation.y) - 1;
+			m_mat[1][2] = 2 * (orientation.y * orientation.z - orientation.w * orientation.x);
+
+			m_mat[2][0] = 2 * (orientation.x * orientation.z - orientation.w * orientation.y);
+			m_mat[2][1] = 2 * (orientation.y * orientation.z + orientation.w * orientation.x);
+			m_mat[2][2] = 2 * (orientation.w * orientation.w + orientation.z * orientation.z) - 1;
+
+			m_mat[3][3] = 1;
 		}
 
 		float getDeterminant()
@@ -129,9 +159,58 @@ namespace math
 			setMatrix(out);
 		}
 
+		float* getMatrix()
+		{
+			/*debug::Logger::log("[" + std::to_string(m_mat[0][0]) + "," + std::to_string(m_mat[0][1]) + "," + std::to_string(m_mat[0][2]) + "," + std::to_string(m_mat[0][3]) + "]");
+			debug::Logger::log("[" + std::to_string(m_mat[1][0]) + "," + std::to_string(m_mat[1][1]) + "," + std::to_string(m_mat[1][2]) + "," + std::to_string(m_mat[1][3]) + "]");
+			debug::Logger::log("[" + std::to_string(m_mat[2][0]) + "," + std::to_string(m_mat[2][1]) + "," + std::to_string(m_mat[2][2]) + "," + std::to_string(m_mat[2][3]) + "]");
+			debug::Logger::log("[" + std::to_string(m_mat[3][0]) + "," + std::to_string(m_mat[3][1]) + "," + std::to_string(m_mat[3][2]) + "," + std::to_string(m_mat[3][3]) + "]");*/
+			return *this->m_mat;
+		}
+
 		void setMatrix(const Matrix4x4& matrix)
 		{
 			::memcpy(m_mat, matrix.m_mat, sizeof(float) * 16);
+		}
+
+		void setMatrix(float mat[4][4])
+		{
+			::memcpy(m_mat, mat, sizeof(float) * 16);
+		}
+
+		void setMatrix(float mat[16])
+		{
+			int index = 0;
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					m_mat[i][j] = mat[index];
+					index++;
+				}
+			}
+			/*m_mat[0][0] = mat[0];
+			m_mat[0][1] = mat[1];
+			m_mat[0][2] = mat[2];
+			m_mat[0][3] = mat[3];
+
+			m_mat[1][0] = mat[4];
+			m_mat[1][1] = mat[5];
+			m_mat[1][2] = mat[6];
+			m_mat[1][3] = mat[7];
+
+			m_mat[2][0] = mat[8];
+			m_mat[2][1] = mat[9];
+			m_mat[2][2] = mat[10];
+			m_mat[2][3] = mat[11];
+
+			m_mat[3][0] = mat[12];
+			m_mat[3][1] = mat[13];
+			m_mat[3][2] = mat[14];
+			m_mat[3][3] = mat[15];*/
+
+			/*debug::Logger::log("[" + std::to_string(m_mat[0][0]) + "," + std::to_string(m_mat[0][1]) + "," + std::to_string(m_mat[0][2]) + "," + std::to_string(m_mat[0][3]) + "]");
+			debug::Logger::log("[" + std::to_string(m_mat[1][0]) + "," + std::to_string(m_mat[1][1]) + "," + std::to_string(m_mat[1][2]) + "," + std::to_string(m_mat[1][3]) + "]");
+			debug::Logger::log("[" + std::to_string(m_mat[2][0]) + "," + std::to_string(m_mat[2][1]) + "," + std::to_string(m_mat[2][2]) + "," + std::to_string(m_mat[2][3]) + "]");
+			debug::Logger::log("[" + std::to_string(m_mat[3][0]) + "," + std::to_string(m_mat[3][1]) + "," + std::to_string(m_mat[3][2]) + "," + std::to_string(m_mat[3][3]) + "]");*/
 		}
 
 		Vector3D getZDirection()
@@ -172,6 +251,19 @@ namespace math
 			m_mat[1][1] = 2.0f / height;
 			m_mat[2][2] = 1.0f / (far_plane - near_plane);
 			m_mat[3][2] = -(near_plane / (far_plane - near_plane));
+		}
+
+		void transpose()
+		{
+			Matrix4x4 transpose;
+			for (int i = 0; i < 4; i++)
+			{
+				for (int j = 0; j < 4; j++ )
+				{
+					transpose.m_mat[j][i] = m_mat[i][j];
+				}
+			}
+			::memcpy(m_mat, transpose.m_mat, sizeof(float) * 16);
 		}
 	};
 }

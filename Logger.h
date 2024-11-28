@@ -4,12 +4,13 @@
 
 #include <string>
 #include <iostream>
+#include <exception>
 
 #define DEBUG_LOGS true
 #define ERROR_LOGS true
 #define SUCCESS_LOGS false
 
-namespace debug
+namespace GDEngine
 {
 	class Logger
 	{
@@ -61,6 +62,18 @@ namespace debug
 				return;
 
 			std::cout << "[" << getType(sender) << " ERROR]: " << msg << '\n';
+		}
+
+		static void throw_exception(const std::string& msg)
+		{
+			std::cout << "[EXCEPTION]: " << msg << '\n';
+			throw std::exception(msg.c_str());
+		}
+
+		static void out_of_range(const std::string& msg)
+		{
+			std::cout << "[OUT OF RANGE]: " << msg << '\n';
+			throw std::out_of_range(msg.c_str());
 		}
 
 	private:

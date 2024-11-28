@@ -5,44 +5,64 @@
 
 #include "GameObject.h"
 
-class GameObjectManager
+namespace GDEngine
 {
-private:
-	std::unordered_map<std::string, GameObject*> mapGameObjects;
-	std::vector<GameObject*> listGameObjects;
-	GameObject* selectedObject;
+	class GameObjectManager
+	{
+	public:
+		typedef std::unordered_map<std::string, AGameObject*> GameObjectTable;
+		typedef std::vector<AGameObject*> GameObjectList;
 
-public:
-	void createCube(void* shaderByteCode, size_t sizeShader);
-	void createPlane(void* shaderByteCode, size_t sizeShader);
-	void createQuad(void* shaderByteCode, size_t sizeShader);
+	private:
+		GameObjectTable m_gameObjectTable;
+		GameObjectList m_gameObjectList;
+		AGameObject* m_selectedObject;
 
-	void update(float deltaTime);
-	void draw(Window* window, VertexShader* vertexShader, PixelShader* pixelShader);
+	public:
+		void createCube();
+		void createPhysicsCube();
+		void createPhysicsPlane();
+		void createTexturedCube();
+		void createPlane();
+		void createQuad();
+		void createTeapot();
+		void createBunny();
+		void createArmadillo();
 
-	std::vector<GameObject*> getAllObjects();
-	GameObject* findObjectByName(std::string name);
-	void addObject(GameObject* gameObject);
-	void deleteObject(GameObject* gameObject);
-	void deleteObjectByName(std::string name);
-	void deleteAllObjects();
-	void setSelectedObject(std::string name);
-	void setSelectedObject(GUID guid);
-	void setSelectedObject(GameObject* gameObject);
-	GameObject* getSelectedObject();
+		void update(float deltaTime);
+		void draw(int width, int height);
 
-private:
-    static GameObjectManager* P_SHARED_INSTANCE;
+		GameObjectList getAllObjects();
+		AGameObject* findObjectByName(std::string name);
+		void addObject(AGameObject* gameObject);
+		void deleteObject(AGameObject* gameObject);
+		void deleteObjectByName(std::string name);
+		void deleteAllObjects();
+		void setSelectedObject(std::string name);
+		void setSelectedObject(GUID guid);
+		void setSelectedObject(AGameObject* gameObject);
+		AGameObject* getSelectedObject();
 
-private:
-    GameObjectManager();
-	~GameObjectManager();
-    GameObjectManager(const GameObjectManager&);
-    GameObjectManager& operator = (const GameObjectManager&);
+		void saveEditStates();
+		void restoreEditStates();
+		void applyAction(EditorAction* action);
 
-public:
-    static GameObjectManager* getInstance();
-	static void initialize();
-    static void destroy();
-};
+		void setPhysics(bool physics);
 
+		void createObjectFromFile(std::string objectGuid, std::string objectName, Vector3D position, Vector3D rotation, Vector3D scale);
+
+	private:
+		static GameObjectManager* P_SHARED_INSTANCE;
+
+	private:
+		GameObjectManager();
+		~GameObjectManager();
+		GameObjectManager(const GameObjectManager&);
+		GameObjectManager& operator = (const GameObjectManager&);
+
+	public:
+		static GameObjectManager* getInstance();
+		static void initialize();
+		static void destroy();
+	};
+}

@@ -1,18 +1,19 @@
 #pragma once
 
 #include "GameObject.h"
-#include "InputListener.h"
 #include "Vector2D.h"
 
-enum ECameraMode
+namespace GDEngine
 {
-	ORTHO,
-	PERSPECTIVE,
-	ORTHO_TOP,
-};
+	enum ECameraMode
+	{
+		ORTHO,
+		PERSPECTIVE,
+		ORTHO_TOP,
+	};
 
-class Camera : public GameObject
-{
+	class Camera : public AGameObject
+	{
 	private:
 		ConstantBuffer* constantBuffer;
 
@@ -47,5 +48,5 @@ class Camera : public GameObject
 			Matrix4x4 viewMatrix;
 			Matrix4x4 projMatrix;
 		};
-};
-
+	};
+}

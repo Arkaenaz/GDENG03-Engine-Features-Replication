@@ -4,9 +4,11 @@
 #include "EngineTime.h"
 #include "InputSystem.h"
 
+using namespace GDEngine;
+
 SceneCamera::SceneCamera(std::string name) : Camera(name)
 {
-	localMatrix.setIdentity();
+	m_localMatrix.setIdentity();
 }
 
 SceneCamera::~SceneCamera()
@@ -26,7 +28,7 @@ void SceneCamera::update(float deltaTime)
 
 		if (InputSystem::getInstance()->getKey('W'))
 		{
-			newPosition += viewMatrix.getZDirection() * (speed * deltaTime); \
+			newPosition += viewMatrix.getZDirection() * (speed * deltaTime); 
 		}
 		else if (InputSystem::getInstance()->getKey('S'))
 		{
@@ -81,15 +83,15 @@ void SceneCamera::onMouseMove(const Vector2D& deltaMousePosition)
 	{
 		/*RECT windowRect = AppWindow::getInstance()->getClientWindowRect();
 
-		float width = windowRect.right - windowRect.left;
+		float m_width = windowRect.right - windowRect.left;
 		float height = windowRect.bottom - windowRect.top;
 
-		Vector2D position = Vector2D(windowRect.left + width / 2.0f, windowRect.top + height / 2.0f);
+		Vector2D position = Vector2D(windowRect.left + m_width / 2.0f, windowRect.top + height / 2.0f);
 
 		InputSystem::getInstance()->setCursorPosition(position);*/
 
-		localRotation.x += ((deltaMousePosition.y) - (InputSystem::getInstance()->getOldMousePosition().y)) * 0.2f * EngineTime::getDeltaTime();
-		localRotation.y += ((deltaMousePosition.x) - (InputSystem::getInstance()->getOldMousePosition().x)) * 0.2f * EngineTime::getDeltaTime();
+		m_localRotation.x += ((deltaMousePosition.y) - (InputSystem::getInstance()->getOldMousePosition().y)) * 0.2f * EngineTime::getDeltaTime();
+		m_localRotation.y += ((deltaMousePosition.x) - (InputSystem::getInstance()->getOldMousePosition().x)) * 0.2f * EngineTime::getDeltaTime();
 	}
 }
 

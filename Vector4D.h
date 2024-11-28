@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace math
+namespace GDEngine
 {
 	class Vector4D
 	{

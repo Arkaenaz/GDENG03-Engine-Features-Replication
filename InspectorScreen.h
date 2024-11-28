@@ -2,18 +2,31 @@
 #include "GameObject.h"
 #include "UIScreen.h"
 
-class InspectorScreen : public UIScreen
+namespace GDEngine
 {
+	class InspectorScreen : public UIScreen
+	{
+	private:
+		friend class UIManager;
 
-private:
-	InspectorScreen();
-	~InspectorScreen();
+	private:
+		InspectorScreen();
+		~InspectorScreen();
 
-private:
-	friend class UIManager;
+	private:
+		virtual void draw() override;
+		void drawInspector();
+		void drawTransformTable(AGameObject* gameObject);
+		void drawComponentList(AGameObject* gameObject);
 
-private:
-	virtual void draw() override;
-	void drawInspector(GameObject* gameObject);
-	void drawTransformTable(GameObject* gameObject);
-};
+	private:
+		AGameObject* m_selectedObject = nullptr;
+		float m_position[3];
+		float m_scale[3];
+		float m_rotation[3];
+		bool m_hasChanged = false;
+		bool m_isLeftDown = false;
+		bool m_addComponent = false;
+
+	};
+}

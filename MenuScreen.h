@@ -1,17 +1,28 @@
 #pragma once
 
+#include <imgui.h>
+#include <imfilebrowser.h>
+
 #include "UIScreen.h"
 
-class MenuScreen : public UIScreen
+namespace GDEngine
 {
-private:
-	MenuScreen();
-	~MenuScreen();
+	class MenuScreen : public UIScreen
+	{
+	private:
+		bool m_openSceneSelected = false;
 
-private:
-	friend class UIManager;
+		ImGui::FileBrowser* m_saveSceneDialog;
+		ImGui::FileBrowser* m_openSceneDialog;
+	private:
+		MenuScreen();
+		~MenuScreen();
 
-private:
-	virtual void draw() override;
-};
+	private:
+		friend class UIManager;
+
+	private:
+		virtual void draw() override;
+	};
+}
 

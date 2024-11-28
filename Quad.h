@@ -2,26 +2,25 @@
 
 #include "GameObject.h"
 
-using namespace graphics;
+namespace GDEngine {
+	class Quad : public AGameObject
+	{
+	private:
+		VertexBuffer* m_vertexBuffer;
+		ConstantBuffer* m_constantBuffer;
 
-class Quad : public GameObject
-{
-private:
-	VertexBuffer* vertexBuffer;
-	ConstantBuffer* constantBuffer;
+		float deltaPosition;
+		float deltaScale;
+		float angle;
 
-	float deltaPosition;
-	float deltaScale;
-	float angle;
+	public:
+		Quad(std::string name);
+		~Quad();
 
-public:
-	Quad(std::string name, void* shaderByteCode, size_t sizeShader);
-	~Quad();
-
-public:
-	void onCreate() override;
-	void update(float deltaTime) override;
-	void draw(Window* window, VertexShader* vertexShader, PixelShader* pixelShader) override;
-	void onDestroy() override;
-};
-
+	public:
+		void onCreate() override;
+		void update(float deltaTime) override;
+		void draw(int width, int height) override;
+		void onDestroy() override;
+	};
+}

@@ -3,13 +3,13 @@
 #include <d3d11.h>
 #include "Prerequisites.h"
 
-namespace graphics
+namespace GDEngine
 {
 	class VertexShader
 	{
 	private:
-		RenderSystem* system = nullptr;
-		ID3D11VertexShader* vertexShader;
+		RenderSystem* m_system = nullptr;
+		ID3D11VertexShader* m_vertexShader;
 
 	private:
 		friend class RenderSystem;

@@ -3,12 +3,12 @@
 #include <d3d11.h>
 #include "Prerequisites.h"
 
-namespace graphics
+namespace GDEngine
 {
 	class ConstantBuffer
 	{
 	private:
-		RenderSystem* system = nullptr;
+		RenderSystem* m_system = nullptr;
 		ID3D11Buffer* m_buffer;
 
 	private:

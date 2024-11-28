@@ -1,11 +1,13 @@
 #include "Camera.h"
-#include "Camera.h"
 
-#include "EngineTime.h"
-#include "InputSystem.h"
 #include "AppWindow.h"
+#include "GraphicsEngine.h"
 
-Camera::Camera(std::string name) : GameObject(name)
+#include "ConstantBuffer.h"
+
+using namespace GDEngine;
+
+Camera::Camera(std::string name) : AGameObject(name)
 {
 	CBCameraData cbData;
 	constantBuffer = GraphicsEngine::getInstance()->getRenderSystem()->createConstantBuffer(&cbData, sizeof(CBCameraData));
@@ -18,20 +20,19 @@ Camera::Camera(std::string name) : GameObject(name)
 Camera::~Camera()
 {
 	delete constantBuffer;
-	GameObject::~GameObject();
+	AGameObject::~AGameObject();
 }
 
 void Camera::onCreate()
 {
-	GameObject::onCreate();
+	AGameObject::onCreate();
 }
 
 void Camera::update(float deltaTime)
 {
-	GameObject::update(deltaTime);
-
 	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
 
+	this->updateLocalMatrix();
 	this->updateViewMatrix();
 	this->updateProjectionMatrix();
 
@@ -51,15 +52,15 @@ void Camera::updateViewMatrix()
 	Matrix4x4 temp;
 
 	temp.setIdentity();
-	temp.setRotationX(this->localRotation.x);
+	temp.setRotationX(this->m_localRotation.x);
 	worldCam *= temp;
 
 	temp.setIdentity();
-	temp.setRotationY(this->localRotation.y);
+	temp.setRotationY(this->m_localRotation.y);
 	worldCam *= temp;
 
 	temp.setIdentity();
-	temp.setTranslation(this->localPosition);
+	temp.setTranslation(this->m_localPosition);
 	worldCam *= temp;
 
 	worldCam.inverse();
@@ -68,7 +69,6 @@ void Camera::updateViewMatrix()
 
 void Camera::updateProjectionMatrix()
 {
-
 	Matrix4x4 proj;
 	switch (type) {
 		case 0:
@@ -88,11 +88,12 @@ void Camera::updateProjectionMatrix()
 			);
 			break;
 		case 2:
-			this->projMatrix.setOrthoLH(
+			proj.setOrthoLH(
 				width / 100.0f,
 				height / 100.0f,
 				-100.0f, 100.0f
 			);
+			break;
 		default:
 			proj.setPerspectiveFovLH(
 				1.57f, // fov
@@ -107,7 +108,7 @@ void Camera::updateProjectionMatrix()
 
 void Camera::onDestroy()
 {
-	GameObject::onDestroy();
+	AGameObject::onDestroy();
 }
 
 Matrix4x4 Camera::getViewMatrix()

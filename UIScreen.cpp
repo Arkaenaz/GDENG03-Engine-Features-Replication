@@ -1,6 +1,8 @@
 #include "UIScreen.h"
 
-UIScreen::UIScreen(String name)
+using namespace GDEngine;
+
+UIScreen::UIScreen(std::string name)
 {
 	this->name = name;
 }
@@ -10,7 +12,7 @@ UIScreen::~UIScreen()
 	
 }
 
-String UIScreen::getName()
+std::string UIScreen::getName()
 {
 	return this->name;
 }

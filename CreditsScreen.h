@@ -2,19 +2,21 @@
 
 #include "UIScreen.h"
 
-class CreditsScreen : public UIScreen
+namespace GDEngine
 {
-private:
-	float count = 0;
+	class CreditsScreen : public UIScreen
+	{
+	private:
+		float count = 0;
 
-private:
-	CreditsScreen();
-	~CreditsScreen();
+	private:
+		CreditsScreen();
+		~CreditsScreen();
 
-private:
-	friend class UIManager;
+	private:
+		friend class UIManager;
 
-private:
-	virtual void draw() override;
-};
-
+	private:
+		virtual void draw() override;
+	};
+}

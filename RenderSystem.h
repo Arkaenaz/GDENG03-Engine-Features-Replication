@@ -3,34 +3,47 @@
 #include <d3d11.h>
 #include "Prerequisites.h"
 
-namespace graphics
+#include "SwapChain.h"
+#include "DeviceContext.h"
+#include "VertexBuffer.h"
+#include "TexturedVertexBuffer.h"
+#include "IndexBuffer.h"
+#include "ConstantBuffer.h"
+#include "VertexShader.h"
+#include "PixelShader.h"
+#include "Viewport.h"
+#include "RasterizerState.h"
+#include "Texture.h"
+
+namespace GDEngine
 {
 	class RenderSystem
 	{
 	private:
-		DeviceContext* m_imm_device_context;
+		DeviceContext* m_immediateDeviceContext;
 
 	private:
-		ID3D11Device* m_d3d_device;
-		D3D_FEATURE_LEVEL m_feature_level;
+		ID3D11Device* m_D3DDevice;
+		D3D_FEATURE_LEVEL m_featureLevel;
 
 	private:
-		IDXGIDevice* m_dxgi_device;
-		IDXGIAdapter* m_dxgi_adapter;
-		IDXGIFactory* m_dxgi_factory;
-		ID3D11DeviceContext* m_imm_context;
+		IDXGIDevice* m_dxgiDevice;
+		IDXGIAdapter* m_dxgiAdapter;
+		IDXGIFactory* m_dxgiFactory;
+		ID3D11DeviceContext* m_immediateContext;
 
 	private:
 		ID3DBlob* m_blob = nullptr;
 
-		ID3DBlob* m_vsblob = nullptr;
-		ID3DBlob* m_psblob = nullptr;
-		ID3D11VertexShader* m_vs = nullptr;
-		ID3D11PixelShader* m_ps = nullptr;
+		ID3DBlob* m_vertexShaderBlob = nullptr;
+		ID3DBlob* m_pixelShaderBlob = nullptr;
+		ID3D11VertexShader* m_vertexShader = nullptr;
+		ID3D11PixelShader* m_pixelShader = nullptr;
 
 	private:
 		friend class SwapChain;
 		friend class VertexBuffer;
+		friend class TexturedVertexBuffer;
 		friend class IndexBuffer;
 		friend class ConstantBuffer;
 		friend class VertexShader;
@@ -38,14 +51,16 @@ namespace graphics
 		friend class Viewport;
 		friend class RasterizerState;
 		friend class Texture;
+		friend class GraphicsEngine;
 
-	public:
+	private:
 		RenderSystem();
 		~RenderSystem();
 
 	public:
 		SwapChain* createSwapChain(HWND hwnd, UINT width, UINT height);
 		VertexBuffer* createVertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list, void* shader_byte_code, UINT size_byte_shader);
+		TexturedVertexBuffer* createTexturedVertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list, void* shader_byte_code, UINT size_byte_shader);
 		IndexBuffer* createIndexBuffer(void* list_indices, UINT size_list);
 		ConstantBuffer* createConstantBuffer(void* buffer, UINT size_buffer);
 		VertexShader* createVertexShader(const void* shader_byte_code, size_t byte_code_size);

@@ -5,20 +5,20 @@
 #include "RenderSystem.h"
 #include "Logger.h"
 
-using namespace graphics;
+using namespace GDEngine;
 
-RasterizerState::RasterizerState(RenderSystem* system, D3D11_FILL_MODE fillMode, D3D11_CULL_MODE cullMode) : system(system)
+RasterizerState::RasterizerState(RenderSystem* system, D3D11_FILL_MODE fillMode, D3D11_CULL_MODE cullMode) : m_system(system)
 {
 	D3D11_RASTERIZER_DESC desc = {};
 	ZeroMemory(&desc, sizeof(D3D11_RASTERIZER_DESC));
 	desc.FillMode = fillMode;
 	desc.CullMode = cullMode;
 
-	if (!debug::Logger::log(this, this->system->m_d3d_device->CreateRasterizerState(&desc, &m_rasterizer_state)))
-		throw std::exception("RasterizerState not created successfully");
+	if (!Logger::log(this, this->m_system->m_D3DDevice->CreateRasterizerState(&desc, &m_rasterizerState)))
+		Logger::throw_exception("RasterizerState not created successfully");
 }
 
 RasterizerState::~RasterizerState()
 {
-	m_rasterizer_state->Release();
+	m_rasterizerState->Release();
 }

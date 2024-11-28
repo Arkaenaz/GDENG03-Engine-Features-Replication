@@ -5,9 +5,9 @@
 #include "RenderSystem.h"
 #include "Logger.h"
 
-using namespace graphics;
+using namespace GDEngine;
 
-IndexBuffer::IndexBuffer(RenderSystem* system, void* list_indices, UINT size_list) : system(system), m_buffer(0)
+IndexBuffer::IndexBuffer(RenderSystem* system, void* list_indices, UINT size_list) : m_system(system), m_buffer(0)
 {
 	D3D11_BUFFER_DESC buff_desc = {};
 	buff_desc.Usage = D3D11_USAGE_DEFAULT;
@@ -19,10 +19,10 @@ IndexBuffer::IndexBuffer(RenderSystem* system, void* list_indices, UINT size_lis
 	D3D11_SUBRESOURCE_DATA init_data = {  };
 	init_data.pSysMem = list_indices;
 
-	m_size_list = size_list;
+	m_sizeList = size_list;
 
-	if (!debug::Logger::log(this, this->system->m_d3d_device->CreateBuffer(&buff_desc, &init_data, &m_buffer)))
-		throw std::exception("IndexBuffer not created successfully");
+	if (!Logger::log(this, this->m_system->m_D3DDevice->CreateBuffer(&buff_desc, &init_data, &m_buffer)))
+		Logger::throw_exception("IndexBuffer not created successfully");
 }
 
 IndexBuffer::~IndexBuffer()
@@ -32,5 +32,5 @@ IndexBuffer::~IndexBuffer()
 
 UINT IndexBuffer::getSizeIndexList()
 {
-	return this->m_size_list;
+	return this->m_sizeList;
 }

@@ -1,83 +1,107 @@
 #pragma once
 
+#include <vector>
 #include <string>
 #include <guiddef.h>
 
-#include "GraphicsEngine.h"
-#include "RenderSystem.h"
-#include "VertexShader.h"
+#include "AComponent.h"
 
 #include "Matrix4x4.h"
 #include "Vector3D.h"
 
-#include "EngineTime.h"
-#include "InputSystem.h"
+#include "Prerequisites.h"
 
-#include "Logger.h"
-
-class Window;
-
-using namespace math;
-using namespace graphics;
-
-class GameObject
-{
-protected:
-	GUID guid;
-	std::string name;
-
-	Vector3D localPosition;
-	Vector3D localScale;
-	Vector3D localRotation;
-	Matrix4x4 localMatrix;
-
-	bool active;
-
-	friend class GameObjectManager;
-public:
-	GameObject(std::string name);
-	~GameObject();
-
-public:
-	virtual void update(float deltaTime) = 0;
-	virtual void draw(Window* window, VertexShader* vertexShader, PixelShader* pixelShader);
-
-public:
-	void setPosition(float x, float y, float z);
-	void setPosition(Vector3D position);
-	Vector3D getLocalPosition();
-
-	void setScale(float x, float y, float z);
-	void setScale(Vector3D scale);
-	Vector3D getLocalScale();
-
-	void setRotation(float x, float y, float z);
-	void setRotation(Vector3D rotation);
-	Vector3D getLocalRotation();
-
-	void setName(std::string name);
-	std::string getName();
-	GUID getGuid();
-
-	bool isActive();
-	void setActive(bool active);
-
-	struct vertex
+namespace GDEngine {
+	class EditorAction;
+	class AGameObject
 	{
-		Vector3D position;
-		Vector3D color;
-		Vector3D color2;
+	public:
+		typedef Vector4D AQuaternion;
+		typedef std::vector<AComponent*> ComponentList;
+
+		__declspec(align(16))
+			struct CBObjectData
+		{
+			Matrix4x4 worldMatrix;
+			float time;
+		};
+
+		virtual void update(float deltaTime);
+		virtual void draw(int width, int height);
+		virtual void onCreate();
+		virtual void onDestroy();
+
+		void setName(std::string name);
+		std::string getName();
+		GUID getGuid();
+		std::string getGuidString();
+
+		void setPosition(float x, float y, float z);
+		void setPosition(Vector3D position);
+		Vector3D getLocalPosition();
+
+		void setScale(float x, float y, float z);
+		void setScale(Vector3D scale);
+		Vector3D getLocalScale();
+
+		void setRotation(float x, float y, float z);
+		void setRotation(Vector3D rotation);
+		Vector3D getLocalRotation();
+
+		void setOrientation(AQuaternion orientation);
+		AQuaternion getOrientation();
+
+		void updateLocalMatrix();
+		void setLocalMatrix(float matrix[16]);
+		void setLocalMatrix(Vector3D position, AQuaternion orientation, float matrix[16]);
+		float* getLocalMatrix();
+		float* getPhysicsLocalMatrix();
+
+		bool isActive();
+		void setActive(bool active);
+
+		bool isPhysics();
+		void setPhysics(bool physics);
+
+		void attachComponent(AComponent* component);
+		void detachComponent(AComponent* component);
+
+		AComponent* findComponentByName(std::string name);
+		AComponent* findComponentOfType(AComponent::ComponentType type, std::string name);
+		ComponentList getComponentsOfType(AComponent::ComponentType type);
+		ComponentList getComponentsOfTypeRecursive(AComponent::ComponentType type);
+
+		void saveEditState();
+		void restoreEditState();
+
+	protected:
+		struct vertex
+		{
+			Vector3D position;
+			Vector3D color;
+			Vector3D color2;
+		};
+
+		AGameObject(std::string name);
+		AGameObject(std::string guid, std::string name);
+		virtual ~AGameObject();
+
+		GUID m_guid;
+		std::string m_name;
+
+		Vector3D m_localPosition;
+		Vector3D m_localScale;
+		Vector3D m_localRotation;
+		AQuaternion m_orientation;
+		Matrix4x4 m_localMatrix;
+
+		ComponentList m_componentList;
+
+	private:
+		friend class GameObjectManager;
+
+		bool m_active;
+		bool m_physics;
+		EditorAction* m_lastEditState = nullptr;
 	};
-
-	__declspec(align(16))
-	struct CBObjectData
-	{
-		Matrix4x4 worldMatrix;
-		float time;
-	};
-
-public:
-	virtual void onCreate();
-	virtual void onDestroy();
-};
-
+}

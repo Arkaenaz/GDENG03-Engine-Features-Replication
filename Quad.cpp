@@ -1,82 +1,96 @@
 #include "Quad.h"
 
-#include "AppWindow.h"
-#include "CameraManager.h"
+#include "GraphicsEngine.h"
 
-Quad::Quad(std::string name, void* shaderByteCode, size_t sizeShader) : GameObject(name)
-{
-	vertex list[] =
+#include "EngineTime.h"
+#include "ShaderLibrary.h"
+
+namespace GDEngine {
+	Quad::Quad(std::string name) : AGameObject(name)
 	{
-		{ Vector3D(-0.5f,-0.5f,0.0f),   Vector3D(0,0,0), Vector3D(0,1,0) },
-		{ Vector3D(-0.5f,0.5f,0.0f),   Vector3D(1,1,0), Vector3D(0,1,1) },
-		{ Vector3D(0.5f,-0.5f,0.0f), Vector3D(0,0,1),  Vector3D(1,0,0) },
-		{ Vector3D(0.5f,0.5f,0.0f),    Vector3D(1,1,1), Vector3D(0,0,1) }
-	};
+		vertex list[] =
+		{
+			{ Vector3D(-0.5f,-0.5f,0.0f),   Vector3D(0,0,0), Vector3D(0,1,0) },
+			{ Vector3D(-0.5f,0.5f,0.0f),   Vector3D(1,1,0), Vector3D(0,1,1) },
+			{ Vector3D(0.5f,-0.5f,0.0f), Vector3D(0,0,1),  Vector3D(1,0,0) },
+			{ Vector3D(0.5f,0.5f,0.0f),    Vector3D(1,1,1), Vector3D(0,0,1) }
+		};
 
-	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
-	CBObjectData cc;
-	cc.time = 0.0f;
+		RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
+		CBObjectData cc;
+		cc.time = 0.0f;
 
-	constantBuffer = renderSystem->createConstantBuffer(&cc, sizeof(CBObjectData));
+		m_constantBuffer = renderSystem->createConstantBuffer(&cc, sizeof(CBObjectData));
 
-	UINT sizeList = ARRAYSIZE(list);
+		UINT sizeList = ARRAYSIZE(list);
 
-	vertexBuffer = renderSystem->createVertexBuffer(list, sizeof(vertex), sizeList, shaderByteCode, sizeShader);
-}
+		ShaderNames shaderNames;
 
-Quad::~Quad()
-{
-}
+		void* shaderByteCode = NULL;
+		size_t sizeShader = 0;
 
-void Quad::onCreate()
-{
-	GameObject::onCreate();
-}
+		ShaderLibrary::getInstance()->requestVertexShaderData(shaderNames.BASE_VERTEX_SHADER_NAME, &shaderByteCode, &sizeShader);
 
-void Quad::update(float deltaTime)
-{
-	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
-	angle += 1.57f * EngineTime::getDeltaTime();
+		m_vertexBuffer = renderSystem->createVertexBuffer(list, sizeof(vertex), sizeList, shaderByteCode, sizeShader);
+	}
 
-	CBObjectData cc;
-	cc.time = angle;
-	
-	deltaPosition += EngineTime::getDeltaTime() / 10.0f;
-	deltaScale += EngineTime::getDeltaTime() / 1.0f;
+	Quad::~Quad()
+	{
+	}
 
-	if (deltaPosition > 1.0f)
-		deltaPosition = 0;
+	void Quad::onCreate()
+	{
+		AGameObject::onCreate();
+	}
 
-	Matrix4x4 temp;
+	void Quad::update(float deltaTime)
+	{
+		RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
+		angle += 1.57f * EngineTime::getDeltaTime();
 
-	cc.worldMatrix.setIdentity();
+		CBObjectData cc;
+		cc.time = angle;
 
-	cc.worldMatrix.setScale(Vector3D::lerp(Vector3D(0.5f, 0.5, 0), Vector3D(1, 1, 0), (sin(deltaScale) + 1.0f) / 2.0f));
+		deltaPosition += EngineTime::getDeltaTime() / 10.0f;
+		deltaScale += EngineTime::getDeltaTime() / 1.0f;
 
-	temp.setIdentity();
-	temp.setTranslation(Vector3D::lerp(Vector3D(0.1f, -1.5f, 0), Vector3D(1.5f, 1.5f, 0), deltaPosition));
-	cc.worldMatrix *= temp;
+		if (deltaPosition > 1.0f)
+			deltaPosition = 0;
 
-	constantBuffer->update(renderSystem->getImmediateDeviceContext(), &cc);
-}
+		Matrix4x4 temp;
 
-// Sets shaders and draws afterwards
-void Quad::draw(Window* window, VertexShader* vertexShader, PixelShader* pixelShader)
-{
-	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
+		cc.worldMatrix.setIdentity();
 
-	renderSystem->getImmediateDeviceContext()->setConstantBuffer(constantBuffer);
+		cc.worldMatrix.setScale(Vector3D::lerp(Vector3D(0.5f, 0.5, 0), Vector3D(1, 1, 0), (sin(deltaScale) + 1.0f) / 2.0f));
 
-	renderSystem->getImmediateDeviceContext()->setVertexShader(vertexShader);
-	renderSystem->getImmediateDeviceContext()->setPixelShader(pixelShader);
+		temp.setIdentity();
+		temp.setTranslation(Vector3D::lerp(Vector3D(0.1f, -1.5f, 0), Vector3D(1.5f, 1.5f, 0), deltaPosition));
+		cc.worldMatrix *= temp;
 
-	renderSystem->getImmediateDeviceContext()->setVertexBuffer(vertexBuffer);
+		m_constantBuffer->update(renderSystem->getImmediateDeviceContext(), &cc);
+	}
 
-	renderSystem->getImmediateDeviceContext()->drawTriangleStrip(vertexBuffer->getSizeVertexList(), 0);
-}
+	// Sets shaders and draws afterwards
+	void Quad::draw(int width, int height)
+	{
+		ShaderNames shaderNames;
+		RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
+		VertexShader* vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.BASE_VERTEX_SHADER_NAME);
+		PixelShader* pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.BASE_PIXEL_SHADER_NAME);
 
-void Quad::onDestroy()
-{
-	delete constantBuffer;
-	delete vertexBuffer;
+		renderSystem->getImmediateDeviceContext()->setConstantBuffer(m_constantBuffer);
+
+		renderSystem->getImmediateDeviceContext()->setVertexShader(vertexShader);
+		renderSystem->getImmediateDeviceContext()->setPixelShader(pixelShader);
+
+		renderSystem->getImmediateDeviceContext()->setVertexBuffer(m_vertexBuffer);
+
+		renderSystem->getImmediateDeviceContext()->drawTriangleStrip(m_vertexBuffer->getSizeVertexList(), 0);
+	}
+
+	void Quad::onDestroy()
+	{
+		delete m_constantBuffer;
+		delete m_vertexBuffer;
+	}
 }

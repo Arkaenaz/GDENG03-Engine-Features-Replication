@@ -12,16 +12,16 @@
 #include "Logger.h"
 #include "Texture.h"
 
-
-using namespace graphics;
+using namespace GDEngine;
 
 TextureManager::TextureManager() : ResourceManager() 
 {
-	debug::Logger::log(this, "Initialized");
+	Logger::log(this, "Initialized");
 }
 
 TextureManager::~TextureManager()
 {
+	Logger::log(this, "Destroyed");
 }
 
 Texture* TextureManager::createTextureFromFile(const wchar_t* filePath)
@@ -31,16 +31,16 @@ Texture* TextureManager::createTextureFromFile(const wchar_t* filePath)
 #endif
 
 #if _MSC_VER >= 1920 && __cplusplus > 201402L 
-	std::wstring fullPath = std::filesystem::absolute(filePath);
+	std::wstring m_fullPath = std::filesystem::absolute(filePath);
 #endif
 
-	if (this->mapResources[fullPath] == NULL)
+	if (this->m_resourceMap[fullPath] == NULL)
 	{
-		debug::Logger::log(L"Created Texture from path : " + fullPath);
-		this->mapResources[fullPath] = this->createResourceFromFileConcrete(filePath);
+		Logger::log(L"Created Texture from path : " + fullPath);
+		this->m_resourceMap[fullPath] = this->createResourceFromFileConcrete(filePath);
 	}
 
-	return (Texture*)this->mapResources[fullPath];
+	return (Texture*)this->m_resourceMap[fullPath];
 }
 
 Resource* TextureManager::createResourceFromFileConcrete(const wchar_t* filePath)

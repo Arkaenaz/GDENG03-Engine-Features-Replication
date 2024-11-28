@@ -1,10 +1,10 @@
 ﻿#include "CameraManager.h"
 
-#include <iostream>
-
 #include "GameObjectManager.h"
 #include "Logger.h"
 #include "SceneCamera.h"
+
+using namespace GDEngine;
 
 CameraManager* CameraManager::P_SHARED_INSTANCE = NULL;
 
@@ -20,32 +20,32 @@ Matrix4x4 CameraManager::getMainCameraProjMatrix()
 
 Matrix4x4 CameraManager::getSceneCameraViewMatrix()
 {
-	return this->sceneCamera->getViewMatrix();
+	return this->selectedSceneCamera->getViewMatrix();
 }
 
 Matrix4x4 CameraManager::getSceneCameraProjMatrix()
 {
-	return this->sceneCamera->getProjMatrix();
+	return this->selectedSceneCamera->getProjMatrix();
 }
 
 SceneCamera* CameraManager::getSceneCamera()
 {
-	return this->sceneCamera;
+	return this->selectedSceneCamera;
 }
 
 SceneCamera* CameraManager::getSceneCameraByIndex(int index)
 {
-	if (index > sceneCameras.size())
+	if (index > sceneCameraList.size())
 	{
-		debug::Logger::log(this, "Camera Index over Cameras in system");
+		Logger::log(this, "Camera Index over Cameras in system");
 		return NULL;
 	}
-	return this->sceneCameras[index];
+	return this->sceneCameraList[index];
 }
 
 std::vector<SceneCamera*> CameraManager::getSceneCameras()
 {
-	return this->sceneCameras;
+	return this->sceneCameraList;
 }
 
 void CameraManager::setMainCamera(Camera* camera)
@@ -55,37 +55,37 @@ void CameraManager::setMainCamera(Camera* camera)
 
 void CameraManager::setMainCameraByIndex(int index)
 {
-	if (index > cameras.size())
+	if (index > cameraList.size())
 	{
-		debug::Logger::log(this, "Camera Index over Cameras in system");
+		Logger::log(this, "Camera Index over Cameras in system");
 		return;
 	}
-	setMainCamera(cameras[index]);
+	setMainCamera(cameraList[index]);
 }
 
 void CameraManager::setSceneCameraProjection(int type)
 {
-	this->sceneCamera->setProjectionType(type);
+	this->selectedSceneCamera->setProjectionType(type);
 }
 
 void CameraManager::updateSceneCamera(float deltaTime)
 {
-	this->sceneCamera->update(deltaTime);
+	this->selectedSceneCamera->update(deltaTime);
 }
 
 void CameraManager::addCamera(Camera* camera)
 {
 	if (mainCamera == NULL)
 		setMainCamera(camera);
-	this->cameras.push_back(camera);
+	this->cameraList.push_back(camera);
 }
 
 void CameraManager::addSceneCamera(SceneCamera* camera)
 {
-	if (this->sceneCamera == NULL)
-		this->sceneCamera = camera;
+	if (this->selectedSceneCamera == NULL)
+		this->selectedSceneCamera = camera;
 
-	this->sceneCameras.push_back(camera);
+	this->sceneCameraList.push_back(camera);
 }
 
 void CameraManager::removeSceneCamera(SceneCamera* camera)
@@ -93,15 +93,15 @@ void CameraManager::removeSceneCamera(SceneCamera* camera)
 	std::string name = camera->getName();
 	int index = -1;
 
-	for (int i = 0; i < this->sceneCameras.size() && index == -1; i++)
+	for (int i = 0; i < this->sceneCameraList.size() && index == -1; i++)
 	{
-		if (this->sceneCameras[i] == camera)
+		if (this->sceneCameraList[i] == camera)
 			index = i;
 	}
 
 	if (index != -1)
 	{
-		this->sceneCameras.erase(this->sceneCameras.begin() + index);
+		this->sceneCameraList.erase(this->sceneCameraList.begin() + index);
 	}
 }
 
@@ -110,31 +110,31 @@ void CameraManager::removeCamera(Camera* camera)
 	std::string name = camera->getName();
 	int index = -1;
 
-	for (int i = 0; i < this->cameras.size() && index == -1; i++)
+	for (int i = 0; i < this->cameraList.size() && index == -1; i++)
 	{
-		if (this->cameras[i] == camera)
+		if (this->cameraList[i] == camera)
 			index = i;
 	}
 
 	if (index != -1)
 	{
-		this->cameras.erase(this->cameras.begin() + index);
+		this->cameraList.erase(this->cameraList.begin() + index);
 	}
 }
 
 CameraManager::CameraManager()
 {
-	this->sceneCamera = new SceneCamera("Scene Camera");
-	this->sceneCamera->setPosition(0, 1, -8);
-	this->sceneCamera->updateViewMatrix();
-	this->addCamera(this->sceneCamera);
-	debug::Logger::log(this, "Initialized");
+	this->selectedSceneCamera = new SceneCamera("Scene Camera");
+	this->selectedSceneCamera->setPosition(0, 1, -8);
+	this->selectedSceneCamera->updateViewMatrix();
+	this->addCamera(this->selectedSceneCamera);
+	Logger::log(this, "Initialized");
 }
 
 CameraManager::~CameraManager()
 {
 	P_SHARED_INSTANCE = nullptr;
-	debug::Logger::log(this, "Released");
+	Logger::log(this, "Released");
 }
 
 CameraManager::CameraManager(const CameraManager&) {}
@@ -146,7 +146,7 @@ CameraManager* CameraManager::getInstance() {
 void CameraManager::initialize()
 {
 	if (P_SHARED_INSTANCE)
-		throw std::exception("Camera manager already created");
+		Logger::throw_exception("Camera manager already created");
 	P_SHARED_INSTANCE = new CameraManager();
 }
 

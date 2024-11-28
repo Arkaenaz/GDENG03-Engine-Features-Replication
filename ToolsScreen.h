@@ -2,16 +2,18 @@
 
 #include "UIScreen.h"
 
-class ToolsScreen : public UIScreen
+namespace GDEngine
 {
-private:
-	ToolsScreen();
-	~ToolsScreen();
+	class ToolsScreen : public UIScreen
+	{
+	private:
+		ToolsScreen();
+		~ToolsScreen();
 
-private:
-	friend class UIManager;
+	private:
+		friend class UIManager;
 
-private:
-	virtual void draw() override;
-};
-
+	private:
+		virtual void draw() override;
+	};
+}

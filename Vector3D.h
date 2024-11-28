@@ -3,12 +3,12 @@
 #include <string>
 #include <ostream>
 
-namespace math
+namespace GDEngine
 {
 	class Vector3D
 	{
 	public:
-		float x, y, z;
+		float x = 0, y = 0, z = 0;
 
 	public:
 		Vector3D() : x(0), y(0), z(0) {}
@@ -68,6 +68,11 @@ namespace math
 
 		Vector3D operator/(float num) const {
 			return Vector3D(x / num, y / num, z / num);
+		}
+
+		bool operator!=(const Vector3D& vec) const
+		{
+			return x != vec.x || y != vec.y || z != vec.z;
 		}
 
 		float getMagnitude() {

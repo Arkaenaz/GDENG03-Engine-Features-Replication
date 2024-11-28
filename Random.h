@@ -2,25 +2,28 @@
 
 #include <random>
 
-class Random
+namespace GDEngine
 {
-private:
-	static Random* P_SHARED_INSTANCE;
+	class Random
+	{
+	private:
+		std::mt19937 m_numberGenerator;
 
-	std::mt19937 mt;
+	private:
+		static Random* P_SHARED_INSTANCE;
 
-public:
-	static int range(int minInclusive, int maxExclusive);
-	static float range(float minInclusive, float maxInclusive);
+	public:
+		static int range(int minInclusive, int maxExclusive);
+		static float range(float minInclusive, float maxInclusive);
 
-private:
-	Random();
-	~Random();
-	Random(Random const&);
-	Random& operator = (Random const&);
+	private:
+		Random();
+		~Random();
+		Random(Random const&);
+		Random& operator = (Random const&);
 
-public:
-	static void initialize();
-	static void destroy();
-};
-
+	public:
+		static void initialize();
+		static void destroy();
+	};
+}

@@ -2,29 +2,25 @@
 
 #include <string>
 
-typedef std::string String;
-
-class UIManager;
-
-class UIScreen
+namespace GDEngine
 {
-protected:
-	typedef std::string String;
+	class UIManager;
+	class UIScreen
+	{
+	protected:
+		std::string name;
+		bool isActive = true;
 
-protected:
-	String name;
-	bool isActive = true;
+	protected:
+		friend class UIManager;
 
-protected:
-	friend class UIManager;
+	protected:
+		UIScreen(std::string name);
+		~UIScreen();
 
-protected:
-	UIScreen(String name);
-	~UIScreen();
-
-protected:
-	String getName();
-	virtual void draw() = 0;
-	void setActive(bool isActive);
-};
-
+	protected:
+		std::string getName();
+		virtual void draw() = 0;
+		void setActive(bool isActive);
+	};
+}

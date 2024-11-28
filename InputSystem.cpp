@@ -3,54 +3,56 @@
 
 #include "Logger.h"
 
+using namespace GDEngine;
+
 InputSystem* InputSystem::P_SHARED_INSTANCE = nullptr;
 
 void InputSystem::update()
 {
-	if (shouldUpdate)
+	if (m_shouldUpdate)
 	{
 		POINT currentMousePosition = {};
 		::GetCursorPos(&currentMousePosition);
 
-		if (firstTime)
+		if (m_firstTime)
 		{
-			firstTime = false;
-			oldMousePosition = Vector2D(currentMousePosition.x, currentMousePosition.y);
-			deltaMousePosition = Vector2D::zero();
+			m_firstTime = false;
+			m_oldMousePosition = Vector2D(currentMousePosition.x, currentMousePosition.y);
+			m_deltaMousePosition = Vector2D::zero();
 		}
 
-		if (currentMousePosition.x != oldMousePosition.x || currentMousePosition.y != oldMousePosition.y)
+		if (currentMousePosition.x != m_oldMousePosition.x || currentMousePosition.y != m_oldMousePosition.y)
 		{
-			std::unordered_set<InputListener*>::iterator it = setListeners.begin();
-			deltaMousePosition = Vector2D(currentMousePosition.x - oldMousePosition.x, currentMousePosition.y - oldMousePosition.y);
-			while (it != setListeners.end()) {
-				//(*it)->onMouseMove(Vector2D(currentMousePosition.x - oldMousePosition.x, currentMousePosition.y - oldMousePosition.y));
+			std::unordered_set<InputListener*>::iterator it = m_setListeners.begin();
+			m_deltaMousePosition = Vector2D(currentMousePosition.x - m_oldMousePosition.x, currentMousePosition.y - m_oldMousePosition.y);
+			while (it != m_setListeners.end()) {
+				//(*it)->onMouseMove(Vector2D(currentMousePosition.x - m_oldMousePosition.x, currentMousePosition.y - m_oldMousePosition.y));
 				(*it)->onMouseMove(Vector2D(currentMousePosition.x, currentMousePosition.y));
 				++it;
 			}
 		}
 		else
-			deltaMousePosition = Vector2D::zero();
+			m_deltaMousePosition = Vector2D::zero();
 
-		oldMousePosition = Vector2D(currentMousePosition.x, currentMousePosition.y);
+		m_oldMousePosition = Vector2D(currentMousePosition.x, currentMousePosition.y);
 
-		if (::GetKeyboardState(keysState))
+		if (::GetKeyboardState(m_keysState))
 		{
 			for (unsigned int i = 0; i < 256; i++)
 			{
 				// Key is down
-				if (keysState[i] & 0x80)
+				if (m_keysState[i] & 0x80)
 				{
-					std::unordered_set<InputListener*>::iterator it = setListeners.begin();
-					while (it != setListeners.end()) {
+					std::unordered_set<InputListener*>::iterator it = m_setListeners.begin();
+					while (it != m_setListeners.end()) {
 						if (i == VK_LBUTTON)
 						{
-							if (keysState[i] != oldKeysState[i])
+							if (m_keysState[i] != m_oldKeysState[i])
 								(*it)->onLeftMouseDown(Vector2D(currentMousePosition.x, currentMousePosition.y));
 						}
 						else if (i == VK_RBUTTON)
 						{
-							if (keysState[i] != oldKeysState[i])
+							if (m_keysState[i] != m_oldKeysState[i])
 								(*it)->onRightMouseDown(Vector2D(currentMousePosition.x, currentMousePosition.y));
 						}
 						else
@@ -61,11 +63,11 @@ void InputSystem::update()
 				}
 				else // Key is up
 				{
-					if (keysState[i] != oldKeysState[i])
+					if (m_keysState[i] != m_oldKeysState[i])
 					{
-						std::unordered_set<InputListener*>::iterator it = setListeners.begin();
+						std::unordered_set<InputListener*>::iterator it = m_setListeners.begin();
 
-						while (it != setListeners.end())
+						while (it != m_setListeners.end())
 						{
 							if (i == VK_LBUTTON)
 								(*it)->onLeftMouseUp(Vector2D(currentMousePosition.x, currentMousePosition.y));
@@ -79,29 +81,29 @@ void InputSystem::update()
 				}
 			}
 			// Store current key state to old key state
-			::memcpy(oldKeysState, keysState, sizeof(unsigned char) * 256);
+			::memcpy(m_oldKeysState, m_keysState, sizeof(unsigned char) * 256);
 		}
 	}
 }
 
 void InputSystem::stopUpdate()
 {
-	shouldUpdate = false;
+	m_shouldUpdate = false;
 }
 
 void InputSystem::startUpdate()
 {
-	shouldUpdate = true;
+	m_shouldUpdate = true;
 }
 
 void InputSystem::addListener(InputListener* listener)
 {
-	setListeners.insert(listener);
+	m_setListeners.insert(listener);
 }
 
 void InputSystem::removeListener(InputListener* listener)
 {
-	setListeners.erase(listener);
+	m_setListeners.erase(listener);
 }
 
 void InputSystem::setCursorPosition(const Vector2D& position)
@@ -116,10 +118,10 @@ void InputSystem::showCursor(bool show)
 
 bool InputSystem::getKeyDown(int key)
 {
-	if (::GetKeyboardState(keysState))
-		if (keysState[key] & 0x80 && keysState[key] != oldKeysState[key])
+	if (::GetKeyboardState(m_keysState))
+		if (m_keysState[key] & 0x80 && m_keysState[key] != m_oldKeysState[key])
 		{
-			::memcpy(oldKeysState, keysState, sizeof(unsigned char) * 256);
+			::memcpy(m_oldKeysState, m_keysState, sizeof(unsigned char) * 256);
 			return true;
 		}
 	return false;
@@ -127,10 +129,10 @@ bool InputSystem::getKeyDown(int key)
 
 bool InputSystem::getKey(int key)
 {
-	if (::GetKeyboardState(keysState))
-		if (keysState[key] & 0x80)
+	if (::GetKeyboardState(m_keysState))
+		if (m_keysState[key] & 0x80)
 		{
-			::memcpy(oldKeysState, keysState, sizeof(unsigned char) * 256);
+			::memcpy(m_oldKeysState, m_keysState, sizeof(unsigned char) * 256);
 			return true;
 		}
 	return false;
@@ -138,15 +140,15 @@ bool InputSystem::getKey(int key)
 
 bool InputSystem::getKeyUp(int key)
 {
-	if (::GetKeyboardState(keysState))
+	if (::GetKeyboardState(m_keysState))
 	{
-		if (keysState[key] & 0x80) {}
+		if (m_keysState[key] & 0x80) {}
 
 		else
 		{
-			if (keysState[key] != oldKeysState[key])
+			if (m_keysState[key] != m_oldKeysState[key])
 			{
-				::memcpy(oldKeysState, keysState, sizeof(unsigned char) * 256);
+				::memcpy(m_oldKeysState, m_keysState, sizeof(unsigned char) * 256);
 				return true;
 			}
 		}
@@ -163,40 +165,40 @@ Vector2D InputSystem::getMousePosition()
 
 Vector2D InputSystem::getOldMousePosition()
 {
-	return oldMousePosition;
+	return m_oldMousePosition;
 }
 
 Vector2D InputSystem::getDeltaMousePosition()
 {
-	return deltaMousePosition;
+	return m_deltaMousePosition;
 }
 
 InputSystem::InputSystem()
 {
-	debug::Logger::log(this, "Initialized");
+	Logger::log(this, "Initialized");
 }
 InputSystem::~InputSystem()
 {
 	P_SHARED_INSTANCE = nullptr;
-	debug::Logger::log(P_SHARED_INSTANCE, "Released");
+	Logger::log(P_SHARED_INSTANCE, "Destroyed");
 }
 InputSystem::InputSystem(const InputSystem&) {}
 
-InputSystem* InputSystem::getInstance() {
+InputSystem* InputSystem::getInstance()
+{
 	return P_SHARED_INSTANCE;
 }
 
 void InputSystem::initialize()
 {
 	if (P_SHARED_INSTANCE)
-		throw std::exception("Input System already created");
+	{
+		Logger::throw_exception("Input System already created");
+	}
 	P_SHARED_INSTANCE = new InputSystem();
 }
 
 void InputSystem::destroy()
 {
-	if (P_SHARED_INSTANCE != nullptr)
-	{
-		delete P_SHARED_INSTANCE;
-	}
+	delete P_SHARED_INSTANCE;
 }

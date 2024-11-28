@@ -1,107 +1,171 @@
 #include "GameObjectManager.h"
 
-#include <iostream>
+#include "BaseComponentSystem.h"
+#include "PhysicsSystem.h"
+#include "PhysicsComponent.h"
 
+#include "Armadillo.h"
+#include "Bunny.h"
 #include "Cube.h"
 #include "Plane.h"
-#include "Logger.h"
 #include "Quad.h"
+#include "Teapot.h"
+#include "TexturedCube.h"
 
-GameObjectManager* GameObjectManager::P_SHARED_INSTANCE = NULL;
+#include "EditorAction.h"
+#include "EmptyGameObject.h"
 
-void GameObjectManager::createCube(void* shaderByteCode, size_t sizeShader)
+#include "Logger.h"
+
+using namespace GDEngine;
+
+GameObjectManager* GameObjectManager::P_SHARED_INSTANCE = nullptr;
+
+void GameObjectManager::createCube()
 {
-	Cube* cube = new Cube("Cube", shaderByteCode, sizeShader);
+	Cube* cube = new Cube("Cube");
 	this->addObject(cube);
 }
 
-void GameObjectManager::createPlane(void* shaderByteCode, size_t sizeShader)
+void GameObjectManager::createPhysicsCube()
 {
-	Plane* plane = new Plane("Plane", shaderByteCode, sizeShader);
+	Cube* cube = new Cube("Physics Cube");
+	cube->setPosition(0.0f, 5.0f, 0.0f);
+	cube->setPhysics(true);
+	this->addObject(cube);
+	cube->attachComponent(new PhysicsComponent("PhysicsComponent " + cube->getName(), cube));
+}
+
+void GameObjectManager::createPhysicsPlane()
+{
+	Cube* plane = new Cube("Physics Plane");
+	plane->setScale(64, 0.5f, 64);
+	plane->setPhysics(true);
+	this->addObject(plane);
+	plane->attachComponent(new PhysicsComponent("PhysicsComponent " + plane->getName(), plane));
+	PhysicsComponent* component = (PhysicsComponent*)plane->findComponentOfType(AComponent::ComponentType::Physics, "PhysicsComponent " + plane->getName());
+	component->getRigidBody()->setType(BodyType::KINEMATIC);
+
+	/*Plane* plane = new Plane("Physics Plane");
+	plane->attachComponent(new PhysicsComponent("PhysicsComponent", plane));
+	PhysicsComponent* component = (PhysicsComponent*)plane->findComponentOfType(AComponent::ComponentType::Physics, "PhysicsComponent");
+	component->getRigidBody()->setType(BodyType::KINEMATIC);
+	this->addObject(plane);*/
+}
+
+void GameObjectManager::createTexturedCube()
+{
+	TexturedCube* cube = new TexturedCube("Textured Cube");
+	this->addObject(cube);
+}
+
+void GameObjectManager::createPlane()
+{
+	Plane* plane = new Plane("Plane");
 	this->addObject(plane);
 }
 
-void GameObjectManager::createQuad(void* shaderByteCode, size_t sizeShader)
+void GameObjectManager::createQuad()
 {
-	Quad* quad = new Quad("Quad", shaderByteCode, sizeShader);
+	Quad* quad = new Quad("Quad");
 	this->addObject(quad);
+}
+
+void GameObjectManager::createTeapot()
+{
+	Teapot* teapot = new Teapot("Teapot");
+	this->addObject(teapot);
+}
+
+void GameObjectManager::createBunny()
+{
+	Bunny* bunny = new Bunny("Bunny");
+	this->addObject(bunny);
+}
+
+void GameObjectManager::createArmadillo()
+{
+	Armadillo* armadillo = new Armadillo("Armadillo");
+	this->addObject(armadillo);
 }
 
 void GameObjectManager::update(float deltaTime)
 {
-	for (GameObject* gameObject : this->listGameObjects)
+	for (AGameObject* gameObject : this->m_gameObjectList)
 	{
 		if (gameObject->isActive())
+		{
 			gameObject->update(deltaTime);
+		}
 	}
 }
 
-void GameObjectManager::draw(Window* window, VertexShader* vertexShader, PixelShader* pixelShader)
+void GameObjectManager::draw(int width, int height)
 {
-	for (GameObject* gameObject : this->listGameObjects)
+	for (AGameObject* gameObject : this->m_gameObjectList)
 	{
 		if (gameObject->isActive())
-			gameObject->draw(window, vertexShader, pixelShader);
+			gameObject->draw(width, height);
 	}
 }
 
-std::vector<GameObject*> GameObjectManager::getAllObjects()
+GameObjectManager::GameObjectList GameObjectManager::getAllObjects()
 {
-	return this->listGameObjects;
+	return this->m_gameObjectList;
 }
 
-GameObject* GameObjectManager::findObjectByName(std::string name)
+AGameObject* GameObjectManager::findObjectByName(std::string name)
 {
-	if (this->mapGameObjects[name] != NULL)
+	if (this->m_gameObjectTable[name] != NULL)
 	{
-		return this->mapGameObjects[name];
+		return this->m_gameObjectTable[name];
 	}
 	else
 	{
-		debug::Logger::error(this, "Object " + name + " is not found");
+		Logger::error(this, "Object " + name + " is not found");
 		return NULL;
 	}
 }
 
-void GameObjectManager::addObject(GameObject* gameObject)
+void GameObjectManager::addObject(AGameObject* gameObject)
 {
-	if (this->mapGameObjects[gameObject->getName()] != NULL)
+	if (this->m_gameObjectTable[gameObject->getName()] != NULL)
 	{
 		int count = 1;
 		std::string newName = gameObject->getName() + " " + std::to_string(count);
 
-		while (this->mapGameObjects[newName] != NULL)
+		while (this->m_gameObjectTable[newName] != NULL)
 		{
 			count++;
 			newName = gameObject->getName() + " " + std::to_string(count);
 		}
-		gameObject->name = newName;
-		this->mapGameObjects[newName] = gameObject;
+		gameObject->m_name = newName;
+		this->m_gameObjectTable[newName] = gameObject;
 	}
 	else
 	{
-		this->mapGameObjects[gameObject->getName()] = gameObject;
+		this->m_gameObjectTable[gameObject->getName()] = gameObject;
 	}
 
-	this->listGameObjects.push_back(gameObject);
+	this->m_gameObjectList.push_back(gameObject);
 	gameObject->onCreate();
-	debug::Logger::log(gameObject->getName() + " added to hierarchy");
+	Logger::log(gameObject->getName() + " added to hierarchy");
 }
 
-void GameObjectManager::deleteObject(GameObject* gameObject)
+void GameObjectManager::deleteObject(AGameObject* gameObject)
 {
 	int index = -1;
 
-	for (int i = 0; i < this->listGameObjects.size() && index == -1; i++)
+	for (int i = 0; i < this->m_gameObjectList.size() && index == -1; i++)
 	{
-		if (this->listGameObjects[i] == gameObject)
+		if (this->m_gameObjectList[i] == gameObject)
 			index = i;
 	}
 
 	if (index != -1)
 	{
-		this->mapGameObjects.erase(this->listGameObjects[index]->getName());
-		this->listGameObjects.erase(this->listGameObjects.begin() + index);
+		this->m_gameObjectTable.erase(this->m_gameObjectList[index]->getName());
+		this->m_gameObjectList.erase(this->m_gameObjectList.begin() + index);
 		gameObject->onDestroy();
 		delete gameObject;
 	}
@@ -109,7 +173,7 @@ void GameObjectManager::deleteObject(GameObject* gameObject)
 
 void GameObjectManager::deleteObjectByName(std::string name)
 {
-	GameObject* object = this->findObjectByName(name);
+	AGameObject* object = this->findObjectByName(name);
 
 	if (object != NULL)
 	{
@@ -119,18 +183,18 @@ void GameObjectManager::deleteObjectByName(std::string name)
 
 void GameObjectManager::deleteAllObjects()
 {
-	if (!this->listGameObjects.empty())
+	if (!this->m_gameObjectList.empty())
 	{
-		for (GameObject* gameObject : this->listGameObjects)
+		for (AGameObject* gameObject : this->m_gameObjectList)
 			gameObject->onDestroy();
-		this->listGameObjects.clear();
-		this->mapGameObjects.clear();
+		this->m_gameObjectList.clear();
+		this->m_gameObjectTable.clear();
 	}
 }
 
 void GameObjectManager::setSelectedObject(GUID guid)
 {
-	for (GameObject* object : listGameObjects)
+	for (AGameObject* object : m_gameObjectList)
 	{
 		GUID objectGuid = object->getGuid();
 		if (IsEqualGUID(objectGuid, guid))
@@ -143,25 +207,73 @@ void GameObjectManager::setSelectedObject(GUID guid)
 
 void GameObjectManager::setSelectedObject(std::string name)
 {
-	if (this->mapGameObjects[name] != NULL)
+	if (this->m_gameObjectTable[name] != NULL)
 	{
-		this->setSelectedObject(this->mapGameObjects[name]);
+		this->setSelectedObject(this->m_gameObjectTable[name]);
 	}
 }
 
-void GameObjectManager::setSelectedObject(GameObject* gameObject)
+void GameObjectManager::setSelectedObject(AGameObject* gameObject)
 {
-	this->selectedObject = gameObject;
+	this->m_selectedObject = gameObject;
 }
 
-GameObject* GameObjectManager::getSelectedObject()
+AGameObject* GameObjectManager::getSelectedObject()
 {
-	return this->selectedObject;
+	return this->m_selectedObject;
+}
+
+void GameObjectManager::saveEditStates()
+{
+	for (AGameObject* gameObject : m_gameObjectList) {
+		gameObject->saveEditState();
+	}
+}
+
+void GameObjectManager::restoreEditStates()
+{
+	for (AGameObject* gameObject : m_gameObjectList) {
+		gameObject->restoreEditState();
+	}
+}
+
+void GameObjectManager::applyAction(EditorAction* action)
+{
+	Logger::log(action->getOwnerName());
+	AGameObject* gameObject = this->findObjectByName(action->getOwnerName());
+	if (gameObject != nullptr)
+	{
+		//gameObject->setLocalMatrix(action->getStoredMatrix().getMatrix());
+		gameObject->setPosition(action->getStoredPosition());
+		gameObject->setRotation(action->getStoredOrientation().x, action->getStoredOrientation().y, action->getStoredOrientation().z);
+		gameObject->setScale(action->getStoredScale());
+	}
+}
+
+void GameObjectManager::setPhysics(bool physics)
+{
+	for (AGameObject* gameObject : m_gameObjectList)
+	{
+		AGameObject::ComponentList physicsList = gameObject->getComponentsOfType(AComponent::Physics);
+
+		if (physicsList.size() != 0)
+			gameObject->setPhysics(physics);
+	}
+}
+
+void GameObjectManager::createObjectFromFile(std::string objectGuid, std::string objectName, Vector3D position, Vector3D rotation,
+	Vector3D scale)
+{
+	EmptyGameObject* gameObject = new EmptyGameObject(objectGuid, objectName);
+	gameObject->setPosition(position);
+	gameObject->setRotation(rotation);
+	gameObject->setScale(scale);
+	this->addObject(gameObject);
 }
 
 GameObjectManager::GameObjectManager()
 {
-	debug::Logger::log(P_SHARED_INSTANCE, "Initialized");
+	Logger::log(P_SHARED_INSTANCE, "Initialized");
 
 }
 
@@ -169,7 +281,7 @@ GameObjectManager::~GameObjectManager()
 {
 	this->deleteAllObjects();
 	P_SHARED_INSTANCE = nullptr;
-	debug::Logger::log(P_SHARED_INSTANCE, "Released");
+	Logger::log(P_SHARED_INSTANCE, "Destroyed");
 }
 
 GameObjectManager::GameObjectManager(const GameObjectManager&) {}
@@ -181,15 +293,14 @@ GameObjectManager* GameObjectManager::getInstance() {
 void GameObjectManager::initialize()
 {
 	if (P_SHARED_INSTANCE)
-		throw std::exception("Game Object Manager already created");
+	{
+		Logger::throw_exception("Game Object Manager already created");
+	}
 	P_SHARED_INSTANCE = new GameObjectManager();
 	
 }
 
 void GameObjectManager::destroy()
 {
-	if (P_SHARED_INSTANCE != NULL)
-	{
-		delete P_SHARED_INSTANCE;
-	}
+	delete P_SHARED_INSTANCE;
 }
