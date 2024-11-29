@@ -6,6 +6,7 @@
 #include "GameObjectManager.h"
 #include "StringUtility.h"
 #include "Vector3D.h"
+#include "json/json.h"
 
 namespace GDEngine
 {
@@ -69,5 +70,48 @@ namespace GDEngine
 				GameObjectManager::getInstance()->createObjectFromFile(objectGuid,objectName, position, rotation, scale);
 			}
 		}
+	}
+
+	void SceneReader::readFromJson()
+	{
+		std::string fileDirectory = m_directory + ".level";
+		if (m_directory.find(".level") != std::string::npos)
+		{
+			fileDirectory = m_directory;
+		}
+
+		std::ifstream sceneFile(fileDirectory, std::ifstream::binary);
+		Json::Value scene;
+
+		sceneFile >> scene;
+
+		std::vector<std::string> guidList;
+
+		for (std::string id : scene.getMemberNames()) {
+			guidList.push_back(id);
+		}
+
+		for (std::string guid : guidList)
+		{
+			std::string name = scene[guid]["name"].asString();
+			std::cout << name << std::endl;
+			Vector3D position;
+			position.x = scene[guid]["position"]["x"].asFloat();
+			position.y = scene[guid]["position"]["y"].asFloat();
+			position.z = scene[guid]["position"]["z"].asFloat();
+			std::cout << position.toString() << std::endl;
+			Vector3D rotation;
+			rotation.x = scene[guid]["rotation"]["x"].asFloat();
+			rotation.y = scene[guid]["rotation"]["y"].asFloat();
+			rotation.z = scene[guid]["rotation"]["z"].asFloat();
+
+			Vector3D scale;
+			scale.x = scene[guid]["scale"]["x"].asFloat();
+			scale.y = scene[guid]["scale"]["y"].asFloat();
+			scale.z = scene[guid]["scale"]["z"].asFloat();
+
+			GameObjectManager::getInstance()->createObjectFromFile(guid, name, position, rotation, scale);
+		}
+		
 	}
 }

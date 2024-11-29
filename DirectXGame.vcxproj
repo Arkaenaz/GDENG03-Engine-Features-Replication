@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NOMINMAX;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)libs\DirectXTex\DirectXTex;$(ProjectDir)libs\imgui\misc\cpp;$(ProjectDir)libs\imgui;$(ProjectDir)libs\imgui\backends;$(ProjectDir)libs\tinyobjloader;$(ProjectDir)libs\ReactPhysics3D\include;$(ProjectDir)libs\imgui-filebrowser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)libs\DirectXTex\DirectXTex;$(ProjectDir)libs\imgui\misc\cpp;$(ProjectDir)libs\imgui;$(ProjectDir)libs\imgui\backends;$(ProjectDir)libs\tinyobjloader;$(ProjectDir)libs\ReactPhysics3D\include;$(ProjectDir)libs\imgui-filebrowser;$(ProjectDir)libs\jsoncpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -173,6 +173,7 @@
     <ClCompile Include="libs\imgui\imgui_tables.cpp" />
     <ClCompile Include="libs\imgui\imgui_widgets.cpp" />
     <ClCompile Include="libs\imgui\misc\cpp\imgui_stdlib.cpp" />
+    <ClCompile Include="libs\jsoncpp\jsoncpp.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshManager.cpp" />
@@ -247,6 +248,8 @@
     <ClInclude Include="EngineBackend.h" />
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="libs\imgui-filebrowser\imfilebrowser.h" />
+    <ClInclude Include="libs\jsoncpp\json\json-forwards.h" />
+    <ClInclude Include="libs\jsoncpp\json\json.h" />
     <ClInclude Include="MeshObject.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="PhysicsComponent.h">

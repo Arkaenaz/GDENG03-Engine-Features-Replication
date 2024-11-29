@@ -9,6 +9,7 @@ namespace GDEngine {
 		~SceneReader();
 
 		void readFromFile();
+		void readFromJson();
 
 	private:
 		std::string m_directory;

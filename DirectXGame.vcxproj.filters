@@ -142,6 +142,9 @@
     <Filter Include="GameEngine\ComponentSystem\Renderer">
       <UniqueIdentifier>{d51f7776-93b5-4eaa-b6ff-c00a4fdf0ec5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jsoncpp">
+      <UniqueIdentifier>{baa87abc-ef83-4510-bde2-bcb5853f1469}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -365,6 +368,9 @@
     </ClCompile>
     <ClCompile Include="EmptyGameObject.cpp">
       <Filter>GameEngine\Hierarchy</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\jsoncpp\jsoncpp.cpp">
+      <Filter>jsoncpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -616,6 +622,12 @@
     </ClInclude>
     <ClInclude Include="libs\imgui-filebrowser\imfilebrowser.h">
       <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\jsoncpp\json\json.h">
+      <Filter>jsoncpp</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\jsoncpp\json\json-forwards.h">
+      <Filter>jsoncpp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
