@@ -30,6 +30,7 @@ namespace GDEngine
 
 	public:
 		PhysicsComponent(std::string name, AGameObject* owner);
+		PhysicsComponent(std::string guid, std::string name, AGameObject* owner);
 		~PhysicsComponent() override;
 
 	public:
@@ -38,7 +39,7 @@ namespace GDEngine
 
 		float getMass();
 		bool getUseGravity();
-		BodyType getType();
+		BodyType getBodyType();
 		float getLinearDrag();
 		float getAngularDrag();
 		bool getConstraint(EConstraints constraint);
@@ -46,7 +47,7 @@ namespace GDEngine
 		void setTransformFromOpenGL(float* matrix);
 		void setMass(float mass);
 		void setUseGravity(bool isUsingGravity);
-		void setType(BodyType type) const;
+		void setBodyType(BodyType type) const;
 		void setLinearDrag(float linearDrag);
 		void setAngularDrag(float angularDrag);
 		void setConstraints(EConstraints constraints);

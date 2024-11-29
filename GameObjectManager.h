@@ -49,7 +49,7 @@ namespace GDEngine
 
 		void setPhysics(bool physics);
 
-		void createObjectFromFile(std::string objectGuid, std::string objectName, std::string classType, Vector3D position, Vector3D rotation, Vector3D scale);
+		AGameObject* createObjectFromFile(std::string objectGuid, std::string objectName, std::string classType, Vector3D position, Vector3D rotation, Vector3D scale);
 
 	private:
 		static GameObjectManager* P_SHARED_INSTANCE;

@@ -3,7 +3,10 @@
 #include <json/json.h>
 #include <fstream>
 
+#include "BaseComponentSystem.h"
 #include "GameObjectManager.h"
+#include "PhysicsComponent.h"
+#include "PhysicsSystem.h"
 
 namespace GDEngine
 {
@@ -66,7 +69,6 @@ namespace GDEngine
 
 		GameObjectManager::GameObjectList objectList = GameObjectManager::getInstance()->getAllObjects();
 
-		
 		for (AGameObject* gameObject : objectList)
 		{
 			std::string guid = gameObject->getGuidString();
@@ -90,6 +92,26 @@ namespace GDEngine
 			root[guid]["scale"]["x"] = scale.x;
 			root[guid]["scale"]["y"] = scale.y;
 			root[guid]["scale"]["z"] = scale.z;
+
+			AGameObject::ComponentList physicsList = gameObject->getComponentsOfType(AComponent::ComponentType::Physics);
+			for (AComponent* component : physicsList)
+			{
+				PhysicsComponent* physicsComponent = (PhysicsComponent*)component;
+				std::string componentGuid = component->getGuidString();
+
+				root[guid]["components"][componentGuid];
+				root[guid]["components"][componentGuid]["name"] = physicsComponent->getName();
+				root[guid]["components"][componentGuid]["class"] = physicsComponent->getClassType();
+				root[guid]["components"][componentGuid]["type"] = physicsComponent->getType();
+
+				root[guid]["components"][componentGuid]["mass"] = physicsComponent->getMass();
+				root[guid]["components"][componentGuid]["gravity"] = physicsComponent->getUseGravity();
+				root[guid]["components"][componentGuid]["body_type"] = static_cast<int>(physicsComponent->getBodyType());
+				root[guid]["components"][componentGuid]["linear_drag"] = physicsComponent->getLinearDrag();
+				root[guid]["components"][componentGuid]["angular_drag"] = physicsComponent->getAngularDrag();
+				//root[guid]["components"][componentGuid]["constraints"] = component->getConstraint();
+
+			}
 		}
 
 		std::cout << root << "\n";

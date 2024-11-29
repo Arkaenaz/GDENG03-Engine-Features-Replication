@@ -26,6 +26,18 @@ PhysicsSystem::~PhysicsSystem()
 	delete this->m_physicsCommon;
 }
 
+void PhysicsSystem::createComponentFromFile(std::string guid, std::string name, AGameObject* gameObject,
+	AComponent::ComponentType type, float mass,bool gravity, BodyType bodyType, float linearDrag, float angularDrag)
+{
+	PhysicsComponent* newComponent = new PhysicsComponent(guid, name, gameObject);
+	newComponent->setMass(mass);
+	newComponent->setUseGravity(gravity);
+	newComponent->setBodyType(bodyType);
+	newComponent->setLinearDrag(linearDrag);
+	newComponent->setAngularDrag(angularDrag);
+	gameObject->attachComponent(newComponent);
+}
+
 void PhysicsSystem::registerComponent(PhysicsComponent* component)
 {
 	this->m_componentMap[component->getName()] = component;

@@ -261,7 +261,7 @@ void GameObjectManager::setPhysics(bool physics)
 	}
 }
 
-void GameObjectManager::createObjectFromFile(std::string objectGuid, std::string objectName, std::string classType, Vector3D position, Vector3D rotation,
+AGameObject* GameObjectManager::createObjectFromFile(std::string objectGuid, std::string objectName, std::string classType, Vector3D position, Vector3D rotation,
 	Vector3D scale)
 {
 	/*GameObjectType objectType = (GameObjectType)type;
@@ -374,6 +374,7 @@ void GameObjectManager::createObjectFromFile(std::string objectGuid, std::string
 		cube->setRotation(rotation);
 		cube->setScale(scale);
 		this->addObject(cube);
+		return cube;
 	}
 	if (classType == typeid(Plane).raw_name())
 	{
@@ -382,6 +383,7 @@ void GameObjectManager::createObjectFromFile(std::string objectGuid, std::string
 		plane->setRotation(rotation);
 		plane->setScale(scale);
 		this->addObject(plane);
+		return plane;
 	}
 	if (classType == typeid(Quad).raw_name())
 	{
@@ -390,6 +392,7 @@ void GameObjectManager::createObjectFromFile(std::string objectGuid, std::string
 		quad->setRotation(rotation);
 		quad->setScale(scale);
 		this->addObject(quad);
+		return quad;
 	}
 	if (classType == typeid(Teapot).raw_name())
 	{
@@ -398,6 +401,7 @@ void GameObjectManager::createObjectFromFile(std::string objectGuid, std::string
 		teapot->setRotation(rotation);
 		teapot->setScale(scale);
 		this->addObject(teapot);
+		return teapot;
 	}
 	if (classType == typeid(Bunny).raw_name())
 	{
@@ -406,6 +410,7 @@ void GameObjectManager::createObjectFromFile(std::string objectGuid, std::string
 		bunny->setRotation(rotation);
 		bunny->setScale(scale);
 		this->addObject(bunny);
+		return bunny;
 	}
 	if (classType == typeid(Armadillo).raw_name())
 	{
@@ -414,7 +419,9 @@ void GameObjectManager::createObjectFromFile(std::string objectGuid, std::string
 		armadillo->setRotation(rotation);
 		armadillo->setScale(scale);
 		this->addObject(armadillo);
+		return armadillo;
 	}
+	return nullptr;
 }
 
 GameObjectManager::GameObjectManager()

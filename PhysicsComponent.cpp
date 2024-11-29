@@ -42,7 +42,36 @@ PhysicsComponent::PhysicsComponent(std::string name, AGameObject* owner) : AComp
 
 	//this->getOwner()->setPosition(Vector3D(position1.x, position1.y, position1.z));
 	//this->getOwner()->setRotation(Vector3D(rotation1.x, rotation1.y, rotation1.z));
-	this->getOwner()->setPhysics(true);
+}
+
+PhysicsComponent::PhysicsComponent(std::string guid, std::string name, AGameObject* owner) : AComponent(guid, name, Physics, owner)
+{
+	BaseComponentSystem::getInstance()->getPhysicsSystem()->registerComponent(this);
+	PhysicsCommon* physicsCommon = BaseComponentSystem::getInstance()->getPhysicsSystem()->getPhysicsCommon();
+	PhysicsWorld* physicsWorld = BaseComponentSystem::getInstance()->getPhysicsSystem()->getPhysicsWorld();
+
+	const Vector3D scale = this->getOwner()->getLocalScale();
+	const Vector3D position = this->getOwner()->getLocalPosition();
+	const Vector3D rotation = this->getOwner()->getLocalRotation();
+
+	Quaternion quaternion = Quaternion::fromEulerAngles(rotation.x, rotation.y, rotation.z);
+
+	Transform transform;
+	transform.setFromOpenGL(this->getOwner()->getPhysicsLocalMatrix());
+
+	BoxShape* boxShape = physicsCommon->createBoxShape(Vector3(scale.x / 1.0f, scale.y / 1.0f, scale.z / 1.0f));
+
+	this->m_rigidBody = physicsWorld->createRigidBody(transform);
+	this->m_rigidBody->addCollider(boxShape, transform);
+	this->m_rigidBody->updateMassPropertiesFromColliders();
+	this->m_rigidBody->setMass(this->m_mass);
+	this->m_rigidBody->setType(BodyType::DYNAMIC);
+
+	transform = this->m_rigidBody->getTransform();
+	float matrix[16];
+	transform.getOpenGLMatrix(matrix);
+
+	this->getOwner()->setLocalMatrix(matrix);
 }
 
 PhysicsComponent::~PhysicsComponent()
@@ -99,7 +128,7 @@ bool PhysicsComponent::getUseGravity()
 	return this->m_rigidBody->isGravityEnabled();
 }
 
-BodyType PhysicsComponent::getType()
+BodyType PhysicsComponent::getBodyType()
 {
 	return this->m_rigidBody->getType();
 }
@@ -137,7 +166,7 @@ void PhysicsComponent::setUseGravity(const bool isUsingGravity)
 	this->m_rigidBody->enableGravity(isUsingGravity);
 }
 
-void PhysicsComponent::setType(const BodyType type) const
+void PhysicsComponent::setBodyType(const BodyType type) const
 {
 	this->m_rigidBody->setType(type);
 }
