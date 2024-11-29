@@ -145,6 +145,15 @@
     <Filter Include="jsoncpp">
       <UniqueIdentifier>{baa87abc-ef83-4510-bde2-bcb5853f1469}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Primitives\Capsule">
+      <UniqueIdentifier>{ed5181d1-b2bf-4c1f-90da-f504bbc699dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Primitives\Cylinder">
+      <UniqueIdentifier>{c06c726d-9b0e-4afb-9fcb-eebce4da8ec3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Primitives\Sphere">
+      <UniqueIdentifier>{a3c33521-64ee-4a6b-8c51-5c60752668e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -373,9 +382,15 @@
     <ClCompile Include="libs\jsoncpp\jsoncpp.cpp">
       <Filter>jsoncpp</Filter>
     </ClCompile>
-    <ClCompile Include="Capsule.cpp" />
-    <ClCompile Include="Cylinder.cpp" />
-    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Capsule.cpp">
+      <Filter>GameEngine\Primitives\Capsule</Filter>
+    </ClCompile>
+    <ClCompile Include="Cylinder.cpp">
+      <Filter>GameEngine\Primitives\Cylinder</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>GameEngine\Primitives\Sphere</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -634,9 +649,15 @@
     <ClInclude Include="libs\jsoncpp\json\json-forwards.h">
       <Filter>jsoncpp</Filter>
     </ClInclude>
-    <ClInclude Include="Capsule.h" />
-    <ClInclude Include="Cylinder.h" />
-    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Capsule.h">
+      <Filter>GameEngine\Primitives\Capsule</Filter>
+    </ClInclude>
+    <ClInclude Include="Cylinder.h">
+      <Filter>GameEngine\Primitives\Cylinder</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>GameEngine\Primitives\Sphere</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasePixelShader.hlsl">
