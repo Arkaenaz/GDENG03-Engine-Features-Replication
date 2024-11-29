@@ -1,11 +1,16 @@
 #include "Teapot.h"
 
+#include "GameObjectManager.h"
 #include "GraphicsEngine.h"
 
 #include "ShaderLibrary.h"
 
 namespace GDEngine {
 	Teapot::Teapot(std::string name) : MeshObject(name, L"assets/meshes/teapot.obj")
+	{
+	}
+
+	Teapot::Teapot(std::string guid, std::string name) : MeshObject(guid, name, L"assets/meshes/teapot.obj")
 	{
 	}
 

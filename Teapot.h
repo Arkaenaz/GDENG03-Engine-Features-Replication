@@ -8,6 +8,7 @@ namespace GDEngine
 	{
 	public:
 		Teapot(std::string name);
+		Teapot(std::string guid, std::string name);
 		~Teapot() override;
 
 	public:

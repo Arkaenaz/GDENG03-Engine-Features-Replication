@@ -5,6 +5,7 @@
 #include "PhysicsSystem.h"
 
 #include "EditorAction.h"
+#include "GameObjectManager.h"
 #include "PhysicsComponent.h"
 #include "StringUtility.h"
 
@@ -32,12 +33,9 @@ namespace GDEngine
 	AGameObject::AGameObject(std::string guid, std::string name)
 	{
 		std::wstring temp = std::wstring(guid.begin(), guid.end());
-		Logger::log(temp);
 		LPCWSTR guidstr = temp.c_str();
 
 		HRESULT result = IIDFromString(guidstr, &m_guid);
-		Logger::log(StringUtility::GuidToString(m_guid));
-		Logger::log(name);
 		if (!Logger::log(this, result)) {
 			Logger::throw_exception("Conversion of GUID failed");
 		}
@@ -70,6 +68,7 @@ namespace GDEngine
 	void AGameObject::update(float deltaTime)
 	{
 		//Logger::log("Updating Game Object : " + this->m_name);
+		this->updateLocalMatrix();
 	}
 
 	void AGameObject::draw(int width, int height)
@@ -159,6 +158,11 @@ namespace GDEngine
 		std::string guidString = (char*)rpcString;
 		::RpcStringFreeA(&rpcString);*/
 		return StringUtility::GuidToString(m_guid);
+	}
+
+	std::string AGameObject::getType()
+	{
+		return typeid(*this).raw_name();
 	}
 
 	void AGameObject::updateLocalMatrix()

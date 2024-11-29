@@ -3,10 +3,39 @@
 #include "GraphicsEngine.h"
 
 #include "EngineTime.h"
+#include "GameObjectManager.h"
 #include "ShaderLibrary.h"
 
 namespace GDEngine {
 	Quad::Quad(std::string name) : AGameObject(name)
+	{
+		vertex list[] =
+		{
+			{ Vector3D(-0.5f,-0.5f,0.0f),   Vector3D(0,0,0), Vector3D(0,1,0) },
+			{ Vector3D(-0.5f,0.5f,0.0f),   Vector3D(1,1,0), Vector3D(0,1,1) },
+			{ Vector3D(0.5f,-0.5f,0.0f), Vector3D(0,0,1),  Vector3D(1,0,0) },
+			{ Vector3D(0.5f,0.5f,0.0f),    Vector3D(1,1,1), Vector3D(0,0,1) }
+		};
+
+		RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
+		CBObjectData cc;
+		cc.time = 0.0f;
+
+		m_constantBuffer = renderSystem->createConstantBuffer(&cc, sizeof(CBObjectData));
+
+		UINT sizeList = ARRAYSIZE(list);
+
+		ShaderNames shaderNames;
+
+		void* shaderByteCode = NULL;
+		size_t sizeShader = 0;
+
+		ShaderLibrary::getInstance()->requestVertexShaderData(shaderNames.BASE_VERTEX_SHADER_NAME, &shaderByteCode, &sizeShader);
+
+		m_vertexBuffer = renderSystem->createVertexBuffer(list, sizeof(vertex), sizeList, shaderByteCode, sizeShader);
+	}
+
+	Quad::Quad(std::string guid, std::string name) : AGameObject(guid, name)
 	{
 		vertex list[] =
 		{

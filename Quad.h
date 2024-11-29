@@ -15,6 +15,7 @@ namespace GDEngine {
 
 	public:
 		Quad(std::string name);
+		Quad(std::string guid, std::string name);
 		~Quad();
 
 	public:

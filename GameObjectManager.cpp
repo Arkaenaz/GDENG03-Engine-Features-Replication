@@ -261,14 +261,167 @@ void GameObjectManager::setPhysics(bool physics)
 	}
 }
 
-void GameObjectManager::createObjectFromFile(std::string objectGuid, std::string objectName, Vector3D position, Vector3D rotation,
+AGameObject* GameObjectManager::createObjectFromFile(std::string objectGuid, std::string objectName, std::string classType, Vector3D position, Vector3D rotation,
 	Vector3D scale)
 {
-	EmptyGameObject* gameObject = new EmptyGameObject(objectGuid, objectName);
-	gameObject->setPosition(position);
-	gameObject->setRotation(rotation);
-	gameObject->setScale(scale);
-	this->addObject(gameObject);
+	/*GameObjectType objectType = (GameObjectType)type;
+	switch (objectType)
+	{
+	case EMPTY:
+	{
+		EmptyGameObject* empty = new EmptyGameObject(objectGuid, objectName, objectType);
+		empty->setPosition(position);
+		empty->setRotation(rotation);
+		empty->setScale(scale);
+		this->addObject(empty);
+		break;
+	}
+	case CUBE:
+	{
+		Cube* cube = new Cube(objectGuid, objectName, objectType);
+		cube->setPosition(position);
+		cube->setRotation(rotation);
+		cube->setScale(scale);
+		this->addObject(cube);
+		cube->getType();
+		break;
+	}
+	case PHYSICS_CUBE:
+	{
+		Cube* physicsCube = new Cube(objectGuid, objectName, objectType);
+		physicsCube->setPosition(position);
+		physicsCube->setRotation(rotation);
+		physicsCube->setScale(scale);
+		physicsCube->setPhysics(true);
+		this->addObject(physicsCube);
+		physicsCube->attachComponent(new PhysicsComponent("PhysicsComponent " + physicsCube->getGuidString(), physicsCube));
+		break;
+	}
+	case TEXTURED_CUBE:
+	{
+		// replace with texture component
+		Cube* texturedCube = new Cube(objectGuid, objectName, objectType);
+		texturedCube->setPosition(position);
+		texturedCube->setRotation(rotation);
+		texturedCube->setScale(scale);
+		this->addObject(texturedCube);
+		break;
+	}
+	case PLANE:
+	{
+		Plane* plane = new Plane(objectGuid, objectName, objectType);
+		plane->setPosition(position);
+		plane->setRotation(rotation);
+		plane->setScale(scale);
+		this->addObject(plane);
+		break;
+	}
+	case PHYSICS_PLANE:
+	{
+		Cube* physicsPlane = new Cube(objectGuid, objectName, objectType);
+		physicsPlane->setPosition(position);
+		physicsPlane->setRotation(rotation);
+		physicsPlane->setScale(scale);
+		physicsPlane->setPhysics(true);
+		this->addObject(physicsPlane);
+		physicsPlane->attachComponent(new PhysicsComponent("PhysicsComponent " + physicsPlane->getName(), physicsPlane));
+		PhysicsComponent* component = (PhysicsComponent*)physicsPlane->findComponentOfType(AComponent::ComponentType::Physics, "PhysicsComponent " + physicsPlane->getGuidString());
+		component->getRigidBody()->setType(BodyType::KINEMATIC);
+		break;
+	}
+	case QUAD:
+	{
+		Quad* quad = new Quad(objectGuid, objectName, objectType);
+		quad->setPosition(position);
+		quad->setRotation(rotation);
+		quad->setScale(scale);
+		this->addObject(quad);
+		break;
+	}
+	case TEAPOT:
+	{
+		Teapot* teapot = new Teapot(objectGuid, objectName, objectType);
+		teapot->setPosition(position);
+		teapot->setRotation(rotation);
+		teapot->setScale(scale);
+		this->addObject(teapot);
+		break;
+	}
+	case BUNNY:
+	{
+		Bunny* bunny = new Bunny(objectGuid, objectName, objectType);
+		bunny->setPosition(position);
+		bunny->setRotation(rotation);
+		bunny->setScale(scale);
+		this->addObject(bunny);
+		break;
+	}
+	case ARMADILLO:
+	{
+		Armadillo* armadillo = new Armadillo(objectGuid, objectName, objectType);
+		armadillo->setPosition(position);
+		armadillo->setRotation(rotation);
+		armadillo->setScale(scale);
+		this->addObject(armadillo);
+		break;
+	}
+	}*/
+
+	if (classType == typeid(Cube).raw_name())
+	{
+		Cube* cube = new Cube(objectGuid, objectName);
+		cube->setPosition(position);
+		cube->setRotation(rotation);
+		cube->setScale(scale);
+		this->addObject(cube);
+		return cube;
+	}
+	if (classType == typeid(Plane).raw_name())
+	{
+		Plane* plane = new Plane(objectGuid, objectName);
+		plane->setPosition(position);
+		plane->setRotation(rotation);
+		plane->setScale(scale);
+		this->addObject(plane);
+		return plane;
+	}
+	if (classType == typeid(Quad).raw_name())
+	{
+		Quad* quad = new Quad(objectGuid, objectName);
+		quad->setPosition(position);
+		quad->setRotation(rotation);
+		quad->setScale(scale);
+		this->addObject(quad);
+		return quad;
+	}
+	if (classType == typeid(Teapot).raw_name())
+	{
+		Teapot* teapot = new Teapot(objectGuid, objectName);
+		teapot->setPosition(position);
+		teapot->setRotation(rotation);
+		teapot->setScale(scale);
+		this->addObject(teapot);
+		return teapot;
+	}
+	if (classType == typeid(Bunny).raw_name())
+	{
+		Bunny* bunny = new Bunny(objectGuid, objectName);
+		bunny->setPosition(position);
+		bunny->setRotation(rotation);
+		bunny->setScale(scale);
+		this->addObject(bunny);
+		return bunny;
+	}
+	if (classType == typeid(Armadillo).raw_name())
+	{
+		Armadillo* armadillo = new Armadillo(objectGuid, objectName);
+		armadillo->setPosition(position);
+		armadillo->setRotation(rotation);
+		armadillo->setScale(scale);
+		this->addObject(armadillo);
+		return armadillo;
+	}
+	return nullptr;
 }
 
 GameObjectManager::GameObjectManager()

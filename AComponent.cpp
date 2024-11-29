@@ -1,43 +1,76 @@
 #include "AComponent.h"
 
-using namespace GDEngine;
+#include "GameObject.h"
+#include "StringUtility.h"
 
-AComponent::AComponent(std::string name, ComponentType type, AGameObject* owner) : m_name(name), m_type(type), m_owner(owner)
+namespace GDEngine
 {
-}
+	AComponent::AComponent(std::string name, ComponentType type, AGameObject* owner) : m_name(name), m_type(type), m_owner(owner)
+	{
+		HRESULT result = CoCreateGuid(&m_guid);
+		if (!Logger::log(this, result)) {
+			Logger::throw_exception("Component GUID creation failed");
+		}
+	}
 
-AComponent::~AComponent()
-{
-	this->m_owner = nullptr;
-	this->m_type = NotSet;
-}
+	AComponent::AComponent(std::string guid, std::string name, ComponentType type, AGameObject* owner) : m_name(name), m_type(type), m_owner(owner)
+	{
+		std::wstring temp = std::wstring(guid.begin(), guid.end());
+		LPCWSTR guidstr = temp.c_str();
 
-void AComponent::attachOwner(AGameObject* owner)
-{
-	this->m_owner = owner;
-}
+		HRESULT result = IIDFromString(guidstr, &m_guid);
+		if (!Logger::log(this, result)) {
+			Logger::throw_exception("Conversion of GUID failed");
+		}
+	}
 
-void AComponent::detachOwner()
-{
-	this->m_owner = nullptr;
-	delete this;
-}
+	AComponent::~AComponent()
+	{
+		this->m_owner = nullptr;
+		this->m_type = NotSet;
+	}
 
-AGameObject* AComponent::getOwner()
-{
-	return this->m_owner;
-}
+	GUID AComponent::getGuid()
+	{
+		return this->m_guid;
+	}
 
-AComponent::ComponentType AComponent::getType()
-{
-	return this->m_type;
-}
+	std::string AComponent::getGuidString()
+	{
+		return StringUtility::GuidToString(m_guid);
+	}
 
-std::string AComponent::getName()
-{
-	return this->m_name;
-}
+	void AComponent::attachOwner(AGameObject* owner)
+	{
+		this->m_owner = owner;
+	}
 
-void AComponent::perform(float deltaTime)
-{
+	void AComponent::detachOwner()
+	{
+		delete this;
+	}
+
+	AGameObject* AComponent::getOwner()
+	{
+		return this->m_owner;
+	}
+
+	AComponent::ComponentType AComponent::getType()
+	{
+		return this->m_type;
+	}
+
+	std::string AComponent::getClassType()
+	{
+		return typeid(*this).raw_name();
+	}
+
+	std::string AComponent::getName()
+	{
+		return this->m_name;
+	}
+
+	void AComponent::perform(float deltaTime)
+	{
+	}
 }

@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <guiddef.h>
+#include <typeinfo>
 
 #include "AComponent.h"
 
@@ -10,6 +11,11 @@
 #include "Vector3D.h"
 
 #include "Prerequisites.h"
+
+namespace GDEngine
+{
+	enum GameObjectType : int;
+}
 
 namespace GDEngine {
 	class EditorAction;
@@ -33,8 +39,11 @@ namespace GDEngine {
 
 		void setName(std::string name);
 		std::string getName();
+
 		GUID getGuid();
 		std::string getGuidString();
+
+		std::string getType();
 
 		void setPosition(float x, float y, float z);
 		void setPosition(Vector3D position);
@@ -94,7 +103,7 @@ namespace GDEngine {
 
 		GUID m_guid;
 		std::string m_name;
-
+		GameObjectType m_type;
 		Vector3D m_localPosition;
 		Vector3D m_localScale;
 		Vector3D m_localRotation;

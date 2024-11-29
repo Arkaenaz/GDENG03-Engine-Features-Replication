@@ -177,7 +177,7 @@ namespace GDEngine {
 					ImGui::DragFloat("Angular Drag", &angularDrag);
 					ImGui::Checkbox("Gravity", &gravity);
 
-					BodyType bodyType = physicsComponent->getType();
+					BodyType bodyType = physicsComponent->getBodyType();
 					const char* items[] = { "Static", "Kinematic", "Dynamic" };
 					int item_selected_idx = static_cast<int>(bodyType); // Here we store our selection data as an index.
 					// Pass in the preview value visible before opening the combo (it could technically be different contents or not pulled from items[])
@@ -251,7 +251,7 @@ namespace GDEngine {
 					physicsComponent->setLinearDrag(linearDrag);
 					physicsComponent->setAngularDrag(angularDrag);
 					physicsComponent->setUseGravity(gravity);
-					physicsComponent->setType(static_cast<BodyType>(item_selected_idx));
+					physicsComponent->setBodyType(static_cast<BodyType>(item_selected_idx));
 
 					std::string buttonName = "Delete##" + component->getName();
 					if (ImGui::Button(buttonName.c_str(), ImVec2(ImGui::GetWindowSize().x - 15, 20)))

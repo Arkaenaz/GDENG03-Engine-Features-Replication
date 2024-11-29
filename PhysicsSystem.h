@@ -5,13 +5,15 @@
 #include <vector>
 #include <reactphysics3d/reactphysics3d.h>
 
+#include "AComponent.h"
+
 namespace GDEngine
 {
 	using namespace reactphysics3d;
 	class PhysicsComponent;
 	class PhysicsSystem
 	{
-	private:
+	public:
 		typedef std::unordered_map<std::string, PhysicsComponent*> PhysicsComponentMap;
 		typedef std::vector<PhysicsComponent*> PhysicsComponentList;
 
@@ -27,6 +29,9 @@ namespace GDEngine
 		~PhysicsSystem();
 
 	public:
+		void createComponentFromFile(std::string guid, std::string name, AGameObject* gameObject,
+			AComponent::ComponentType type, float mass, bool gravity, BodyType bodyType, float linearDrag, float angularDrag);
+
 		void registerComponent(PhysicsComponent* component);
 		void unregisterComponent(PhysicsComponent* component);
 		void unregisterComponentByName(std::string name);
