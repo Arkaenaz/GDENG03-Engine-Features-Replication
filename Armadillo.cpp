@@ -1,11 +1,16 @@
 #include "Armadillo.h"
 
+#include "GameObjectManager.h"
 #include "GraphicsEngine.h"
 #include "ShaderLibrary.h"
 
 namespace GDEngine
 {
-	Armadillo::Armadillo(std::string name) : MeshObject(name, L"assets/meshes/armadillo.obj")
+	Armadillo::Armadillo(std::string name) : MeshObject(name, ARMADILLO, L"assets/meshes/armadillo.obj")
+	{
+	}
+
+	Armadillo::Armadillo(std::string guid, std::string name, GameObjectType type) : MeshObject(guid, name, type, L"assets/meshes/armadillo.obj")
 	{
 	}
 

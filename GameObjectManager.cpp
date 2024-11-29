@@ -32,6 +32,7 @@ void GameObjectManager::createPhysicsCube()
 	Cube* cube = new Cube("Physics Cube");
 	cube->setPosition(0.0f, 5.0f, 0.0f);
 	cube->setPhysics(true);
+	cube->setType(PHYSICS_CUBE);
 	this->addObject(cube);
 	cube->attachComponent(new PhysicsComponent("PhysicsComponent " + cube->getName(), cube));
 }
@@ -41,6 +42,7 @@ void GameObjectManager::createPhysicsPlane()
 	Cube* plane = new Cube("Physics Plane");
 	plane->setScale(64, 0.5f, 64);
 	plane->setPhysics(true);
+	plane->setType(PHYSICS_PLANE);
 	this->addObject(plane);
 	plane->attachComponent(new PhysicsComponent("PhysicsComponent " + plane->getName(), plane));
 	PhysicsComponent* component = (PhysicsComponent*)plane->findComponentOfType(AComponent::ComponentType::Physics, "PhysicsComponent " + plane->getName());
@@ -261,14 +263,111 @@ void GameObjectManager::setPhysics(bool physics)
 	}
 }
 
-void GameObjectManager::createObjectFromFile(std::string objectGuid, std::string objectName, Vector3D position, Vector3D rotation,
+void GameObjectManager::createObjectFromFile(std::string objectGuid, std::string objectName, int type, Vector3D position, Vector3D rotation,
 	Vector3D scale)
 {
-	EmptyGameObject* gameObject = new EmptyGameObject(objectGuid, objectName);
-	gameObject->setPosition(position);
-	gameObject->setRotation(rotation);
-	gameObject->setScale(scale);
-	this->addObject(gameObject);
+	GameObjectType objectType = (GameObjectType)type;
+	switch (objectType)
+	{
+	case EMPTY:
+	{
+		EmptyGameObject* empty = new EmptyGameObject(objectGuid, objectName, objectType);
+		empty->setPosition(position);
+		empty->setRotation(rotation);
+		empty->setScale(scale);
+		this->addObject(empty);
+		break;
+	}
+	case CUBE:
+	{
+		Cube* cube = new Cube(objectGuid, objectName, objectType);
+		cube->setPosition(position);
+		cube->setRotation(rotation);
+		cube->setScale(scale);
+		this->addObject(cube);
+		break;
+	}
+	case PHYSICS_CUBE:
+	{
+		Cube* physicsCube = new Cube(objectGuid, objectName, objectType);
+		physicsCube->setPosition(position);
+		physicsCube->setRotation(rotation);
+		physicsCube->setScale(scale);
+		physicsCube->setPhysics(true);
+		this->addObject(physicsCube);
+		physicsCube->attachComponent(new PhysicsComponent("PhysicsComponent " + physicsCube->getGuidString(), physicsCube));
+		break;
+	}
+	case TEXTURED_CUBE:
+	{
+		// replace with texture component
+		Cube* texturedCube = new Cube(objectGuid, objectName, objectType);
+		texturedCube->setPosition(position);
+		texturedCube->setRotation(rotation);
+		texturedCube->setScale(scale);
+		this->addObject(texturedCube);
+		break;
+	}
+	case PLANE:
+	{
+		Plane* plane = new Plane(objectGuid, objectName, objectType);
+		plane->setPosition(position);
+		plane->setRotation(rotation);
+		plane->setScale(scale);
+		this->addObject(plane);
+		break;
+	}
+	case PHYSICS_PLANE:
+	{
+		Cube* physicsPlane = new Cube(objectGuid, objectName, objectType);
+		physicsPlane->setPosition(position);
+		physicsPlane->setRotation(rotation);
+		physicsPlane->setScale(scale);
+		physicsPlane->setPhysics(true);
+		this->addObject(physicsPlane);
+		physicsPlane->attachComponent(new PhysicsComponent("PhysicsComponent " + physicsPlane->getName(), physicsPlane));
+		PhysicsComponent* component = (PhysicsComponent*)physicsPlane->findComponentOfType(AComponent::ComponentType::Physics, "PhysicsComponent " + physicsPlane->getGuidString());
+		component->getRigidBody()->setType(BodyType::KINEMATIC);
+		break;
+	}
+	case QUAD:
+	{
+		Quad* quad = new Quad(objectGuid, objectName, objectType);
+		quad->setPosition(position);
+		quad->setRotation(rotation);
+		quad->setScale(scale);
+		this->addObject(quad);
+		break;
+	}
+	case TEAPOT:
+	{
+		Teapot* teapot = new Teapot(objectGuid, objectName, objectType);
+		teapot->setPosition(position);
+		teapot->setRotation(rotation);
+		teapot->setScale(scale);
+		this->addObject(teapot);
+		break;
+	}
+	case BUNNY:
+	{
+		Bunny* bunny = new Bunny(objectGuid, objectName, objectType);
+		bunny->setPosition(position);
+		bunny->setRotation(rotation);
+		bunny->setScale(scale);
+		this->addObject(bunny);
+		break;
+	}
+	case ARMADILLO:
+	{
+		Armadillo* armadillo = new Armadillo(objectGuid, objectName, objectType);
+		armadillo->setPosition(position);
+		armadillo->setRotation(rotation);
+		armadillo->setScale(scale);
+		this->addObject(armadillo);
+		break;
+	}
+	}
+	
 }
 
 GameObjectManager::GameObjectManager()

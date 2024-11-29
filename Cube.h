@@ -22,6 +22,7 @@ namespace GDEngine {
 
 	public:
 		Cube(std::string name);
+		Cube(std::string guid, std::string name, GameObjectType type);
 		~Cube() override;
 
 	public:

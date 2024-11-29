@@ -73,6 +73,7 @@ namespace GDEngine
 
 			root[guid];
 			root[guid]["name"] = gameObject->getName();
+			root[guid]["type"] = gameObject->getType();
 
 			Vector3D position = gameObject->getLocalPosition();
 			Vector3D rotation = gameObject->getLocalRotation();

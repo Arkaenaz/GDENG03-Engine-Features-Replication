@@ -11,6 +11,11 @@
 
 #include "Prerequisites.h"
 
+namespace GDEngine
+{
+	enum GameObjectType : int;
+}
+
 namespace GDEngine {
 	class EditorAction;
 	class AGameObject
@@ -33,8 +38,12 @@ namespace GDEngine {
 
 		void setName(std::string name);
 		std::string getName();
+
 		GUID getGuid();
 		std::string getGuidString();
+
+		GameObjectType getType();
+		void setType(GameObjectType type);
 
 		void setPosition(float x, float y, float z);
 		void setPosition(Vector3D position);
@@ -83,12 +92,13 @@ namespace GDEngine {
 		};
 
 		AGameObject(std::string name);
-		AGameObject(std::string guid, std::string name);
+		AGameObject(std::string name, GameObjectType type);
+		AGameObject(std::string guid, std::string name, GameObjectType type);
 		virtual ~AGameObject();
 
 		GUID m_guid;
 		std::string m_name;
-
+		GameObjectType m_type;
 		Vector3D m_localPosition;
 		Vector3D m_localScale;
 		Vector3D m_localRotation;

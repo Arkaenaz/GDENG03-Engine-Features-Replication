@@ -7,6 +7,19 @@
 
 namespace GDEngine
 {
+	enum GameObjectType
+	{
+		EMPTY = 0,
+		CUBE,
+		PHYSICS_CUBE,
+		TEXTURED_CUBE,
+		PLANE,
+		PHYSICS_PLANE,
+		QUAD,
+		TEAPOT,
+		BUNNY,
+		ARMADILLO
+	};
 	class GameObjectManager
 	{
 	public:
@@ -49,7 +62,7 @@ namespace GDEngine
 
 		void setPhysics(bool physics);
 
-		void createObjectFromFile(std::string objectGuid, std::string objectName, Vector3D position, Vector3D rotation, Vector3D scale);
+		void createObjectFromFile(std::string objectGuid, std::string objectName, int type, Vector3D position, Vector3D rotation, Vector3D scale);
 
 	private:
 		static GameObjectManager* P_SHARED_INSTANCE;

@@ -16,6 +16,7 @@ namespace GDEngine
 
 	public:
 		Plane(std::string name);
+		Plane(std::string guid, std::string name, GameObjectType type);
 		~Plane();
 
 	public:

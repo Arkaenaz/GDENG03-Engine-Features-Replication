@@ -67,7 +67,7 @@ namespace GDEngine
 				scale = Vector3D(std::stof(stringSplit[1]), std::stof(stringSplit[2]), std::stof(stringSplit[3]));
 				index = 0;
 
-				GameObjectManager::getInstance()->createObjectFromFile(objectGuid,objectName, position, rotation, scale);
+				//GameObjectManager::getInstance()->createObjectFromFile(objectGuid, objectName, position, rotation, scale);
 			}
 		}
 	}
@@ -94,12 +94,13 @@ namespace GDEngine
 		for (std::string guid : guidList)
 		{
 			std::string name = scene[guid]["name"].asString();
-			std::cout << name << std::endl;
+			int type = scene[guid]["type"].asInt();
+
 			Vector3D position;
 			position.x = scene[guid]["position"]["x"].asFloat();
 			position.y = scene[guid]["position"]["y"].asFloat();
 			position.z = scene[guid]["position"]["z"].asFloat();
-			std::cout << position.toString() << std::endl;
+
 			Vector3D rotation;
 			rotation.x = scene[guid]["rotation"]["x"].asFloat();
 			rotation.y = scene[guid]["rotation"]["y"].asFloat();
@@ -110,7 +111,7 @@ namespace GDEngine
 			scale.y = scene[guid]["scale"]["y"].asFloat();
 			scale.z = scene[guid]["scale"]["z"].asFloat();
 
-			GameObjectManager::getInstance()->createObjectFromFile(guid, name, position, rotation, scale);
+			GameObjectManager::getInstance()->createObjectFromFile(guid, name, type, position, rotation, scale);
 		}
 		
 	}

@@ -5,6 +5,7 @@
 #include "PhysicsSystem.h"
 
 #include "EditorAction.h"
+#include "GameObjectManager.h"
 #include "PhysicsComponent.h"
 #include "StringUtility.h"
 
@@ -18,6 +19,7 @@ namespace GDEngine
 		}
 
 		this->m_name = name;
+		this->m_type = EMPTY;
 		this->m_localPosition = Vector3D::zero();
 		this->m_localRotation = Vector3D::zero();
 		this->m_localScale = Vector3D::one();
@@ -29,7 +31,27 @@ namespace GDEngine
 		this->m_active = true;
 	}
 
-	AGameObject::AGameObject(std::string guid, std::string name)
+	AGameObject::AGameObject(std::string name, GameObjectType type)
+	{
+		HRESULT result = CoCreateGuid(&m_guid);
+		if (!Logger::log(this, result)) {
+			Logger::throw_exception("Game Object GUID creation failed");
+		}
+
+		this->m_name = name;
+		this->m_type = type;
+		this->m_localPosition = Vector3D::zero();
+		this->m_localRotation = Vector3D::zero();
+		this->m_localScale = Vector3D::one();
+		this->m_orientation = AQuaternion(0, 0, 0, 1);
+		this->m_physics = false;
+
+		this->updateLocalMatrix();
+
+		this->m_active = true;
+	}
+
+	AGameObject::AGameObject(std::string guid, std::string name, GameObjectType type)
 	{
 		std::wstring temp = std::wstring(guid.begin(), guid.end());
 		Logger::log(temp);
@@ -43,6 +65,7 @@ namespace GDEngine
 		}
 
 		this->m_name = name;
+		this->m_type = type;
 		this->m_localPosition = Vector3D::zero();
 		this->m_localRotation = Vector3D::zero();
 		this->m_localScale = Vector3D::one();
@@ -70,6 +93,7 @@ namespace GDEngine
 	void AGameObject::update(float deltaTime)
 	{
 		//Logger::log("Updating Game Object : " + this->m_name);
+		this->updateLocalMatrix();
 	}
 
 	void AGameObject::draw(int width, int height)
@@ -159,6 +183,16 @@ namespace GDEngine
 		std::string guidString = (char*)rpcString;
 		::RpcStringFreeA(&rpcString);*/
 		return StringUtility::GuidToString(m_guid);
+	}
+
+	GameObjectType AGameObject::getType()
+	{
+		return m_type;
+	}
+
+	void AGameObject::setType(GameObjectType type)
+	{
+		m_type = type;
 	}
 
 	void AGameObject::updateLocalMatrix()

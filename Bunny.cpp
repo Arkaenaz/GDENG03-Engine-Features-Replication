@@ -1,10 +1,15 @@
 #include "Bunny.h"
 
+#include "GameObjectManager.h"
 #include "GraphicsEngine.h"
 #include "ShaderLibrary.h"
 
 namespace GDEngine {
-	Bunny::Bunny(std::string name) : MeshObject(name, L"assets/meshes/bunny.obj")
+	Bunny::Bunny(std::string name) : MeshObject(name, BUNNY, L"assets/meshes/bunny.obj")
+	{
+	}
+
+	Bunny::Bunny(std::string guid, std::string name, GameObjectType type) : MeshObject(guid, name, type, L"assets/meshes/bunny.obj")
 	{
 	}
 

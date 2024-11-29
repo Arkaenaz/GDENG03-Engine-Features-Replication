@@ -7,6 +7,7 @@ namespace GDEngine {
 	{
 	public:
 		Bunny(std::string name);
+		Bunny(std::string guid, std::string name, GameObjectType type);
 		~Bunny() override;
 
 	public:

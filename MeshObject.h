@@ -12,6 +12,8 @@ namespace GDEngine
 
 	public:
 		MeshObject(std::string name, const wchar_t* meshFilePath);
+		MeshObject(std::string name, GameObjectType type, const wchar_t* meshFilePath);
+		MeshObject(std::string guid, std::string name, GameObjectType type, const wchar_t* meshFilePath);
 		~MeshObject() override;
 
 	public:
