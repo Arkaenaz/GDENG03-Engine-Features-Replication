@@ -85,6 +85,15 @@ namespace GDEngine {
                         if (ImGui::MenuItem("Textured Cube")) {
                             GameObjectManager::getInstance()->createTexturedCube();
                         }
+                        if (ImGui::MenuItem("Textured Capsule")) {
+                            GameObjectManager::getInstance()->createTexturedCapsule();
+                        }
+                        if (ImGui::MenuItem("Textured Cylinder")) {
+                            GameObjectManager::getInstance()->createTexturedCylinder();
+                        }
+                        if (ImGui::MenuItem("Textured Sphere")) {
+                            GameObjectManager::getInstance()->createTexturedSphere();
+                        }
                         ImGui::EndMenu();
                     }
                     if (ImGui::BeginMenu("Models"))

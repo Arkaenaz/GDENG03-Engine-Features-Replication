@@ -373,6 +373,9 @@
     <ClCompile Include="libs\jsoncpp\jsoncpp.cpp">
       <Filter>jsoncpp</Filter>
     </ClCompile>
+    <ClCompile Include="Capsule.cpp" />
+    <ClCompile Include="Cylinder.cpp" />
+    <ClCompile Include="Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -631,6 +634,9 @@
     <ClInclude Include="libs\jsoncpp\json\json-forwards.h">
       <Filter>jsoncpp</Filter>
     </ClInclude>
+    <ClInclude Include="Capsule.h" />
+    <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="Sphere.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasePixelShader.hlsl">

@@ -147,6 +147,7 @@
       </ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Bunny.cpp" />
+    <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="ColorPickerScreen.cpp" />
     <ClCompile Include="AComponent.cpp" />
     <ClCompile Include="CreditsScreen.cpp" />
@@ -157,6 +158,7 @@
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Cylinder.cpp" />
     <ClCompile Include="DeviceContext.cpp" />
     <ClCompile Include="EditorAction.cpp" />
     <ClCompile Include="EmptyGameObject.cpp" />
@@ -205,6 +207,7 @@
     <ClCompile Include="SceneReader.cpp" />
     <ClCompile Include="SceneWriter.cpp" />
     <ClCompile Include="ShaderLibrary.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="StringUtility.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="Teapot.cpp" />
@@ -231,6 +234,7 @@
       </ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Bunny.h" />
+    <ClInclude Include="Capsule.h" />
     <ClInclude Include="ColorPickerScreen.h" />
     <ClInclude Include="AComponent.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -244,6 +248,7 @@
     <ClInclude Include="Circle.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="Cylinder.h" />
     <ClInclude Include="EditorAction.h" />
     <ClInclude Include="EmptyGameObject.h" />
     <ClInclude Include="EngineBackend.h" />
@@ -261,6 +266,7 @@
     <ClInclude Include="PlaybackScreen.h" />
     <ClInclude Include="SceneReader.h" />
     <ClInclude Include="SceneWriter.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="StringUtility.h" />
     <ClInclude Include="Teapot.h" />
     <ClInclude Include="TextureComponent.h" />

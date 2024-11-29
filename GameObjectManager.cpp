@@ -7,6 +7,9 @@
 #include "Armadillo.h"
 #include "Bunny.h"
 #include "Cube.h"
+#include "Capsule.h"
+#include "Cylinder.h"
+#include "Sphere.h"
 #include "Plane.h"
 #include "Quad.h"
 #include "Teapot.h"
@@ -58,6 +61,25 @@ void GameObjectManager::createTexturedCube()
 	TexturedCube* cube = new TexturedCube("Textured Cube");
 	this->addObject(cube);
 }
+
+void GameObjectManager::createTexturedCapsule()
+{
+	Capsule* capsule = new Capsule("Capsule");
+	this->addObject(capsule);
+}
+
+void GameObjectManager::createTexturedCylinder()
+{
+	Cylinder* cyl = new Cylinder("Cylinder");
+	this->addObject(cyl);
+}
+
+void GameObjectManager::createTexturedSphere()
+{
+	Sphere* sphere = new Sphere("Sphere");
+	this->addObject(sphere);
+}
+
 
 void GameObjectManager::createPlane()
 {

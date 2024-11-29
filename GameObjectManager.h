@@ -23,6 +23,9 @@ namespace GDEngine
 		void createPhysicsCube();
 		void createPhysicsPlane();
 		void createTexturedCube();
+		void createTexturedCapsule();
+		void createTexturedCylinder();
+		void createTexturedSphere();
 		void createPlane();
 		void createQuad();
 		void createTeapot();
