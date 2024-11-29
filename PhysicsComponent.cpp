@@ -42,6 +42,7 @@ PhysicsComponent::PhysicsComponent(std::string name, AGameObject* owner) : AComp
 
 	//this->getOwner()->setPosition(Vector3D(position1.x, position1.y, position1.z));
 	//this->getOwner()->setRotation(Vector3D(rotation1.x, rotation1.y, rotation1.z));
+	this->getOwner()->setPhysics(true);
 }
 
 PhysicsComponent::~PhysicsComponent()
@@ -78,6 +79,7 @@ void PhysicsComponent::perform(float deltaTime)
 	this->getOwner()->setLocalMatrix(matrix);
 	const Vector3D position2 = this->getOwner()->getLocalPosition();
 
+	
 	//this->getOwner()->setLocalMatrix(Vector3D(position.x, position.y, position.z), Vector4D(orientation.x, orientation.y, orientation.z, orientation.w), matrix);
 	//Logger::log("Updating Component : " + this->m_name);
 }

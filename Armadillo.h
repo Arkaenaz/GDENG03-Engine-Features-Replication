@@ -7,7 +7,7 @@ namespace GDEngine {
 	{
 	public:
 		Armadillo(std::string name);
-		Armadillo(std::string guid, std::string name, GameObjectType type);
+		Armadillo(std::string guid, std::string name);
 		~Armadillo() override;
 
 	public:

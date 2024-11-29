@@ -6,11 +6,11 @@
 
 namespace GDEngine
 {
-	Armadillo::Armadillo(std::string name) : MeshObject(name, ARMADILLO, L"assets/meshes/armadillo.obj")
+	Armadillo::Armadillo(std::string name) : MeshObject(name, L"assets/meshes/armadillo.obj")
 	{
 	}
 
-	Armadillo::Armadillo(std::string guid, std::string name, GameObjectType type) : MeshObject(guid, name, type, L"assets/meshes/armadillo.obj")
+	Armadillo::Armadillo(std::string guid, std::string name) : MeshObject(guid, name, L"assets/meshes/armadillo.obj")
 	{
 	}
 

@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <guiddef.h>
+#include <typeinfo>
 
 #include "AComponent.h"
 
@@ -42,8 +43,7 @@ namespace GDEngine {
 		GUID getGuid();
 		std::string getGuidString();
 
-		GameObjectType getType();
-		void setType(GameObjectType type);
+		std::string getType();
 
 		void setPosition(float x, float y, float z);
 		void setPosition(Vector3D position);
@@ -92,8 +92,7 @@ namespace GDEngine {
 		};
 
 		AGameObject(std::string name);
-		AGameObject(std::string name, GameObjectType type);
-		AGameObject(std::string guid, std::string name, GameObjectType type);
+		AGameObject(std::string guid, std::string name);
 		virtual ~AGameObject();
 
 		GUID m_guid;

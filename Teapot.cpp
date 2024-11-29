@@ -6,11 +6,11 @@
 #include "ShaderLibrary.h"
 
 namespace GDEngine {
-	Teapot::Teapot(std::string name) : MeshObject(name, TEAPOT, L"assets/meshes/teapot.obj")
+	Teapot::Teapot(std::string name) : MeshObject(name, L"assets/meshes/teapot.obj")
 	{
 	}
 
-	Teapot::Teapot(std::string guid, std::string name, GameObjectType type) : MeshObject(guid, name, type, L"assets/meshes/teapot.obj")
+	Teapot::Teapot(std::string guid, std::string name) : MeshObject(guid, name, L"assets/meshes/teapot.obj")
 	{
 	}
 

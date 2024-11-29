@@ -5,7 +5,7 @@
 #include "ShaderLibrary.h"
 
 namespace GDEngine {
-	Plane::Plane(std::string name) : AGameObject(name, PLANE)
+	Plane::Plane(std::string name) : AGameObject(name)
 	{
 
 		Vector3D color1 = Vector3D(255.0f / 255.0f, 227.0f / 255.0f, 222.0f / 255.0f);
@@ -45,7 +45,7 @@ namespace GDEngine {
 		m_vertexBuffer = renderSystem->createVertexBuffer(list, sizeof(vertex), sizeList, shaderByteCode, sizeShader);
 	}
 
-	Plane::Plane(std::string guid, std::string name, GameObjectType type) : AGameObject(guid, name, type)
+	Plane::Plane(std::string guid, std::string name) : AGameObject(guid, name)
 	{
 		Vector3D color1 = Vector3D(255.0f / 255.0f, 227.0f / 255.0f, 222.0f / 255.0f);
 		Vector3D color2 = Vector3D(241.0f / 255.0f, 204.0f / 255.0f, 202.0f / 255.0f);

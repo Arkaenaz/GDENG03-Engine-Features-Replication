@@ -12,7 +12,7 @@
 
 using namespace GDEngine;
 
-Cube::Cube(std::string name) : AGameObject(name, CUBE)
+Cube::Cube(std::string name) : AGameObject(name)
 {
 
 	Vector3D color1 = Vector3D(230.0f / 255.0f, 230.0f / 255.0f, 250.0f / 255.0f);
@@ -81,7 +81,7 @@ Cube::Cube(std::string name) : AGameObject(name, CUBE)
 	deltaRotation = 0.0f;
 }
 
-Cube::Cube(std::string guid, std::string name, GameObjectType type) : AGameObject(guid, name, type)
+Cube::Cube(std::string guid, std::string name) : AGameObject(guid, name)
 {
 	Vector3D color1 = Vector3D(230.0f / 255.0f, 230.0f / 255.0f, 250.0f / 255.0f);
 	Vector3D color2 = Vector3D(214.0f / 255.0f, 209.0f / 255.0f, 236.0f / 255.0f);

@@ -2,7 +2,7 @@
 
 namespace GDEngine
 {
-	EmptyGameObject::EmptyGameObject(std::string guid, std::string name, GameObjectType type) : AGameObject(guid, name, type)
+	EmptyGameObject::EmptyGameObject(std::string guid, std::string name) : AGameObject(guid, name)
 	{
 	}
 

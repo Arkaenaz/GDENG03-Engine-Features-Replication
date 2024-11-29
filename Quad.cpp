@@ -7,7 +7,7 @@
 #include "ShaderLibrary.h"
 
 namespace GDEngine {
-	Quad::Quad(std::string name) : AGameObject(name, QUAD)
+	Quad::Quad(std::string name) : AGameObject(name)
 	{
 		vertex list[] =
 		{
@@ -35,7 +35,7 @@ namespace GDEngine {
 		m_vertexBuffer = renderSystem->createVertexBuffer(list, sizeof(vertex), sizeList, shaderByteCode, sizeShader);
 	}
 
-	Quad::Quad(std::string guid, std::string name, GameObjectType type) : AGameObject(guid, name, type)
+	Quad::Quad(std::string guid, std::string name) : AGameObject(guid, name)
 	{
 		vertex list[] =
 		{

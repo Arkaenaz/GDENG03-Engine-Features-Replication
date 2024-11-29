@@ -7,7 +7,7 @@ namespace GDEngine
 	class EmptyGameObject : public AGameObject
 	{
 	public:
-		EmptyGameObject(std::string guid, std::string name, GameObjectType type);
+		EmptyGameObject(std::string guid, std::string name);
 		~EmptyGameObject();
 	};
 }

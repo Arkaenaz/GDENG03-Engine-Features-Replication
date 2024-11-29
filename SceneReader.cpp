@@ -94,7 +94,7 @@ namespace GDEngine
 		for (std::string guid : guidList)
 		{
 			std::string name = scene[guid]["name"].asString();
-			int type = scene[guid]["type"].asInt();
+			std::string type = scene[guid]["type"].asString();
 
 			Vector3D position;
 			position.x = scene[guid]["position"]["x"].asFloat();
