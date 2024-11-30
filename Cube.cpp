@@ -15,7 +15,7 @@ using namespace GDEngine;
 
 Cube::Cube(std::string name) : AGameObject(name)
 {
-
+	this->texture = TextureLibrary::getInstance()->getTexture(TextureName::DEFAULT);
 	Vector3D positionList[] =
 	{
 		Vector3D(-0.5f,-0.5f,-0.5f),
@@ -251,17 +251,10 @@ void Cube::draw(int height, int width)
 	VertexShader* vertexShader;
 	PixelShader* pixelShader;
 
-	if (!this->m_texture) 
-	{
-		vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.BASE_VERTEX_SHADER_NAME);
-		pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.BASE_PIXEL_SHADER_NAME);
-	}
-	else 
-	{
-		vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.TEXTURED_VERTEX_SHADER_NAME);
-		pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.TEXTURED_PIXEL_SHADER_NAME);
-		renderSystem->getImmediateDeviceContext()->setTexture(this->texture);
-	}
+	vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.TEXTURED_VERTEX_SHADER_NAME);
+	pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.TEXTURED_PIXEL_SHADER_NAME);
+	renderSystem->getImmediateDeviceContext()->setTexture(this->texture);
+
 
 	renderSystem->getImmediateDeviceContext()->setConstantBuffer(m_constantBuffer, 0);
 

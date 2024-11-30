@@ -215,6 +215,7 @@
     <ClCompile Include="TextureComponent.cpp" />
     <ClCompile Include="TexturedCube.cpp" />
     <ClCompile Include="TexturedVertexBuffer.cpp" />
+    <ClCompile Include="TextureLibrary.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="ToolsScreen.cpp" />
     <ClCompile Include="UIManager.cpp" />
@@ -270,6 +271,7 @@
     <ClInclude Include="StringUtility.h" />
     <ClInclude Include="Teapot.h" />
     <ClInclude Include="TextureComponent.h" />
+    <ClInclude Include="TextureLibrary.h" />
     <ClInclude Include="VertexMesh.h" />
     <ClInclude Include="HierarchyScreen.h" />
     <ClInclude Include="InspectorScreen.h" />

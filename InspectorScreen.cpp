@@ -8,7 +8,7 @@
 #include "GameObjectManager.h"
 #include "PhysicsComponent.h"
 #include "TextureComponent.h"
-#include "Texture.h"
+#include "TextureLibrary.h"
 
 namespace GDEngine {
 	InspectorScreen::InspectorScreen() : UIScreen("InspectorScreen")
@@ -280,9 +280,30 @@ namespace GDEngine {
 					else
 						ImGui::TextColored(ImVec4(1, 0, 0, 1), "Invalid File Path!");
 
-					ImGui::InputText("File Path", &textureComponent->filePath);
+					/*ImGui::InputText("File Path", &textureComponent->filePath);
 					if (ImGui::Button("Set Texture"))
-						textureComponent->setTexture(textureComponent->filePath);
+						textureComponent->setTexture(textureComponent->filePath);*/
+					int texIndex = textureComponent->textureIndex;
+					std::string displayName = "Texture " + texIndex;
+					if (ImGui::BeginCombo("##SelectTexture", displayName.c_str()))
+					{
+						for (size_t i = 0; i < TextureLibrary::getInstance()->getTextureLibrary().size(); i++)
+						{
+							bool isSelected = (texIndex == static_cast<int>(i));
+							displayName = "Texture " + std::to_string(i + 1);
+							if (ImGui::Selectable(displayName.c_str(), isSelected))
+							{
+								texIndex = static_cast<int>(i);
+								textureComponent->setTexture((TextureName)i);
+								textureComponent->textureIndex = i;
+							}
+							if (isSelected)
+							{
+								ImGui::SetItemDefaultFocus();
+							}
+						}
+						ImGui::EndCombo();
+					}
 
 					std::string buttonName = "Delete##" + component->getName();
 					if (ImGui::Button(buttonName.c_str(), ImVec2(ImGui::GetWindowSize().x - 15, 20)))

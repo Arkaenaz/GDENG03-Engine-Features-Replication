@@ -12,6 +12,7 @@
 #include "Vector2D.h"
 
 #include "Prerequisites.h"
+#include "TextureLibrary.h"
 
 namespace GDEngine
 {

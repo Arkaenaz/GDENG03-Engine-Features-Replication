@@ -154,6 +154,9 @@
     <Filter Include="GameEngine\Primitives\Sphere">
       <UniqueIdentifier>{a3c33521-64ee-4a6b-8c51-5c60752668e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\ComponentSystem\TextureComponent">
+      <UniqueIdentifier>{4971c23c-1fe4-4fc5-a314-0ba15096a214}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -378,7 +381,6 @@
     <ClCompile Include="EmptyGameObject.cpp">
       <Filter>GameEngine\Hierarchy</Filter>
     </ClCompile>
-    <ClCompile Include="TextureComponent.cpp" />
     <ClCompile Include="libs\jsoncpp\jsoncpp.cpp">
       <Filter>jsoncpp</Filter>
     </ClCompile>
@@ -390,6 +392,12 @@
     </ClCompile>
     <ClCompile Include="Sphere.cpp">
       <Filter>GameEngine\Primitives\Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureComponent.cpp">
+      <Filter>GameEngine\ComponentSystem\TextureComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLibrary.cpp">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager\TextureManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -642,7 +650,6 @@
     <ClInclude Include="libs\imgui-filebrowser\imfilebrowser.h">
       <Filter>IMGUI</Filter>
     </ClInclude>
-    <ClInclude Include="TextureComponent.h" />
     <ClInclude Include="libs\jsoncpp\json\json.h">
       <Filter>jsoncpp</Filter>
     </ClInclude>
@@ -657,6 +664,12 @@
     </ClInclude>
     <ClInclude Include="Sphere.h">
       <Filter>GameEngine\Primitives\Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureComponent.h">
+      <Filter>GameEngine\ComponentSystem\TextureComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLibrary.h">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager\TextureManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

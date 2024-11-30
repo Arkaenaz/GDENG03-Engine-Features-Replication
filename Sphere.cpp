@@ -22,6 +22,7 @@ Sphere::Sphere(std::string name) : AGameObject(name)
 
 	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
 
+	this->texture = TextureLibrary::getInstance()->getTexture(TextureName::DEFAULT);
 	// 1. Create Indices and Index Buffer.
 	std::vector<unsigned int> indices;
 
@@ -126,7 +127,7 @@ void Sphere::draw(int height, int width)
 	VertexShader* vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.TEXTURED_VERTEX_SHADER_NAME);
 	PixelShader* pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.TEXTURED_PIXEL_SHADER_NAME);
 
-	deviceContext->setTexture(texture);
+	deviceContext->setTexture(this->texture);
 	deviceContext->setConstantBuffer(m_constantBuffer, 0);
 
 	deviceContext->setVertexShader(vertexShader);

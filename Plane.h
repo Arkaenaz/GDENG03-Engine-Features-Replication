@@ -8,6 +8,7 @@ namespace GDEngine
 	{
 	private:
 		VertexBuffer* m_vertexBuffer;
+		IndexBuffer* m_indexBuffer;
 		ConstantBuffer* m_constantBuffer;
 
 		float deltaPosition;

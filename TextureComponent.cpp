@@ -7,7 +7,7 @@ using namespace GDEngine;
 
 TextureComponent::TextureComponent(std::string name, AGameObject* owner) : AComponent(name, Physics, owner) 
 {
-	this->setTexture("assets/textures/wood.jpg");
+	this->setTexture(TextureName::DEFAULT);
 	this->updateTexture();
 }
 
@@ -16,14 +16,10 @@ GDEngine::TextureComponent::~TextureComponent()
 	this->texture = nullptr;
 }
 
-void GDEngine::TextureComponent::setTexture(std::string path)
+void GDEngine::TextureComponent::setTexture(TextureName texName)
 {
-	this->filePath = path;
-	//convert string to wchar_t
-	std::wstring widestr = std::wstring(filePath.begin(), filePath.end());
-	const wchar_t* usablePath = widestr.c_str();
 
-	this->texture = GraphicsEngine::getInstance()->getTextureManager()->createTextureFromFile(usablePath);
+	this->texture = TextureLibrary::getInstance()->getTexture(texName);
 
 	if (this->texture == nullptr)
 	{

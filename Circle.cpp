@@ -16,6 +16,7 @@ Circle::Circle(std::string name, float radius, int sides, void* shaderByteCode, 
 
 	RECT windowRect = AppWindow::getInstance()->getClientWindowRect();
 
+	this->texture = TextureLibrary::getInstance()->getTexture(TextureName::DEFAULT);	
 	FLOAT width = windowRect.right - windowRect.left;
 	FLOAT height = windowRect.bottom - windowRect.top;
 
@@ -115,18 +116,10 @@ void Circle::draw(int width, int height)
 	VertexShader* vertexShader;
 	PixelShader* pixelShader;
 
-	if (!this->m_texture)
-	{
-		vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.BASE_VERTEX_SHADER_NAME);
-		pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.BASE_PIXEL_SHADER_NAME);
-	}
-	else
-	{
+	vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.TEXTURED_VERTEX_SHADER_NAME);
+	pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.TEXTURED_PIXEL_SHADER_NAME);
+	renderSystem->getImmediateDeviceContext()->setTexture(this->texture);
 
-		vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.TEXTURED_VERTEX_SHADER_NAME);
-		pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.TEXTURED_PIXEL_SHADER_NAME);
-		renderSystem->getImmediateDeviceContext()->setTexture(this->texture);
-	}
 
 	renderSystem->getImmediateDeviceContext()->setConstantBuffer(m_constantBuffer, 0);
 
