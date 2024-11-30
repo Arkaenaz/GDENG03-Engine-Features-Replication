@@ -188,6 +188,19 @@ void GameObjectManager::deleteObject(AGameObject* gameObject)
 	{
 		this->m_gameObjectTable.erase(this->m_gameObjectList[index]->getName());
 		this->m_gameObjectList.erase(this->m_gameObjectList.begin() + index);
+
+		this->m_selectedObject->setParent(nullptr);
+
+		for (AGameObject* child : gameObject->getChildren())
+		{
+			deleteObject(child);  
+		}
+
+		if (gameObject->getParent() != nullptr)
+		{
+			gameObject->getParent()->removeChild(gameObject);  
+		}
+
 		gameObject->onDestroy();
 		delete gameObject;
 	}
