@@ -9,6 +9,7 @@
 
 #include "Matrix4x4.h"
 #include "Vector3D.h"
+#include "Vector2D.h"
 
 #include "Prerequisites.h"
 
@@ -77,6 +78,7 @@ namespace GDEngine {
 
 		bool hasTexture();
 		void setHasTexture(bool texture);
+		virtual void toggleTexture();
 
 		void attachComponent(AComponent* component);
 		void detachComponent(AComponent* component);
@@ -95,6 +97,12 @@ namespace GDEngine {
 			Vector3D position;
 			Vector3D color;
 			Vector3D color2;
+		};
+
+		struct texVertex
+		{
+			Vector3D position;
+			Vector2D texCoord;
 		};
 
 		AGameObject(std::string name);

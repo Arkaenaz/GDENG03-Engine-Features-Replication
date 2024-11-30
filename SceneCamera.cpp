@@ -71,10 +71,18 @@ void SceneCamera::setControllable(bool controllable)
 
 void SceneCamera::onKeyDown(int key)
 {
+	if (key == VK_SHIFT) 
+	{
+		this->speed = 20.0f;
+	}
 }
 
 void SceneCamera::onKeyUp(int key)
 {
+	if (key == VK_SHIFT)
+	{
+		this->speed = 1.0f;
+	}
 }
 
 void SceneCamera::onMouseMove(const Vector2D& deltaMousePosition)

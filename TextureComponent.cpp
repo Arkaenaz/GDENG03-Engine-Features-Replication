@@ -28,6 +28,7 @@ void GDEngine::TextureComponent::setTexture(std::string path)
 	if (this->texture == nullptr)
 	{
 		this->getOwner()->setHasTexture(false);
+		//this->getOwner()->toggleTexture();
 	}
 	else
 	{
@@ -47,6 +48,7 @@ void GDEngine::TextureComponent::updateTexture()
 {
 	this->getOwner()->setTexture(this->texture);
 	this->getOwner()->setHasTexture(true);
+	//this->getOwner()->toggleTexture();
 }
 
 Texture* GDEngine::TextureComponent::getTexture()

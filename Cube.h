@@ -20,6 +20,7 @@ namespace GDEngine {
 		float elapsedTime = 0.0f;
 		float deltaScale = 0.0f;
 
+
 	public:
 		Cube(std::string name);
 		Cube(std::string guid, std::string name);
@@ -32,5 +33,6 @@ namespace GDEngine {
 		void onDestroy() override;
 
 		void setSpeed(float speed);
+		void toggleTexture() override;
 	};
 }

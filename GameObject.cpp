@@ -379,6 +379,10 @@ namespace GDEngine
 		this->m_texture = texture;
 	}
 
+	void AGameObject::toggleTexture()
+	{
+	}
+
 	void AGameObject::attachComponent(AComponent* component)
 	{
 		this->m_componentList.push_back(component);
