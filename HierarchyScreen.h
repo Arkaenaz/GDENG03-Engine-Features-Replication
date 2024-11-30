@@ -1,4 +1,5 @@
 #pragma once
+#include "GameObject.h"
 #include "UIScreen.h"
 
 namespace GDEngine
@@ -14,5 +15,9 @@ namespace GDEngine
 
 	private:
 		virtual void draw() override;
+		void displayNode(AGameObject* gameObject);
+
+	private:
+		std::unordered_map<std::string, bool> m_expandedState;
 	};
 }

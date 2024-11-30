@@ -484,6 +484,87 @@ namespace GDEngine
 		}
 	}
 
+	void AGameObject::setParent(AGameObject* parent)
+	{
+		if (parent == this)
+		{
+			return;
+		}
+
+		if (m_parent != nullptr)
+		{
+			m_parent->removeChild(this);
+		}
+
+		m_parent = parent;
+
+		if (m_parent)
+		{
+			m_parent->addChild(this);
+		}
+	}
+
+
+	AGameObject* AGameObject::getParent()
+	{
+		return m_parent;
+	}
+
+	void AGameObject::addChild(AGameObject* child)
+	{
+		if (child == nullptr || child == this)
+		{
+			return;
+		}
+
+		// Ensure the child isn't already a child of the current object
+		if (std::find(m_children.begin(), m_children.end(), child) == m_children.end())
+		{
+			m_children.push_back(child);  // Add the child to the parent's list
+			if (child->getParent() != this)  // Ensure the parent reference is updated
+			{
+				child->setParent(this);
+			}
+
+			Logger::log("Set Child of " + this->getName() + ": " + child->getName());
+		}
+	}
+
+	void AGameObject::removeChild(AGameObject* child)
+	{
+		if (child == nullptr) 
+		{
+			return; 
+		}
+
+		auto it = std::find(m_children.begin(), m_children.end(), child);
+		if (it != m_children.end())
+		{
+			m_children.erase(it);
+			child->setParent(nullptr);
+
+			Logger::log("Remove Child of " + this->getName() + ": " + child->getName());
+
+		}
+	}
+
+	bool AGameObject::isDescendant(AGameObject* descendant)
+	{
+		AGameObject* parent = this;
+		while (parent != nullptr)
+		{
+			if (parent == descendant)
+				return true;
+			parent = parent->getParent();
+		}
+		return false;
+	}
+
+	AGameObject::ChildList AGameObject::getChildren()
+	{
+		return m_children;
+	}
+
 	void AGameObject::onDestroy()
 	{
 	}

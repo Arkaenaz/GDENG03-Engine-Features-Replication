@@ -26,6 +26,7 @@ namespace GDEngine {
 	public:
 		typedef Vector4D AQuaternion;
 		typedef std::vector<AComponent*> ComponentList;
+		typedef std::vector<AGameObject*> ChildList;
 
 		__declspec(align(16))
 			struct CBObjectData
@@ -92,6 +93,15 @@ namespace GDEngine {
 		void saveEditState();
 		void restoreEditState();
 
+		void setParent(AGameObject* parent);
+		AGameObject* getParent();
+
+		void addChild(AGameObject* child);
+		void removeChild(AGameObject* child);
+		ChildList getChildren();
+
+		bool isDescendant(AGameObject* descendant);
+
 	protected:
 		struct vertex
 		{
@@ -121,6 +131,9 @@ namespace GDEngine {
 
 		ComponentList m_componentList;
 		Texture* texture;
+
+		AGameObject* m_parent = nullptr;
+		ChildList m_children;
 
 	protected:
 		friend class GameObjectManager;
