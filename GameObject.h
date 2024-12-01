@@ -102,6 +102,11 @@ namespace GDEngine {
 
 		bool isDescendant(AGameObject* descendant);
 
+		Vector3D getWorldPosition();
+		Vector3D getWorldRotation();
+		Vector3D getWorldScale();
+
+
 	protected:
 		struct vertex
 		{
@@ -128,6 +133,10 @@ namespace GDEngine {
 		Vector3D m_localRotation;
 		AQuaternion m_orientation;
 		Matrix4x4 m_localMatrix;
+
+		Vector3D m_worldPosition;
+		Vector3D m_worldRotation;
+		Vector3D m_worldScale;
 
 		ComponentList m_componentList;
 		Texture* texture;

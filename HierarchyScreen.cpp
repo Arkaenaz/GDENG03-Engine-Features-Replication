@@ -44,9 +44,19 @@ void HierarchyScreen::displayNode(AGameObject* gameObject)
     bool hasChildren = !gameObject->getChildren().empty();
     bool isExpanded = m_expandedState[guidString];
 
+    static bool hasValidDropTarget = false;
+
+    AGameObject* selectedObject = GameObjectManager::getInstance()->getSelectedObject();
+
     if (hasChildren)
     {
-        if (ImGui::TreeNodeEx(label.c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth | (isExpanded ? ImGuiTreeNodeFlags_DefaultOpen : 0)))
+        ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
+        if (selectedObject == gameObject)
+            flags |= ImGuiTreeNodeFlags_Selected;
+        if (isExpanded)
+            flags |= ImGuiTreeNodeFlags_DefaultOpen;
+
+        if (ImGui::TreeNodeEx(label.c_str(), flags))
         {
             if (ImGui::IsItemClicked())
             {
@@ -58,6 +68,9 @@ void HierarchyScreen::displayNode(AGameObject* gameObject)
             {
                 GameObjectManager::getInstance()->setSelectedObject(gameObject);
                 ImGui::SetDragDropPayload("PARENTING", &gameObject, sizeof(AGameObject*));
+
+                hasValidDropTarget = false;
+
                 ImGui::EndDragDropSource();
             }
 
@@ -72,8 +85,10 @@ void HierarchyScreen::displayNode(AGameObject* gameObject)
                     {
                         draggedObject->setParent(gameObject);
                         m_expandedState[guidString] = true;
+                        hasValidDropTarget = true;
                     }
                 }
+
                 ImGui::EndDragDropTarget();
             }
 
@@ -103,6 +118,7 @@ void HierarchyScreen::displayNode(AGameObject* gameObject)
         {
             GameObjectManager::getInstance()->setSelectedObject(gameObject);
             ImGui::SetDragDropPayload("PARENTING", &gameObject, sizeof(AGameObject*));
+            hasValidDropTarget = false;
             ImGui::EndDragDropSource();
         }
 
@@ -117,14 +133,16 @@ void HierarchyScreen::displayNode(AGameObject* gameObject)
                 {
                     draggedObject->setParent(gameObject);
                     m_expandedState[guidString] = true;
+                    hasValidDropTarget = true;
                 }
             }
+
             ImGui::EndDragDropTarget();
         }
     }
 
     // Dropped to hierarchy screen
-    if (ImGui::IsWindowHovered() && ImGui::IsMouseReleased(0) && !ImGui::IsAnyItemHovered())
+    if (ImGui::IsWindowHovered() && ImGui::IsMouseReleased(0) && !ImGui::IsAnyItemHovered() && !hasValidDropTarget)
     {
         AGameObject* selectedObject = GameObjectManager::getInstance()->getSelectedObject();
 
@@ -133,6 +151,9 @@ void HierarchyScreen::displayNode(AGameObject* gameObject)
             Logger::log("Detached: " + selectedObject->getName() + " from its parent.");
 
             selectedObject->setParent(nullptr);
+
+            selectedObject->setPosition(selectedObject->getWorldPosition());
+
         }
     }
 }

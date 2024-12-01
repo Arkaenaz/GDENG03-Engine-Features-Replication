@@ -47,6 +47,10 @@ namespace GDEngine
 		this->m_orientation = AQuaternion(0, 0, 0, 1);
 		this->m_physics = false;
 
+		this->m_worldPosition = this->m_localPosition;
+		this->m_worldRotation = this->m_localRotation;
+		this->m_worldScale = this->m_localScale;
+
 		this->updateLocalMatrix();
 
 		this->m_active = true;
@@ -77,14 +81,23 @@ namespace GDEngine
 
 	void AGameObject::setPosition(Vector3D position)
 	{
+		this->m_localPosition = position;
+
 		if (m_parent)
 		{
-			Vector3D parentPos = m_parent->getLocalPosition();
-			this->m_localPosition = parentPos + position;
+			this->m_worldPosition = m_parent->m_worldPosition + position;
 		}
-		else 
+		else
 		{
-			this->m_localPosition = position;
+			this->m_worldPosition = m_localPosition;
+		}
+
+		for (AGameObject* child : m_children)
+		{
+			if (child)
+			{
+				child->setPosition(child->getLocalPosition());
+			}
 		}
 	}
 
@@ -201,7 +214,7 @@ namespace GDEngine
 
 			// Scale * Rotation * Translation
 			translate.setIdentity();
-			translate.setTranslation(this->m_localPosition);
+			translate.setTranslation(this->m_worldPosition);
 
 
 			translate *= rotation;
@@ -494,7 +507,7 @@ namespace GDEngine
 
 	void AGameObject::setParent(AGameObject* parent)
 	{
-		if (parent == this)
+		if (parent == this) 
 		{
 			return;
 		}
@@ -504,13 +517,25 @@ namespace GDEngine
 			m_parent->removeChild(this);
 		}
 
+		if (parent)
+		{
+			this->m_localPosition = this->m_worldPosition - parent->m_worldPosition;
+		}
+		else
+		{
+			this->m_localPosition = this->m_worldPosition;
+		}
+
 		m_parent = parent;
 
 		if (m_parent)
 		{
 			m_parent->addChild(this);
 		}
+
+		this->setPosition(this->m_localPosition);
 	}
+
 
 
 	AGameObject* AGameObject::getParent()
@@ -565,6 +590,21 @@ namespace GDEngine
 			parent = parent->getParent();
 		}
 		return false;
+	}
+
+	Vector3D AGameObject::getWorldPosition()
+	{
+		return m_worldPosition;
+	}
+
+	Vector3D AGameObject::getWorldRotation()
+	{
+		return m_worldRotation;
+	}
+
+	Vector3D AGameObject::getWorldScale()
+	{
+		return m_worldScale;
 	}
 
 	AGameObject::ChildList AGameObject::getChildren()
