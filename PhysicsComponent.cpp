@@ -148,6 +148,11 @@ bool PhysicsComponent::getConstraint(EConstraints constraint)
 	return (m_constraints & static_cast<uint8_t>(constraint)) == static_cast<uint8_t>(constraint);
 }
 
+uint8_t PhysicsComponent::getConstraints()
+{
+	return m_constraints;
+}
+
 void PhysicsComponent::setTransformFromOpenGL(float* matrix)
 {
 	Transform transform;
@@ -194,6 +199,25 @@ void PhysicsComponent::setConstraints(EConstraints constraints)
 	// getConstraint returns 1 if true. AxisFactor of ReactPhysics3D is 0 to freeze.
 	const Vector3 freezePosition = Vector3(
 		!getConstraint(EConstraints::FreezePositionX), 
+		!getConstraint(EConstraints::FreezePositionY),
+		!getConstraint(EConstraints::FreezePositionZ));
+
+	const Vector3 freezeRotation = Vector3(
+		!getConstraint(EConstraints::FreezeRotationX),
+		!getConstraint(EConstraints::FreezeRotationY),
+		!getConstraint(EConstraints::FreezeRotationZ));
+
+	this->m_rigidBody->setLinearLockAxisFactor(freezePosition);
+	this->m_rigidBody->setAngularLockAxisFactor(freezeRotation);
+}
+
+void PhysicsComponent::setConstraints(uint8_t constraints)
+{
+	this->m_constraints = constraints;
+
+	// getConstraint returns 1 if true. AxisFactor of ReactPhysics3D is 0 to freeze.
+	const Vector3 freezePosition = Vector3(
+		!getConstraint(EConstraints::FreezePositionX),
 		!getConstraint(EConstraints::FreezePositionY),
 		!getConstraint(EConstraints::FreezePositionZ));
 

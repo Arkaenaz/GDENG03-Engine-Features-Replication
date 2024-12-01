@@ -43,6 +43,7 @@ namespace GDEngine
 		float getLinearDrag();
 		float getAngularDrag();
 		bool getConstraint(EConstraints constraint);
+		uint8_t getConstraints();
 
 		void setTransformFromOpenGL(float* matrix);
 		void setMass(float mass);
@@ -51,5 +52,6 @@ namespace GDEngine
 		void setLinearDrag(float linearDrag);
 		void setAngularDrag(float angularDrag);
 		void setConstraints(EConstraints constraints);
+		void setConstraints(uint8_t constraints);
 	};
 }

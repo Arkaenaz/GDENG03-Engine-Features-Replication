@@ -27,7 +27,7 @@ PhysicsSystem::~PhysicsSystem()
 }
 
 void PhysicsSystem::createComponentFromFile(std::string guid, std::string name, AGameObject* gameObject,
-	AComponent::ComponentType type, float mass,bool gravity, BodyType bodyType, float linearDrag, float angularDrag)
+	AComponent::ComponentType type, float mass,bool gravity, BodyType bodyType, float linearDrag, float angularDrag, uint8_t constraints)
 {
 	PhysicsComponent* newComponent = new PhysicsComponent(guid, name, gameObject);
 	newComponent->setMass(mass);
@@ -35,6 +35,7 @@ void PhysicsSystem::createComponentFromFile(std::string guid, std::string name, 
 	newComponent->setBodyType(bodyType);
 	newComponent->setLinearDrag(linearDrag);
 	newComponent->setAngularDrag(angularDrag);
+	newComponent->setConstraints(constraints);
 	gameObject->attachComponent(newComponent);
 }
 

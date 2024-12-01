@@ -30,7 +30,7 @@ namespace GDEngine
 
 	public:
 		void createComponentFromFile(std::string guid, std::string name, AGameObject* gameObject,
-			AComponent::ComponentType type, float mass, bool gravity, BodyType bodyType, float linearDrag, float angularDrag);
+			AComponent::ComponentType type, float mass, bool gravity, BodyType bodyType, float linearDrag, float angularDrag, uint8_t constraints);
 
 		void registerComponent(PhysicsComponent* component);
 		void unregisterComponent(PhysicsComponent* component);

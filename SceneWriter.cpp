@@ -7,6 +7,7 @@
 #include "GameObjectManager.h"
 #include "PhysicsComponent.h"
 #include "PhysicsSystem.h"
+#include "TextureComponent.h"
 
 namespace GDEngine
 {
@@ -96,7 +97,7 @@ namespace GDEngine
 			AGameObject::ComponentList physicsList = gameObject->getComponentsOfType(AComponent::ComponentType::Physics);
 			for (AComponent* component : physicsList)
 			{
-				PhysicsComponent* physicsComponent = (PhysicsComponent*)component;
+				PhysicsComponent* physicsComponent = dynamic_cast<PhysicsComponent*>(component);
 				std::string componentGuid = component->getGuidString();
 
 				root[guid]["components"][componentGuid];
@@ -109,8 +110,21 @@ namespace GDEngine
 				root[guid]["components"][componentGuid]["body_type"] = static_cast<int>(physicsComponent->getBodyType());
 				root[guid]["components"][componentGuid]["linear_drag"] = physicsComponent->getLinearDrag();
 				root[guid]["components"][componentGuid]["angular_drag"] = physicsComponent->getAngularDrag();
-				//root[guid]["components"][componentGuid]["constraints"] = component->getConstraint();
+				root[guid]["components"][componentGuid]["constraints"] = physicsComponent->getConstraints();
+			}
+			AGameObject::ComponentList renderList = gameObject->getComponentsOfType(AComponent::ComponentType::Renderer);
+			for (AComponent* component : renderList)
+			{
+				std::string componentGuid = component->getGuidString();
+				root[guid]["components"][componentGuid];
+				root[guid]["components"][componentGuid]["name"] = component->getName();
+				root[guid]["components"][componentGuid]["class"] = component->getClassType();
+				root[guid]["components"][componentGuid]["type"] = component->getType();
 
+				/*if (component->getClassType() == typeid(TextureComponent).raw_name())
+				{
+					TextureComponent* textureComponent = dynamic_cast<TextureComponent*>(component);
+				}*/
 			}
 		}
 

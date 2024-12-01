@@ -6,7 +6,9 @@
 #include "BaseComponentSystem.h"
 #include "GameObjectManager.h"
 #include "PhysicsSystem.h"
+#include "PhysicsComponent.h"
 #include "StringUtility.h"
+#include "TextureComponent.h"
 #include "Vector3D.h"
 #include "json/json.h"
 
@@ -126,14 +128,31 @@ namespace GDEngine
 				std::string componentName = scene[guid]["components"][componentGuid]["name"].asString();
 				std::string componentClassType = scene[guid]["components"][componentGuid]["class"].asString();
 				AComponent::ComponentType componentType = static_cast<AComponent::ComponentType>(scene[guid]["components"][componentGuid]["type"].asInt());
-				float mass = scene[guid]["components"][componentGuid]["mass"].asFloat();
-				bool gravity = scene[guid]["components"][componentGuid]["gravity"].asBool();
-				BodyType componentBodyType = static_cast<BodyType>(scene[guid]["components"][componentGuid]["body_type"].asInt());
-				float linearDrag = scene[guid]["components"][componentGuid]["linear_drag"].asFloat();
-				float angularDrag = scene[guid]["components"][componentGuid]["angular_drag"].asFloat();
 
-				BaseComponentSystem::getInstance()->getPhysicsSystem()->createComponentFromFile(componentGuid, componentName, gameObject, componentType,
-					mass, gravity, componentBodyType, linearDrag, angularDrag);
+				if (componentClassType == typeid(PhysicsComponent).raw_name())
+				{
+					float mass = scene[guid]["components"][componentGuid]["mass"].asFloat();
+					bool gravity = scene[guid]["components"][componentGuid]["gravity"].asBool();
+					BodyType componentBodyType = static_cast<BodyType>(scene[guid]["components"][componentGuid]["body_type"].asInt());
+					float linearDrag = scene[guid]["components"][componentGuid]["linear_drag"].asFloat();
+					float angularDrag = scene[guid]["components"][componentGuid]["angular_drag"].asFloat();
+					uint8_t constraints = scene[guid]["components"][componentGuid]["constraints"].asUInt();
+
+					BaseComponentSystem::getInstance()->getPhysicsSystem()->createComponentFromFile(componentGuid, componentName, gameObject, componentType,
+						mass, gravity, componentBodyType, linearDrag, angularDrag, constraints);
+				}
+				/*if (componentClassType == typeid(TextureComponent).raw_name())
+				{
+					float mass = scene[guid]["components"][componentGuid]["mass"].asFloat();
+					bool gravity = scene[guid]["components"][componentGuid]["gravity"].asBool();
+					BodyType componentBodyType = static_cast<BodyType>(scene[guid]["components"][componentGuid]["body_type"].asInt());
+					float linearDrag = scene[guid]["components"][componentGuid]["linear_drag"].asFloat();
+					float angularDrag = scene[guid]["components"][componentGuid]["angular_drag"].asFloat();
+					uint8_t constraints = scene[guid]["components"][componentGuid]["constraints"].asUInt();
+
+					BaseComponentSystem::getInstance()->getPhysicsSystem()->createComponentFromFile(componentGuid, componentName, gameObject, componentType,
+						mass, gravity, componentBodyType, linearDrag, angularDrag, constraints);
+				}*/
 			}
 
 		}
