@@ -274,7 +274,7 @@ void GameObjectManager::restoreEditStates()
 
 void GameObjectManager::applyAction(EditorAction* action)
 {
-	Logger::log(action->getOwnerName());
+	//Logger::log(action->getOwnerName());
 	AGameObject* gameObject = this->findObjectByName(action->getOwnerName());
 	if (gameObject != nullptr)
 	{

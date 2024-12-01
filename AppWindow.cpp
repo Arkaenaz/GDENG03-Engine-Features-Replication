@@ -69,6 +69,7 @@ void AppWindow::onUpdate()
 	{
 		GameObjectManager::getInstance()->setPhysics(false);
 		GameObjectManager::getInstance()->update(deltaTime);
+
 	}
 	else if (backend->getMode() == EngineBackend::EditorMode::PAUSED)
 	{
@@ -137,8 +138,20 @@ void AppWindow::onKeyDown(int key)
 
 void AppWindow::onKeyUp(int key)
 {
-	if (key == VK_ESCAPE) {
-		//m_isRunning = false;
+	if (key == 90) 
+	{
+		if (ActionHistory::getInstance()->hasRemainingUndoActions()) 
+		{
+			GameObjectManager::getInstance()->applyAction(ActionHistory::getInstance()->undoAction());
+		}
+	}
+
+	if (key == 89) 
+	{
+		if (ActionHistory::getInstance()->hasRemainingRedoActions())
+		{
+			GameObjectManager::getInstance()->applyAction(ActionHistory::getInstance()->redoAction());
+		}
 	}
 }
 
