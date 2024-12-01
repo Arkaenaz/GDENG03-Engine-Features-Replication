@@ -207,7 +207,8 @@ void Capsule::draw(int height, int width)
 	VertexShader* vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.TEXTURED_VERTEX_SHADER_NAME);
 	PixelShader* pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.TEXTURED_PIXEL_SHADER_NAME);
 
-	deviceContext->setTexture(this->texture);
+	if (this->texture != nullptr)
+		deviceContext->setTexture(this->texture);
 	deviceContext->setConstantBuffer(m_constantBuffer, 0);
 
 	std::vector<AComponent*> rendererList = this->getComponentsOfType(AComponent::Renderer);

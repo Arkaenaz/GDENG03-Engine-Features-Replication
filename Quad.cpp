@@ -109,8 +109,9 @@ namespace GDEngine {
 
 		vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.TEXTURED_VERTEX_SHADER_NAME);
 		pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.TEXTURED_PIXEL_SHADER_NAME);
-		renderSystem->getImmediateDeviceContext()->setTexture(this->texture);
 
+		if (this->texture != nullptr)
+			renderSystem->getImmediateDeviceContext()->setTexture(this->texture);
 
 		renderSystem->getImmediateDeviceContext()->setConstantBuffer(m_constantBuffer);
 
