@@ -141,7 +141,6 @@ namespace GDEngine {
 			ImVec2 size{ WINDOW_WIDTH, WINDOW_HEIGHT };
 			ImVec2 nodePos{ workCenter.x - size.x * 0.5f, workCenter.y - size.y * 0.5f };
 
-			// Set the size and position:
 			ImGui::DockBuilderSetNodeSize(id, size);
 			ImGui::DockBuilderSetNodePos(id, nodePos);
 
@@ -149,6 +148,9 @@ namespace GDEngine {
 			ImGuiID dock2 = ImGui::DockBuilderSplitNode(dock1, ImGuiDir_Left, 0.5f, nullptr, &dock1);
 			ImGuiID dock3 = ImGui::DockBuilderSplitNode(id, ImGuiDir_Left, 0.5f, nullptr, &id);
 			ImGuiID dock4 = ImGui::DockBuilderSplitNode(dock3, ImGuiDir_Down, 0.25f, nullptr, &dock3);
+
+			ImGuiID dockProfiler = ImGui::DockBuilderSplitNode(dock4, ImGuiDir_Left, 0.25f, nullptr, &dock4);
+			ImGuiID dockLogger = dock4;
 
 			ImGuiID dock3_top = ImGui::DockBuilderSplitNode(dock3, ImGuiDir_Up, 0.5f, nullptr, &dock3);
 			ImGuiID dock3_bottom = dock3;
@@ -165,13 +167,15 @@ namespace GDEngine {
 			ImGui::DockBuilderDockWindow("Viewport 2", dock3_top_right);
 			ImGui::DockBuilderDockWindow("Viewport 3", dock3_bottom_left);
 			ImGui::DockBuilderDockWindow("Viewport 4", dock3_bottom_right);
-			ImGui::DockBuilderDockWindow("Profiler", dock4);
+			ImGui::DockBuilderDockWindow("Profiler", dockProfiler);
+			ImGui::DockBuilderDockWindow("Logger", dockLogger);
 
 			ImGui::DockBuilderFinish(id);
 
 			firstTime = false;
 			Logger::log(this, "Initialized Dock Space on First Run");
 		}
+
 	}
 
 	void UIManager::setActive(std::string name)
@@ -335,6 +339,11 @@ namespace GDEngine {
 		ColorPickerScreen* colorPickerScreen = new ColorPickerScreen();
 		this->mapUI[uiNames.COLOR_PICKER_SCREEN] = colorPickerScreen;
 		this->listUI.push_back(colorPickerScreen);
+
+
+		LoggerScreen* loggerScreen = new LoggerScreen();
+		this->mapUI[uiNames.LOGGER_SCREEN] = loggerScreen;
+		this->listUI.push_back(loggerScreen);
 
 		ViewportManager::getInstance()->createViewport();
 

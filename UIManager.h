@@ -21,6 +21,7 @@ public:
 	const std::string TOOLS_SCREEN = "TOOLS_SCREEN";
 	const std::string ACTION_SCREEN = "ACTION_SCREEN";
 	const std::string PLAYBACK_SCREEN = "PLAYBACK_SCREEN";
+	const std::string LOGGER_SCREEN = "LOGGER_SCREEN";
 };
 
 	class UIManager
