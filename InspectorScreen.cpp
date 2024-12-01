@@ -284,19 +284,23 @@ namespace GDEngine {
 					if (ImGui::Button("Set Texture"))
 						textureComponent->setTexture(textureComponent->filePath);*/
 					int texIndex = textureComponent->textureIndex;
-					std::string displayName = "Texture " + texIndex;
-					if (ImGui::BeginCombo("##SelectTexture", displayName.c_str()))
+					std::string displayName;
+					std::string dropdownName = "Texture " + std::to_string(texIndex);
+					if (ImGui::BeginCombo("##SelectTexture", dropdownName.c_str()))
 					{
 						for (size_t i = 0; i < TextureLibrary::getInstance()->getTextureLibrary().size(); i++)
 						{
 							bool isSelected = (texIndex == static_cast<int>(i));
+
 							displayName = "Texture " + std::to_string(i + 1);
-							if (ImGui::Selectable(displayName.c_str(), isSelected))
+							if (ImGui::ImageButton(displayName.c_str(), (ImTextureID)TextureLibrary::getInstance()->getTextureLibrary()[(TextureName)i]->m_shaderResourceView, ImVec2(64, 64)))
 							{
 								texIndex = static_cast<int>(i);
 								textureComponent->setTexture((TextureName)i);
 								textureComponent->textureIndex = i;
+								dropdownName = displayName;
 							}
+							
 							if (isSelected)
 							{
 								ImGui::SetItemDefaultFocus();
