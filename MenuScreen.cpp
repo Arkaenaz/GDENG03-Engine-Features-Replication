@@ -64,38 +64,43 @@ namespace GDEngine {
                 }
                 ImGui::EndMenu();
             }
-            if (ImGui::BeginMenu("Game Object")) {
-                if (ImGui::BeginMenu("3D Object")) {
+            if (ImGui::BeginMenu("Game Object"))
+            {
+                if (ImGui::BeginMenu("3D Object"))
+                {
                     RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
+
+                    // Primitives menu
                     if (ImGui::BeginMenu("Primitives"))
                     {
-                        if (ImGui::MenuItem("Cube")) {
+                        if (ImGui::MenuItem("Cube"))
+                        {
                             GameObjectManager::getInstance()->createCube();
                         }
-                        if (ImGui::MenuItem("Plane")) {
+                        if (ImGui::MenuItem("Plane"))
+                        {
                             GameObjectManager::getInstance()->createPlane();
                         }
-                        if (ImGui::MenuItem("Quad")) {
-                            GameObjectManager::getInstance()->createQuad();
-                        }
-                        ImGui::EndMenu();
-                    }
-                    if (ImGui::BeginMenu("Textured Primitives"))
-                    {
-                        if (ImGui::MenuItem("Textured Cube")) {
-                            GameObjectManager::getInstance()->createTexturedCube();
-                        }
-                        if (ImGui::MenuItem("Textured Capsule")) {
-                            GameObjectManager::getInstance()->createTexturedCapsule();
-                        }
-                        if (ImGui::MenuItem("Textured Cylinder")) {
-                            GameObjectManager::getInstance()->createTexturedCylinder();
-                        }
-                        if (ImGui::MenuItem("Textured Sphere")) {
+                        if (ImGui::MenuItem("Sphere"))
+                        {
                             GameObjectManager::getInstance()->createTexturedSphere();
                         }
-                        ImGui::EndMenu();
+                        if (ImGui::MenuItem("Capsule"))
+                        {
+                            GameObjectManager::getInstance()->createTexturedCapsule();
+                        }
+                        if (ImGui::MenuItem("Cylinder"))
+                        {
+                            GameObjectManager::getInstance()->createTexturedCylinder();
+                        }
+                        if (ImGui::MenuItem("Quad"))
+                        {
+                            GameObjectManager::getInstance()->createQuad();
+                        }
+                        ImGui::EndMenu();  // Close Primitives menu
                     }
+
+                    // Models menu
                     if (ImGui::BeginMenu("Models"))
                     {
                         if (ImGui::MenuItem("Teapot")) {
@@ -107,26 +112,14 @@ namespace GDEngine {
                         if (ImGui::MenuItem("Armadillo")) {
                             GameObjectManager::getInstance()->createArmadillo();
                         }
-                        ImGui::EndMenu();
+                        ImGui::EndMenu();  // Close Models menu
                     }
-                    if (ImGui::BeginMenu("Physics Objects"))
-                    {
-                        if (ImGui::MenuItem("Physics Cube")) {
-                            for (int i = 0; i < 20; i++)
-                            {
-                                GameObjectManager::getInstance()->createPhysicsCube();
 
-                            }
-                        }
-                        if (ImGui::MenuItem("Physics Plane")) {
-                            GameObjectManager::getInstance()->createPhysicsPlane();
-                        }
-                        ImGui::EndMenu();
-                    }
-                    ImGui::EndMenu();
+                    ImGui::EndMenu();  // Close 3D Object menu
                 }
-                ImGui::EndMenu();
+                ImGui::EndMenu();  // Close Game Object menu
             }
+
             if (ImGui::BeginMenu("Window")) {
                 if (ImGui::MenuItem("Inspector")) {
                     UIManager::getInstance()->setActive("INSPECTOR_SCREEN");

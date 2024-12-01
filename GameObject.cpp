@@ -77,7 +77,15 @@ namespace GDEngine
 
 	void AGameObject::setPosition(Vector3D position)
 	{
-		this->m_localPosition = position;
+		if (m_parent)
+		{
+			Vector3D parentPos = m_parent->getLocalPosition();
+			this->m_localPosition = parentPos + position;
+		}
+		else 
+		{
+			this->m_localPosition = position;
+		}
 	}
 
 	void AGameObject::setPosition(float x, float y, float z)
@@ -517,11 +525,10 @@ namespace GDEngine
 			return;
 		}
 
-		// Ensure the child isn't already a child of the current object
 		if (std::find(m_children.begin(), m_children.end(), child) == m_children.end())
 		{
-			m_children.push_back(child);  // Add the child to the parent's list
-			if (child->getParent() != this)  // Ensure the parent reference is updated
+			m_children.push_back(child);  
+			if (child->getParent() != this)  
 			{
 				child->setParent(this);
 			}
