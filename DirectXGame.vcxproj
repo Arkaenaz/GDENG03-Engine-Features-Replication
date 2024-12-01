@@ -189,6 +189,7 @@
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="PlaybackScreen.cpp" />
     <ClCompile Include="ProfilerScreen.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderTexture.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -267,6 +268,7 @@
     </ClInclude>
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="PlaybackScreen.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="SceneReader.h" />
     <ClInclude Include="SceneWriter.h" />
     <ClInclude Include="Sphere.h" />

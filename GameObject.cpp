@@ -5,8 +5,10 @@
 #include "PhysicsSystem.h"
 
 #include "EditorAction.h"
+#include "EngineTime.h"
 #include "GameObjectManager.h"
 #include "PhysicsComponent.h"
+#include "Renderer.h"
 #include "StringUtility.h"
 
 namespace GDEngine
@@ -81,6 +83,20 @@ namespace GDEngine
 
 	void AGameObject::draw(int width, int height)
 	{
+		std::vector<AComponent*> rendererList = this->getComponentsOfType(AComponent::Renderer);
+
+		ARenderer* renderer;
+		for (AComponent* component : rendererList) {
+			renderer = (ARenderer*)component;
+			renderer->perform(EngineTime::getDeltaTime());
+		}
+
+		rendererList = this->getComponentsOfTypeRecursive(AComponent::Renderer);
+
+		for (AComponent* component : rendererList) {
+			renderer = (ARenderer*)component;
+			renderer->perform(EngineTime::getDeltaTime());
+		}
 	}
 
 	void AGameObject::setPosition(Vector3D position)

@@ -9,6 +9,7 @@
 #include "VertexBuffer.h"
 #include "ConstantBuffer.h"
 #include "IndexBuffer.h"
+#include "Renderer.h"
 
 using namespace GDEngine;
 
@@ -129,6 +130,24 @@ void Sphere::draw(int height, int width)
 
 	deviceContext->setTexture(this->texture);
 	deviceContext->setConstantBuffer(m_constantBuffer, 0);
+
+	std::vector<AComponent*> rendererList = this->getComponentsOfType(AComponent::Renderer);
+	if (!rendererList.empty())
+	{
+		ARenderer* renderer;
+		for (AComponent* component : rendererList) {
+			renderer = (ARenderer*)component;
+			renderer->perform(EngineTime::getDeltaTime());
+		}
+
+		rendererList = this->getComponentsOfTypeRecursive(AComponent::Renderer);
+
+		for (AComponent* component : rendererList) {
+			renderer = (ARenderer*)component;
+			renderer->perform(EngineTime::getDeltaTime());
+		}
+		return;
+	}
 
 	deviceContext->setVertexShader(vertexShader);
 	deviceContext->setPixelShader(pixelShader);

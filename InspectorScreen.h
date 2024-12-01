@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include "imgui.h"
+#include "imfilebrowser.h"
 #include "UIScreen.h"
 
 namespace GDEngine
@@ -8,6 +10,8 @@ namespace GDEngine
 	{
 	private:
 		friend class UIManager;
+
+		ImGui::FileBrowser* m_meshDialog;
 
 	private:
 		InspectorScreen();

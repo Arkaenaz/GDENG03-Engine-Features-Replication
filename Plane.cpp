@@ -1,7 +1,9 @@
 #include "Plane.h"
 
+#include "EngineTime.h"
 #include "GameObjectManager.h"
 #include "GraphicsEngine.h"
+#include "Renderer.h"
 #include "ShaderLibrary.h"
 
 namespace GDEngine {
@@ -316,6 +318,24 @@ namespace GDEngine {
 
 
 		renderSystem->getImmediateDeviceContext()->setConstantBuffer(m_constantBuffer, 0);
+
+		std::vector<AComponent*> rendererList = this->getComponentsOfType(AComponent::Renderer);
+		if (!rendererList.empty())
+		{
+			ARenderer* renderer;
+			for (AComponent* component : rendererList) {
+				renderer = (ARenderer*)component;
+				renderer->perform(EngineTime::getDeltaTime());
+			}
+
+			rendererList = this->getComponentsOfTypeRecursive(AComponent::Renderer);
+
+			for (AComponent* component : rendererList) {
+				renderer = (ARenderer*)component;
+				renderer->perform(EngineTime::getDeltaTime());
+			}
+			return;
+		}
 
 		renderSystem->getImmediateDeviceContext()->setVertexShader(vertexShader);
 		renderSystem->getImmediateDeviceContext()->setPixelShader(pixelShader);

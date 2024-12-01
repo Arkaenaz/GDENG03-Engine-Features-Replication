@@ -7,6 +7,7 @@
 #include "UIManager.h"
 #include "GameObjectManager.h"
 #include "AComponent.h"
+#include "MeshRenderer.h"
 #include "PhysicsComponent.h"
 #include "TextureComponent.h"
 #include "TextureLibrary.h"
@@ -14,6 +15,9 @@
 namespace GDEngine {
 	InspectorScreen::InspectorScreen() : UIScreen("InspectorScreen")
 	{
+		m_meshDialog = new ImGui::FileBrowser();
+		m_meshDialog->SetTitle("Select Mesh");
+		m_meshDialog->SetTypeFilters({ ".obj" });
 		Logger::log(this, "Initialized");
 	}
 
@@ -75,6 +79,11 @@ namespace GDEngine {
 			{
 				// ADD TEXTURE COMPONENT TO OBJECT
 				m_selectedObject->attachComponent(new TextureComponent("TextureComponent " + m_selectedObject->getName(), m_selectedObject));
+			}
+			if (ImGui::Selectable("Mesh Renderer", false, 0, buttonSize))
+			{
+				// ADD MESH COMPONENT TO OBJECT
+				m_selectedObject->attachComponent(new MeshRenderer("MeshRenderer " + m_selectedObject->getName(), m_selectedObject));
 			}
 			ImGui::EndPopup();
 		}
@@ -324,6 +333,48 @@ namespace GDEngine {
 				ImGui::PopStyleVar();
 				ImGui::Separator();
 			}
+
+			if (component->getType() == AComponent::ComponentType::Renderer)
+			{
+				MeshRenderer* meshRenderer = dynamic_cast<MeshRenderer*>(component);
+
+				ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 0);
+				if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_DefaultOpen))
+				{
+					ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 7.800000190734863f);
+
+					std::string buttonName = "Set Mesh##" + component->getName();
+					if (ImGui::Button(buttonName.c_str(), ImVec2(ImGui::GetWindowSize().x - 15, 20)))
+					{
+						m_meshDialog->Open();
+					}
+					buttonName = "Delete##" + component->getName();
+					if (ImGui::Button(buttonName.c_str(), ImVec2(ImGui::GetWindowSize().x - 15, 20)))
+					{
+						gameObject->detachComponent(component);
+						gameObject->setHasTexture(false);
+					}
+
+					ImGui::PopStyleVar();
+				}
+
+				if (m_meshDialog->HasSelected())
+				{
+					std::string selected = m_meshDialog->GetSelected().string();
+					std::wstring wide = std::wstring(selected.begin(), selected.end());
+
+					meshRenderer->setMeshFromFile(wide.c_str());
+
+					m_meshDialog->ClearSelected();
+					m_meshDialog->Close();
+				}
+
+				ImGui::PopStyleVar();
+				ImGui::Separator();
+			}
 		}
+		m_meshDialog->Display();
+
+		
 	}
 }
