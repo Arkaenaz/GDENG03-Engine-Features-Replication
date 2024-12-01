@@ -27,9 +27,6 @@ namespace GDEngine {
 		this->camIndex = index;
 
 		this->selectedCameraIndex = this->camIndex;
-
-		Logger::log(this, "Initialized");
-		Logger::log(name + " Current Cam : " + currentCamera->getName());
 	}
 
 	ViewportScreen::~ViewportScreen()

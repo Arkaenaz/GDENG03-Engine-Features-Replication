@@ -7,7 +7,6 @@ namespace GDEngine
 
     LoggerScreen::LoggerScreen() : UIScreen("LoggerScreen")
     {
-        addLog("Logger initialized.");
     }
 
     LoggerScreen::~LoggerScreen()

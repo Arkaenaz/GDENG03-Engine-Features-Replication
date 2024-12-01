@@ -22,7 +22,7 @@ namespace GDEngine
             if (!DEBUG_LOGS)
                 return;
 
-            const std::string logMessage = "[" + getType(sender) + " DEBUG]: " + message;
+            const std::string logMessage = "[" + getType(sender) + "]: " + message;
             LoggerScreen::addLog(logMessage);
         }
 
