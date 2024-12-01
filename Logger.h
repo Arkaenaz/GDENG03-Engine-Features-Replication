@@ -24,6 +24,7 @@ namespace GDEngine
 
             const std::string logMessage = "[" + getType(sender) + "]: " + message;
             LoggerScreen::addLog(logMessage);
+            std::cout << logMessage << std::endl;
         }
 
         static void log(const std::string& message)
@@ -32,6 +33,7 @@ namespace GDEngine
                 return;
 
             LoggerScreen::addLog("[DEBUG]: " + message);
+            std::cout << "[DEBUG]: " << message << std::endl;
         }
 
         static void log(const std::wstring& message)
@@ -41,6 +43,7 @@ namespace GDEngine
 
             std::string convertedMessage = wstringToString(message);
             LoggerScreen::addLog("[DEBUG]: " + convertedMessage);
+            std::cout << convertedMessage << std::endl;
         }
 
         template <class T>
@@ -67,17 +70,20 @@ namespace GDEngine
 
             const std::string errorMessage = "[" + getType(sender) + " ERROR]: " + msg;
             LoggerScreen::addError(errorMessage);
+            std::cout << errorMessage << std::endl;
         }
 
         static void throw_exception(const std::string& msg)
         {
             LoggerScreen::addError("[EXCEPTION]: " + msg);
+            std::cout << "[EXCEPTION]: " << msg << std::endl;
             throw std::exception(msg.c_str());
         }
 
         static void out_of_range(const std::string& msg)
         {
             LoggerScreen::addError("[OUT OF RANGE]: " + msg);
+            std::cout << "[OUT OF RANGE]: " << msg << std::endl;
             throw std::out_of_range(msg.c_str());
         }
 

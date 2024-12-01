@@ -2,6 +2,8 @@
 
 #include "PhysicsSystem.h"
 #include "Logger.h"
+#include "MeshRenderer.h"
+#include "TextureComponent.h"
 
 using namespace GDEngine;
 
@@ -10,6 +12,25 @@ BaseComponentSystem* BaseComponentSystem::P_SHARED_INSTANCE = NULL;
 PhysicsSystem* BaseComponentSystem::getPhysicsSystem()
 {
 	return this->m_physicsSystem;
+}
+
+void BaseComponentSystem::createMeshRendererFromFile(std::string guid, std::string name, AGameObject* gameObject,
+	AComponent::ComponentType type, std::string filePath)
+{
+	MeshRenderer* newRenderer = new MeshRenderer(guid, name, gameObject);
+	std::wstring wide = std::wstring(filePath.begin(), filePath.end());
+	Logger::log(L"Creating Mesh Component From : " + wide);
+	gameObject->attachComponent(newRenderer);
+	newRenderer->setMeshFromFile(wide.c_str());
+}
+
+void BaseComponentSystem::createTextureComponentFromFile(std::string guid, std::string name, AGameObject* gameObject,
+	AComponent::ComponentType type, TextureName texName)
+{
+	TextureComponent* newTexture = new TextureComponent(guid, name, gameObject);
+
+	gameObject->attachComponent(newTexture);
+	newTexture->setTexture(texName);
 }
 
 BaseComponentSystem::BaseComponentSystem()

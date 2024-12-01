@@ -5,9 +5,11 @@
 
 #include "BaseComponentSystem.h"
 #include "GameObjectManager.h"
+#include "MeshRenderer.h"
 #include "PhysicsComponent.h"
 #include "PhysicsSystem.h"
 #include "TextureComponent.h"
+#include "Mesh.h"
 
 namespace GDEngine
 {
@@ -112,8 +114,23 @@ namespace GDEngine
 				root[guid]["components"][componentGuid]["angular_drag"] = physicsComponent->getAngularDrag();
 				root[guid]["components"][componentGuid]["constraints"] = physicsComponent->getConstraints();
 			}
-			AGameObject::ComponentList renderList = gameObject->getComponentsOfType(AComponent::ComponentType::Renderer);
-			for (AComponent* component : renderList)
+			AGameObject::ComponentList texList = gameObject->getComponentsOfType(AComponent::ComponentType::Tex);
+			for (AComponent* component : texList)
+			{
+				std::string componentGuid = component->getGuidString();
+				root[guid]["components"][componentGuid];
+				root[guid]["components"][componentGuid]["name"] = component->getName();
+				root[guid]["components"][componentGuid]["class"] = component->getClassType();
+				root[guid]["components"][componentGuid]["type"] = component->getType();
+				if (component->getClassType() == typeid(TextureComponent).raw_name())
+				{
+					TextureComponent* textureComponent = dynamic_cast<TextureComponent*>(component);
+					root[guid]["components"][componentGuid]["texture_name"] = textureComponent->getTexName();
+				}
+			}
+
+			AGameObject::ComponentList rendererList = gameObject->getComponentsOfType(AComponent::ComponentType::Renderer);
+			for (AComponent* component : rendererList)
 			{
 				std::string componentGuid = component->getGuidString();
 				root[guid]["components"][componentGuid];
@@ -121,10 +138,11 @@ namespace GDEngine
 				root[guid]["components"][componentGuid]["class"] = component->getClassType();
 				root[guid]["components"][componentGuid]["type"] = component->getType();
 
-				/*if (component->getClassType() == typeid(TextureComponent).raw_name())
+				if (component->getClassType() == typeid(MeshRenderer).raw_name())
 				{
-					TextureComponent* textureComponent = dynamic_cast<TextureComponent*>(component);
-				}*/
+					MeshRenderer* meshRenderer = dynamic_cast<MeshRenderer*>(component);
+					root[guid]["components"][componentGuid]["file_path"] = meshRenderer->getMesh()->getFilePath();
+				}
 			}
 		}
 

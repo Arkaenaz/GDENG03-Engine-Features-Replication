@@ -179,6 +179,7 @@ Cube::Cube(std::string guid, std::string name) : AGameObject(guid, name)
 
 	ShaderLibrary::getInstance()->requestVertexShaderData(shaderNames.TEXTURED_VERTEX_SHADER_NAME, &shaderByteCode, &sizeShader);
 
+	Logger::log("Trying to create Cube Textured Vertex Buffer");
 	m_vertexBuffer = renderSystem->createTexturedVertexBuffer(vertexList, sizeof(texVertex), ARRAYSIZE(vertexList), shaderByteCode, sizeShader);
 
 	unsigned int indexList[] = {
@@ -201,6 +202,7 @@ Cube::Cube(std::string guid, std::string name) : AGameObject(guid, name)
 		22,23,20
 	};
 
+	Logger::log("Trying to create Cube Index Buffer");
 	m_indexBuffer = renderSystem->createIndexBuffer(indexList, ARRAYSIZE(indexList));
 
 	CBObjectData cbData;

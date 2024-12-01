@@ -10,6 +10,7 @@
 #include "StringUtility.h"
 #include "TextureComponent.h"
 #include "Vector3D.h"
+#include "MeshRenderer.h"
 #include "json/json.h"
 
 namespace GDEngine
@@ -141,18 +142,19 @@ namespace GDEngine
 					BaseComponentSystem::getInstance()->getPhysicsSystem()->createComponentFromFile(componentGuid, componentName, gameObject, componentType,
 						mass, gravity, componentBodyType, linearDrag, angularDrag, constraints);
 				}
-				/*if (componentClassType == typeid(TextureComponent).raw_name())
+				if (componentClassType == typeid(TextureComponent).raw_name())
 				{
-					float mass = scene[guid]["components"][componentGuid]["mass"].asFloat();
-					bool gravity = scene[guid]["components"][componentGuid]["gravity"].asBool();
-					BodyType componentBodyType = static_cast<BodyType>(scene[guid]["components"][componentGuid]["body_type"].asInt());
-					float linearDrag = scene[guid]["components"][componentGuid]["linear_drag"].asFloat();
-					float angularDrag = scene[guid]["components"][componentGuid]["angular_drag"].asFloat();
-					uint8_t constraints = scene[guid]["components"][componentGuid]["constraints"].asUInt();
+					int texName = scene[guid]["components"][componentGuid]["texture_name"].asInt();
 
-					BaseComponentSystem::getInstance()->getPhysicsSystem()->createComponentFromFile(componentGuid, componentName, gameObject, componentType,
-						mass, gravity, componentBodyType, linearDrag, angularDrag, constraints);
-				}*/
+					BaseComponentSystem::getInstance()->createTextureComponentFromFile(componentGuid, componentName, gameObject, componentType, static_cast<TextureName>(texName));
+				}
+				if (componentClassType == typeid(MeshRenderer).raw_name())
+				{
+					std::string filePath = scene[guid]["components"][componentGuid]["file_path"].asString();
+
+					//BaseComponentSystem::getInstance()->createMeshRendererFromFile(componentGuid, componentName, gameObject, componentType,
+					//	filePath);
+				}
 			}
 
 		}

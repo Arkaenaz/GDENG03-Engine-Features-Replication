@@ -25,7 +25,7 @@ namespace GDEngine {
 		std::string err;
 
 		std::string inputFile = std::filesystem::path(fullPath).string();
-
+		temp_filePath = inputFile;
 		Logger::log(L"Creating mesh from : " + std::wstring(fullPath));
 		bool result = tinyobj::LoadObj(&attribs, &shapes, &materials, &warn, &err, inputFile.c_str());
 
@@ -85,7 +85,9 @@ namespace GDEngine {
 
 		ShaderLibrary::getInstance()->requestVertexShaderData(shaderNames.VERTEX_MESH_LAYOUT_SHADER_NAME, &shaderByteCode, &sizeShader);
 
+		Logger::log("Trying to create Mesh Textured Vertex Buffer");
 		m_vertexBuffer = renderSystem->createTexturedVertexBuffer(&listVertices[0], sizeof(VertexMesh), (UINT)listVertices.size(), shaderByteCode, sizeShader);
+		Logger::log("Trying to create Mesh Index Buffer");
 		m_indexBuffer = renderSystem->createIndexBuffer(&listIndices[0], (UINT)listIndices.size());
 
 		Logger::log("Mesh created successfully");
@@ -95,6 +97,11 @@ namespace GDEngine {
 	{
 		delete this->m_indexBuffer;
 		delete this->m_vertexBuffer;
+	}
+
+	std::string Mesh::getFilePath()
+	{
+		return temp_filePath;
 	}
 
 	VertexBuffer* Mesh::getVertexBuffer()
