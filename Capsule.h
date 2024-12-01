@@ -15,8 +15,8 @@ namespace GDEngine {
 		ConstantBuffer* m_constantBuffer;
 		IndexBuffer* m_indexBuffer;
 
-		int rings = 32;
-		int sectors = 32;
+		int stacks = 32;
+		int slices = 32;
 		float height = 0.5f;
 		float radius = 1.0f;
 
