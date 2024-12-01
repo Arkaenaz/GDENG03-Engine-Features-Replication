@@ -5,8 +5,9 @@
 
 using namespace GDEngine;
 
-TextureComponent::TextureComponent(std::string name, AGameObject* owner) : AComponent(name, Physics, owner) 
+TextureComponent::TextureComponent(std::string name, AGameObject* owner) : AComponent(name, Tex, owner) 
 {
+	Logger::log("Created new Texture Component");
 	this->setTexture(TextureName::DEFAULT);
 	this->updateTexture();
 }
@@ -23,8 +24,8 @@ void GDEngine::TextureComponent::setTexture(TextureName texName)
 
 	if (this->texture == nullptr)
 	{
-		this->getOwner()->setHasTexture(false);
-		//this->getOwner()->toggleTexture();
+		this->texture = TextureLibrary::getInstance()->getTexture(TextureName::DEFAULT);
+		this->updateTexture();
 	}
 	else
 	{
@@ -36,7 +37,8 @@ void GDEngine::TextureComponent::setTexture(TextureName texName)
 void GDEngine::TextureComponent::removeTexture()
 {
 	this->filePath = "";
-	this->texture = nullptr;
+	this->setTexture(TextureName::DEFAULT);
+	this->updateTexture();
 	this->getOwner()->setHasTexture(false);
 }
 

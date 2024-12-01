@@ -6,6 +6,7 @@
 #include "imgui_stdlib.h"
 #include "UIManager.h"
 #include "GameObjectManager.h"
+#include "AComponent.h"
 #include "PhysicsComponent.h"
 #include "TextureComponent.h"
 #include "TextureLibrary.h"
@@ -155,10 +156,10 @@ namespace GDEngine {
 
 	void InspectorScreen::drawComponentList(AGameObject* gameObject)
 	{
-		AGameObject::ComponentList componentList = gameObject->getComponentsOfType(AComponent::Physics);
+		AGameObject::ComponentList componentList = gameObject->getComponents();
 		for (AComponent* component : componentList)
 		{
-			if (component->getName().find("PhysicsComponent") != std::string::npos)
+			if (component->getType() == AComponent::ComponentType::Physics)
 			{
 				PhysicsComponent* physicsComponent = dynamic_cast<PhysicsComponent*>(component);
 
@@ -265,7 +266,8 @@ namespace GDEngine {
 				ImGui::Separator();
 			}
 
-			if (component->getName().find("TextureComponent") != std::string::npos) 
+
+			if (component->getType() == AComponent::ComponentType::Tex)
 			{
 				TextureComponent* textureComponent = dynamic_cast<TextureComponent*>(component);
 
@@ -312,6 +314,7 @@ namespace GDEngine {
 					std::string buttonName = "Delete##" + component->getName();
 					if (ImGui::Button(buttonName.c_str(), ImVec2(ImGui::GetWindowSize().x - 15, 20)))
 					{
+						textureComponent->setTexture(TextureName::DEFAULT);
 						gameObject->detachComponent(component);
 						gameObject->setHasTexture(false);
 					}

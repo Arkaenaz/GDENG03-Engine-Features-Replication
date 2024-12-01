@@ -552,6 +552,11 @@ namespace GDEngine
 		return components;
 	}
 
+	AGameObject::ComponentList AGameObject::getComponents()
+	{
+		return this->m_componentList;
+	}
+
 	void AGameObject::saveEditState()
 	{
 		m_lastEditState = new EditorAction(this);
