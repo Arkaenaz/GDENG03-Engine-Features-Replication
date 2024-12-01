@@ -153,6 +153,8 @@ void HierarchyScreen::displayNode(AGameObject* gameObject)
             selectedObject->setParent(nullptr);
 
             selectedObject->setPosition(selectedObject->getWorldPosition());
+            selectedObject->setRotation(selectedObject->getWorldRotation());
+            selectedObject->setScale(selectedObject->getWorldScale());
 
         }
     }

@@ -25,6 +25,10 @@ namespace GDEngine
 		this->m_orientation = AQuaternion(0, 0, 0, 1);
 		this->m_physics = false;
 
+		this->m_worldPosition = this->m_localPosition;
+		this->m_worldRotation = this->m_localRotation;
+		this->m_worldScale = this->m_localScale;
+
 		this->updateLocalMatrix();
 
 		this->m_active = true;
@@ -115,11 +119,44 @@ namespace GDEngine
 	void AGameObject::setScale(float x, float y, float z)
 	{
 		this->m_localScale = Vector3D(x, y, z);
-	}
 
+		if (m_parent)
+		{
+			this->m_worldScale = m_parent->m_worldScale * m_localScale;
+		}
+		else
+		{
+			this->m_worldScale = m_localScale;
+		}
+
+		for (AGameObject* child : m_children)
+		{
+			if (child)
+			{
+				child->setScale(child->getLocalScale());
+			}
+		}
+	}
 	void AGameObject::setScale(Vector3D scale)
 	{
 		this->m_localScale = scale;
+
+		if (m_parent)
+		{
+			this->m_worldScale = m_parent->m_worldScale * m_localScale;
+		}
+		else
+		{
+			this->m_worldScale = m_localScale;
+		}
+
+		for (AGameObject* child : m_children)
+		{
+			if (child)
+			{
+				child->setScale(child->getLocalScale());
+			}
+		}
 	}
 
 	Vector3D AGameObject::getLocalScale()
@@ -129,16 +166,52 @@ namespace GDEngine
 
 	void AGameObject::setRotation(float x, float y, float z)
 	{
-		reactphysics3d::Quaternion quat = reactphysics3d::Quaternion::fromEulerAngles(x, y, z);
 		this->m_localRotation = Vector3D(x, y, z);
+
+		if (m_parent)
+		{
+			this->m_worldRotation = m_parent->m_worldRotation + Vector3D(x, y, z);
+		}
+		else
+		{
+			this->m_worldRotation = m_localRotation;
+		}
+
+		reactphysics3d::Quaternion quat = reactphysics3d::Quaternion::fromEulerAngles(m_worldRotation.x, m_worldRotation.y, m_worldRotation.z);
 		this->m_orientation = Vector4D(quat.x, quat.y, quat.z, quat.w);
+
+		for (AGameObject* child : m_children)
+		{
+			if (child)
+			{
+				child->setRotation(child->getLocalRotation());
+			}
+		}
 	}
 
 	void AGameObject::setRotation(Vector3D rotation)
 	{
 		this->m_localRotation = rotation;
-		reactphysics3d::Quaternion quat = reactphysics3d::Quaternion::fromEulerAngles(rotation.x, rotation.y, rotation.z);
+
+		if (m_parent)
+		{
+			this->m_worldRotation = m_parent->m_worldRotation + rotation;
+		}
+		else
+		{
+			this->m_worldRotation = m_localRotation;
+		}
+
+		reactphysics3d::Quaternion quat = reactphysics3d::Quaternion::fromEulerAngles(m_worldRotation.x, m_worldRotation.y, m_worldRotation.z);
 		this->m_orientation = Vector4D(quat.x, quat.y, quat.z, quat.w);
+
+		for (AGameObject* child : m_children)
+		{
+			if (child)
+			{
+				child->setRotation(child->getLocalRotation());
+			}
+		}
 	}
 
 	void AGameObject::setOrientation(AQuaternion orientation)
@@ -195,7 +268,8 @@ namespace GDEngine
 
 			// Scale
 			transform.setIdentity();
-			transform.setScale(this->m_localScale);
+			transform.setScale(this->m_worldScale);
+
 
 			// Scale * Rotation
 			/*rotation.setIdentity();
