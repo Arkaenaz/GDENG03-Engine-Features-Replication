@@ -34,10 +34,11 @@ void GameObjectManager::createCube()
 void GameObjectManager::createPhysicsCube()
 {
 	Cube* cube = new Cube("Physics Cube");
-	cube->setPosition(0.0f, 5.0f, 0.0f);
-	cube->setPhysics(true);
+	cube->setPosition(0.0f, 20.0f, 0.0f);
+	cube->update(0);
 	this->addObject(cube);
 	cube->attachComponent(new PhysicsComponent("PhysicsComponent " + cube->getName(), cube));
+	cube->setPhysics(true);
 }
 
 void GameObjectManager::createPhysicsPlane()

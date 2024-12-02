@@ -117,7 +117,19 @@ namespace GDEngine {
                         }
                         ImGui::EndMenu();  // Close Models menu
                     }
-
+                    if (ImGui::BeginMenu("Physics Objects"))
+                    {
+                        if (ImGui::MenuItem("100 Physics Cube")) {
+                            for (int i = 0; i < 100; i++)
+                            {
+                                GameObjectManager::getInstance()->createPhysicsCube();
+                            }
+                        }
+                        if (ImGui::MenuItem("Physics Plane")) {
+                            GameObjectManager::getInstance()->createPhysicsPlane();
+                        }
+                        ImGui::EndMenu();
+                    }
                     ImGui::EndMenu();  // Close 3D Object menu
                 }
                 ImGui::EndMenu();  // Close Game Object menu
