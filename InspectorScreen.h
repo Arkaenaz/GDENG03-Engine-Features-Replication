@@ -20,7 +20,9 @@ namespace GDEngine
 	private:
 		virtual void draw() override;
 		void drawInspector();
+		void drawSharedInspector(std::vector<AGameObject*> objects);
 		void drawTransformTable(AGameObject* gameObject);
+		void drawSharedTransformTable(std::vector<AGameObject*> objects);
 		void drawComponentList(AGameObject* gameObject);
 
 	private:

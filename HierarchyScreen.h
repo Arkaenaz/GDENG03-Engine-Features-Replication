@@ -16,6 +16,7 @@ namespace GDEngine
 	private:
 		virtual void draw() override;
 		void displayNode(AGameObject* gameObject);
+		bool contains(std::string str, std::string substr);
 
 	private:
 		std::unordered_map<std::string, bool> m_expandedState;

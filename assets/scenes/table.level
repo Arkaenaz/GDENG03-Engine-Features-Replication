@@ -56,6 +56,25 @@
       },
       "type" : ".?AVCylinder@GDEngine@@"
    },
+   "{7637253c-1924-4b9c-ab4d-d8dab34827ad}" : {
+      "name" : "Teapot",
+      "position" : {
+         "x" : 0.0,
+         "y" : 1.1299999952316284,
+         "z" : 0.0
+      },
+      "rotation" : {
+         "x" : 0.0,
+         "y" : 0.0,
+         "z" : 0.0
+      },
+      "scale" : {
+         "x" : 1.0,
+         "y" : 1.0,
+         "z" : 1.0
+      },
+      "type" : ".?AVTeapot@GDEngine@@"
+   },
    "{a411621d-3528-493e-b76e-f34c328b00b7}" : {
       "name" : "Leg 1",
       "position" : {

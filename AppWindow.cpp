@@ -133,7 +133,11 @@ void AppWindow::onKillFocus()
 
 void AppWindow::onKeyDown(int key)
 {
-	
+	if (key == VK_SHIFT)
+	{
+		// Multiple Selection 
+		GameObjectManager::getInstance()->setMultiselectMode(true);
+	}
 }
 
 void AppWindow::onKeyUp(int key)
@@ -152,6 +156,12 @@ void AppWindow::onKeyUp(int key)
 		{
 			GameObjectManager::getInstance()->applyAction(ActionHistory::getInstance()->redoAction());
 		}
+	}
+
+	if (key == VK_SHIFT)
+	{
+		// Multiple Selection 
+		GameObjectManager::getInstance()->setMultiselectMode(false);
 	}
 }
 

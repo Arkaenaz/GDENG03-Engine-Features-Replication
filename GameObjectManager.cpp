@@ -134,7 +134,7 @@ void GameObjectManager::draw(int width, int height)
 {
 	for (AGameObject* gameObject : this->m_gameObjectList)
 	{
-		if (gameObject->isActive())
+		if (gameObject->isActive() && this->isViewable(gameObject))
 			gameObject->draw(width, height);
 	}
 }
@@ -243,6 +243,7 @@ void GameObjectManager::setSelectedObject(GUID guid)
 		if (IsEqualGUID(objectGuid, guid))
 		{
 			this->setSelectedObject(object);
+
 			return;
 		}
 	}
@@ -259,11 +260,51 @@ void GameObjectManager::setSelectedObject(std::string name)
 void GameObjectManager::setSelectedObject(AGameObject* gameObject)
 {
 	this->m_selectedObject = gameObject;
+
+	if (this->m_selectedObjects.size() == 0)
+		this->m_selectedObjects.push_back(gameObject);
+	else if (this->m_multiselectMode)
+		this->m_selectedObjects.push_back(gameObject);
+	else if (!this->m_multiselectMode) {
+		this->m_selectedObjects.clear();
+		this->m_selectedObjects.push_back(gameObject);
+	}
 }
 
 AGameObject* GameObjectManager::getSelectedObject()
 {
 	return this->m_selectedObject;
+}
+
+std::vector<AGameObject*> GameObjectManager::getSelectedObjects()
+{
+	return this->m_selectedObjects;
+}
+
+bool GDEngine::GameObjectManager::isSelected(AGameObject* obj)
+{
+	for (AGameObject* object : m_selectedObjects)
+	{
+		if (obj == object)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool GDEngine::GameObjectManager::isViewable(AGameObject* obj)
+{
+	for (AGameObject* object : m_viewables)
+	{
+		if (obj == object)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void GameObjectManager::saveEditStates()
@@ -302,6 +343,21 @@ void GameObjectManager::setPhysics(bool physics)
 		if (physicsList.size() != 0)
 			gameObject->setPhysics(physics);
 	}
+}
+
+bool GameObjectManager::getMultiselectMode()
+{
+	return this->m_multiselectMode;
+}
+
+void GameObjectManager::setMultiselectMode(bool multiselect)
+{
+	this->m_multiselectMode = multiselect;
+}
+
+void GameObjectManager::setViewableObjects(std::vector<AGameObject*> viewables)
+{
+	this->m_viewables = viewables;
 }
 
 AGameObject* GameObjectManager::createObjectFromFile(std::string objectGuid, std::string objectName, std::string classType, Vector3D position, Vector3D rotation,
@@ -395,6 +451,7 @@ GameObjectManager::GameObjectManager()
 {
 	Logger::log(P_SHARED_INSTANCE, "Initialized");
 
+	this->m_multiselectMode = false;
 }
 
 GameObjectManager::~GameObjectManager()
