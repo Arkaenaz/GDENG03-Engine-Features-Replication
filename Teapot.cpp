@@ -10,10 +10,12 @@
 namespace GDEngine {
 	Teapot::Teapot(std::string name) : MeshObject(name, L"assets/meshes/teapot.obj")
 	{
+		this->texture = TextureLibrary::getInstance()->getTexture(TextureName::DEFAULT);
 	}
 
 	Teapot::Teapot(std::string guid, std::string name) : MeshObject(guid, name, L"assets/meshes/teapot.obj")
 	{
+		this->texture = TextureLibrary::getInstance()->getTexture(TextureName::DEFAULT);
 	}
 
 	Teapot::~Teapot()
@@ -45,12 +47,10 @@ namespace GDEngine {
 		ShaderNames shaderNames;
 		DeviceContext* deviceContext = GraphicsEngine::getInstance()->getRenderSystem()->getImmediateDeviceContext();
 
-		Texture* brickTex = GraphicsEngine::getInstance()->getTextureManager()->createTextureFromFile(L"assets/textures/brick.png");
-
 		VertexShader* vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.TEXTURED_VERTEX_SHADER_NAME);
 		PixelShader* pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.TEXTURED_PIXEL_SHADER_NAME);
 
-		deviceContext->setTexture(brickTex);
+		deviceContext->setTexture(this->texture);
 		deviceContext->setConstantBuffer(m_constantBuffer, 0);
 
 		std::vector<AComponent*> rendererList = this->getComponentsOfType(AComponent::Renderer);

@@ -19,6 +19,7 @@ namespace GDEngine {
 
 	public:
 		Sphere(std::string name);
+		Sphere(std::string guid, std::string name);
 		~Sphere() override;
 
 	public:

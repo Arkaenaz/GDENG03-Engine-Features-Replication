@@ -22,6 +22,7 @@ namespace GDEngine {
 
 	public:
 		Cylinder(std::string name);
+		Cylinder(std::string guid, std::string name);
 		~Cylinder() override;
 
 	public:

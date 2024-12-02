@@ -316,6 +316,33 @@ AGameObject* GameObjectManager::createObjectFromFile(std::string objectGuid, std
 		this->addObject(cube);
 		return cube;
 	}
+	if (classType == typeid(Cylinder).raw_name())
+	{
+		Cylinder* cylinder = new Cylinder(objectGuid, objectName);
+		cylinder->setPosition(position);
+		cylinder->setRotation(rotation);
+		cylinder->setScale(scale);
+		this->addObject(cylinder);
+		return cylinder;
+	}
+	if (classType == typeid(Capsule).raw_name())
+	{
+		Capsule* capsule = new Capsule(objectGuid, objectName);
+		capsule->setPosition(position);
+		capsule->setRotation(rotation);
+		capsule->setScale(scale);
+		this->addObject(capsule);
+		return capsule;
+	}
+	if (classType == typeid(Sphere).raw_name())
+	{
+		Sphere* sphere = new Sphere(objectGuid, objectName);
+		sphere->setPosition(position);
+		sphere->setRotation(rotation);
+		sphere->setScale(scale);
+		this->addObject(sphere);
+		return sphere;
+	}
 	if (classType == typeid(Plane).raw_name())
 	{
 		Plane* plane = new Plane(objectGuid, objectName);
