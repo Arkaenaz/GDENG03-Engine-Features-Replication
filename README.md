@@ -1,4 +1,4 @@
-# \[GDENG03\] Multiple Viewports
+# \[GDENG03\] Scene Editor
 
 Members:
 - Shane Laurenze Cablayan,
