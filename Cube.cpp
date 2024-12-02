@@ -19,15 +19,15 @@ Cube::Cube(std::string name) : AGameObject(name)
 	this->texture = TextureLibrary::getInstance()->getTexture(TextureName::DEFAULT);
 	Vector3D positionList[] =
 	{
-		Vector3D(-0.5f,-0.5f,-0.5f),
-		Vector3D(-0.5f,0.5f, -0.5f),
-		Vector3D(0.5f, 0.5f, -0.5f),
-		Vector3D(0.5f, -0.5f,-0.5f),
+		Vector3D(-1.0f,-1.0f,-1.0f),
+		Vector3D(-1.0f,1.0f, -1.0f),
+		Vector3D(1.0f, 1.0f, -1.0f),
+		Vector3D(1.0f, -1.0f,-1.0f),
 
-		Vector3D(0.5f, -0.5f,0.5f),
-		Vector3D(0.5f, 0.5f, 0.5f),
-		Vector3D(-0.5f,0.5f, 0.5f),
-		Vector3D(-0.5f,-0.5f,0.5f)
+		Vector3D(1.0f, -1.0f,1.0f),
+		Vector3D(1.0f, 1.0f, 1.0f),
+		Vector3D(-1.0f,1.0f, 1.0f),
+		Vector3D(-1.0f,-1.0f,1.0f)
 	};
 
 	Vector2D texCoordList[] =
