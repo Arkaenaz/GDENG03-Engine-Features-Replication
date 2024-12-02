@@ -118,23 +118,23 @@ Cube::Cube(std::string guid, std::string name) : AGameObject(guid, name)
 {
 	Vector3D positionList[] =
 	{
-		Vector3D(-0.5f,-0.5f,-0.5f),
-		Vector3D(-0.5f,0.5f, -0.5f),
-		Vector3D(0.5f, 0.5f, -0.5f),
-		Vector3D(0.5f, -0.5f,-0.5f),
+		Vector3D(-1.0f,-1.0f,-1.0f),
+		Vector3D(-1.0f,1.0f, -1.0f),
+		Vector3D(1.0f, 1.0f, -1.0f),
+		Vector3D(1.0f, -1.0f,-1.0f),
 
-		Vector3D(0.5f, -0.5f,0.5f),
-		Vector3D(0.5f, 0.5f, 0.5f),
-		Vector3D(-0.5f,0.5f, 0.5f),
-		Vector3D(-0.5f,-0.5f,0.5f)
+		Vector3D(1.0f, -1.0f,1.0f),
+		Vector3D(1.0f, 1.0f, 1.0f),
+		Vector3D(-1.0f,1.0f, 1.0f),
+		Vector3D(-1.0f,-1.0f,1.0f)
 	};
 
 	Vector2D texCoordList[] =
 	{
 		Vector2D(0.0f, 0.0f),
-		Vector2D(0.0f, 1.0f),
-		Vector2D(1.0f, 0.0f),
-		Vector2D(1.0f, 1.0f),
+		Vector2D(0.0f, 2.0f),
+		Vector2D(2.0f, 0.0f),
+		Vector2D(2.0f, 2.0f),
 	};
 
 	texVertex vertexList[] =
