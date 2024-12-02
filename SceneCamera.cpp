@@ -51,8 +51,14 @@ void SceneCamera::update(float deltaTime)
 			newPosition -= viewMatrix.getYDirection() * (speed * deltaTime);
 		}
 
-		// If type < 2
-		// Scroll to zoom in or out: +- in Z direction
+		if (InputSystem::getInstance()->getKey('F'))
+		{
+			fov = std::max(0.1f, fov - 0.05f); // Decrease FOV (Zoom In)
+		}
+		else if (InputSystem::getInstance()->getKey('G'))
+		{
+			fov = std::min(2.9f, fov + 0.05f); // Increase FOV (Zoom Out)
+		}
 
 		setPosition(newPosition);
 	}

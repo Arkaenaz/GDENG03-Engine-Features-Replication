@@ -29,6 +29,10 @@ namespace GDEngine
 		if (EngineBackend::getInstance()->getMode() == EngineBackend::EditorMode::EDITOR)
 		{
 			EditorAction* editorAction = new EditorAction(gameObject);
+
+			Logger::log(std::to_string(gameObject->getLocalPosition().x) + ", " + std::to_string(gameObject->getLocalPosition().y) + std::to_string(gameObject->getLocalPosition().z));
+
+
 			this->m_actionsPerformed.push(editorAction);
 
 			Logger::log("Stored Action " + gameObject->getName());
@@ -58,6 +62,7 @@ namespace GDEngine
 			EditorAction* action = m_actionsPerformed.top();
 			m_actionsPerformed.pop();
 			m_actionsCancelled.push(action);
+			//Logger::log("Redo actions: " + std::to_string(m_actionsCancelled.size()));
 			return action;
 		}
 
@@ -76,6 +81,7 @@ namespace GDEngine
 		if (this->hasRemainingRedoActions())
 		{
 			EditorAction* action = m_actionsCancelled.top();
+
 			m_actionsCancelled.pop();
 			m_actionsPerformed.push(action);
 			return action;

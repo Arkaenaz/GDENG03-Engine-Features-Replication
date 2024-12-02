@@ -73,7 +73,7 @@ void Camera::updateProjectionMatrix()
 	switch (type) {
 		case 0:
 			proj.setPerspectiveFovLH(
-				1.57f, // fov
+				fov, // fov
 				(float)width / (float)height, // aspect
 				0.1f, // near
 				100.0f // far
@@ -96,7 +96,7 @@ void Camera::updateProjectionMatrix()
 			break;
 		default:
 			proj.setPerspectiveFovLH(
-				1.57f, // fov
+				fov, // fov
 				(float)width / (float)height, // aspect
 				0.1f, // near
 				100.0f // far

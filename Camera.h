@@ -24,6 +24,8 @@ namespace GDEngine
 		int width;
 		int height;
 
+		float fov = 1.57f;
+
 	public:
 		Camera(std::string name);
 		~Camera();
