@@ -9,6 +9,7 @@
 #include "Cube.h"
 #include "Capsule.h"
 #include "Cylinder.h"
+#include "Lucy.h"
 #include "Sphere.h"
 #include "Plane.h"
 #include "Quad.h"
@@ -109,6 +110,12 @@ void GameObjectManager::createArmadillo()
 {
 	Armadillo* armadillo = new Armadillo("Armadillo");
 	this->addObject(armadillo);
+}
+
+void GDEngine::GameObjectManager::createLucy()
+{
+	Lucy* lucy = new Lucy("Lucy");
+	this->addObject(lucy);
 }
 
 void GameObjectManager::update(float deltaTime)

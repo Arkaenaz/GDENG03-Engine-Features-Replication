@@ -112,6 +112,9 @@ namespace GDEngine {
                         if (ImGui::MenuItem("Armadillo")) {
                             GameObjectManager::getInstance()->createArmadillo();
                         }
+                        if (ImGui::MenuItem("Lucy")) {
+                            GameObjectManager::getInstance()->createLucy();
+                        }
                         ImGui::EndMenu();  // Close Models menu
                     }
 
