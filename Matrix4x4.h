@@ -159,6 +159,21 @@ namespace GDEngine
 			setMatrix(out);
 		}
 
+		Matrix4x4 operator*(const Matrix4x4& other) const
+		{
+			Matrix4x4 result;
+			for (int i = 0; i < 4; ++i) {
+				for (int j = 0; j < 4; ++j) {
+					result.m_mat[i][j] =
+						m_mat[i][0] * other.m_mat[0][j] +
+						m_mat[i][1] * other.m_mat[1][j] +
+						m_mat[i][2] * other.m_mat[2][j] +
+						m_mat[i][3] * other.m_mat[3][j];
+				}
+			}
+			return result;
+		}
+
 		float* getMatrix()
 		{
 			/*debug::Logger::log("[" + std::to_string(m_mat[0][0]) + "," + std::to_string(m_mat[0][1]) + "," + std::to_string(m_mat[0][2]) + "," + std::to_string(m_mat[0][3]) + "]");

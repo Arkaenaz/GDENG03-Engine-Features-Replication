@@ -279,12 +279,16 @@ namespace GDEngine
 	{
 		if (!m_physics)
 		{
-			Matrix4x4 transform, rotation, translate;
+			Matrix4x4 transform;
+			Matrix4x4 scaleMatrix;
+			Matrix4x4 rotationMatrix;
+			Matrix4x4 translationMatrix;
 			Matrix4x4 temp;
 
-			// Scale
 			transform.setIdentity();
-			transform.setScale(this->m_worldScale);
+
+			scaleMatrix.setIdentity();
+			scaleMatrix.setScale(this->m_worldScale);
 
 
 			// Scale * Rotation
@@ -299,16 +303,13 @@ namespace GDEngine
 			temp.setRotationX(this->m_localRotation.x);
 			rotation *= temp;*/
 
-			rotation.setIdentity();
-			rotation.setRotation(this->m_orientation);
+			rotationMatrix.setIdentity();
+			rotationMatrix.setRotation(this->m_orientation);
 
-			// Scale * Rotation * Translation
-			translate.setIdentity();
-			translate.setTranslation(this->m_worldPosition);
+			translationMatrix.setIdentity();
+			translationMatrix.setTranslation(this->m_worldPosition);
 
-
-			translate *= rotation;
-			transform *= translate;
+			transform = scaleMatrix * rotationMatrix * translationMatrix;
 
 			this->m_localMatrix = transform;
 		}
@@ -316,23 +317,16 @@ namespace GDEngine
 
 	void AGameObject::setLocalMatrix(float matrix[16])
 	{
-		Matrix4x4 transform, scale, translate, temp;
+		Matrix4x4 transform;
+		Matrix4x4 scaleMatrix;
+		Matrix4x4 rotationMatrix;
+		Matrix4x4 translationMatrix;
+		Matrix4x4 temp;
 
-		/*transform.setIdentity();
-		transform.setScale(this->m_localScale);
+		transform.setIdentity();
 
-		temp.setIdentity();
-		temp.setMatrix(matrix);
-
-		transform *= temp;
-		this->m_localMatrix = transform;*/
-
-		//temp.setIdentity();
-		//temp.setTranslation(this->m_localPosition);
-		//transform *= temp;
-
-		scale.setIdentity();
-		scale.setScale(this->m_localScale);
+		scaleMatrix.setIdentity();
+		scaleMatrix.setScale(this->m_worldScale);
 
 		translate.setIdentity();
 		translate.setTranslation(this->m_localPosition);
@@ -342,10 +336,7 @@ namespace GDEngine
 		//temp.getMatrix();
 		//debug::Logger::log(temp.getTranslation().toString());
 
-		translate *= temp;
-		//translate.getMatrix();
-		scale *= translate;
-		transform = scale;
+		transform = scaleMatrix * rotationMatrix * translationMatrix;
 
 		this->m_localMatrix = transform;
 
