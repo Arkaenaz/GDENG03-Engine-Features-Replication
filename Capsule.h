@@ -22,6 +22,7 @@ namespace GDEngine {
 
 	public:
 		Capsule(std::string name);
+		Capsule(std::string guid, std::string name);
 		~Capsule() override;
 
 	public:

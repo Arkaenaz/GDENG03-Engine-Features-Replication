@@ -34,10 +34,11 @@ void GameObjectManager::createCube()
 void GameObjectManager::createPhysicsCube()
 {
 	Cube* cube = new Cube("Physics Cube");
-	cube->setPosition(0.0f, 5.0f, 0.0f);
-	cube->setPhysics(true);
+	cube->setPosition(0.0f, 20.0f, 0.0f);
+	cube->update(0);
 	this->addObject(cube);
 	cube->attachComponent(new PhysicsComponent("PhysicsComponent " + cube->getName(), cube));
+	cube->setPhysics(true);
 }
 
 void GameObjectManager::createPhysicsPlane()
@@ -314,6 +315,33 @@ AGameObject* GameObjectManager::createObjectFromFile(std::string objectGuid, std
 		cube->setScale(scale);
 		this->addObject(cube);
 		return cube;
+	}
+	if (classType == typeid(Cylinder).raw_name())
+	{
+		Cylinder* cylinder = new Cylinder(objectGuid, objectName);
+		cylinder->setPosition(position);
+		cylinder->setRotation(rotation);
+		cylinder->setScale(scale);
+		this->addObject(cylinder);
+		return cylinder;
+	}
+	if (classType == typeid(Capsule).raw_name())
+	{
+		Capsule* capsule = new Capsule(objectGuid, objectName);
+		capsule->setPosition(position);
+		capsule->setRotation(rotation);
+		capsule->setScale(scale);
+		this->addObject(capsule);
+		return capsule;
+	}
+	if (classType == typeid(Sphere).raw_name())
+	{
+		Sphere* sphere = new Sphere(objectGuid, objectName);
+		sphere->setPosition(position);
+		sphere->setRotation(rotation);
+		sphere->setScale(scale);
+		this->addObject(sphere);
+		return sphere;
 	}
 	if (classType == typeid(Plane).raw_name())
 	{

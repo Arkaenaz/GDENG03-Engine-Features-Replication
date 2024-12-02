@@ -35,7 +35,7 @@ PhysicsComponent::PhysicsComponent(std::string name, AGameObject* owner) : AComp
 	float matrix[16];
 	transform.getOpenGLMatrix(matrix);
 
-	this->getOwner()->setLocalMatrix(matrix);
+	//this->getOwner()->setLocalMatrix(matrix);
 	//const Vector3 position1 = transform.getPosition();
 	//const Quaternion orientation = transform.getOrientation();
 	//const Vector3 rotation1 = orientation.getVectorV();
