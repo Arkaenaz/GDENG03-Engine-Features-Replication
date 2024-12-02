@@ -157,6 +157,9 @@
     <Filter Include="GameEngine\ComponentSystem\TextureComponent">
       <UniqueIdentifier>{4971c23c-1fe4-4fc5-a314-0ba15096a214}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Primitives\MeshObject\Lucy">
+      <UniqueIdentifier>{d19b3a96-c45c-4b04-975a-738e40298818}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -404,6 +407,9 @@
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>GameEngine\ComponentSystem\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Lucy.cpp">
+      <Filter>GameEngine\Primitives\MeshObject\Lucy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -682,6 +688,9 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>GameEngine\ComponentSystem\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Lucy.h">
+      <Filter>GameEngine\Primitives\MeshObject\Lucy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

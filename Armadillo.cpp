@@ -5,15 +5,20 @@
 #include "GraphicsEngine.h"
 #include "Renderer.h"
 #include "ShaderLibrary.h"
+#include "TextureLibrary.h"
 
 namespace GDEngine
 {
 	Armadillo::Armadillo(std::string name) : MeshObject(name, L"assets/meshes/armadillo.obj")
 	{
+		this->texture = TextureLibrary::getInstance()->getTexture(TextureName::DEFAULT);
+		this->setScale(0.01, 0.01, 0.01);
 	}
 
 	Armadillo::Armadillo(std::string guid, std::string name) : MeshObject(guid, name, L"assets/meshes/armadillo.obj")
 	{
+		this->texture = TextureLibrary::getInstance()->getTexture(TextureName::DEFAULT);
+		this->setScale(0.01, 0.01, 0.01);
 	}
 
 	Armadillo::~Armadillo()
@@ -45,12 +50,10 @@ namespace GDEngine
 		ShaderNames shaderNames;
 		DeviceContext* deviceContext = GraphicsEngine::getInstance()->getRenderSystem()->getImmediateDeviceContext();
 
-		Texture* brickTex = GraphicsEngine::getInstance()->getTextureManager()->createTextureFromFile(L"assets/textures/brick.png");
-
 		VertexShader* vertexShader = ShaderLibrary::getInstance()->getVertexShader(shaderNames.TEXTURED_VERTEX_SHADER_NAME);
 		PixelShader* pixelShader = ShaderLibrary::getInstance()->getPixelShader(shaderNames.TEXTURED_PIXEL_SHADER_NAME);
 
-		deviceContext->setTexture(brickTex);
+		deviceContext->setTexture(this->texture);
 		deviceContext->setConstantBuffer(m_constantBuffer, 0);
 
 		std::vector<AComponent*> rendererList = this->getComponentsOfType(AComponent::Renderer);

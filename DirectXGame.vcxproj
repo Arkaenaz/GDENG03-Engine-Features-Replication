@@ -177,6 +177,7 @@
     <ClCompile Include="libs\imgui\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="libs\jsoncpp\jsoncpp.cpp" />
     <ClCompile Include="LoggerScreen.cpp" />
+    <ClCompile Include="Lucy.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshManager.cpp" />
@@ -260,6 +261,7 @@
     <ClInclude Include="libs\jsoncpp\json\json-forwards.h" />
     <ClInclude Include="libs\jsoncpp\json\json.h" />
     <ClInclude Include="LoggerScreen.h" />
+    <ClInclude Include="Lucy.h" />
     <ClInclude Include="MeshObject.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="PhysicsComponent.h">

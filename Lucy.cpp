@@ -1,4 +1,4 @@
-#include "Bunny.h"
+#include "Lucy.h"
 
 #include "EngineTime.h"
 #include "GameObjectManager.h"
@@ -8,29 +8,31 @@
 #include "TextureLibrary.h"
 
 namespace GDEngine {
-	Bunny::Bunny(std::string name) : MeshObject(name,  L"assets/meshes/bunny.obj")
+	Lucy::Lucy(std::string name) : MeshObject(name, L"assets/meshes/lucy.obj")
 	{
 		this->texture = TextureLibrary::getInstance()->getTexture(TextureName::DEFAULT);
-		this->setScale(4, 4, 4);
+		this->setScale(0.001f, 0.001f, 0.001f);
+		this->setRotation(90, 0, 0);
 	}
 
-	Bunny::Bunny(std::string guid, std::string name) : MeshObject(guid, name,  L"assets/meshes/bunny.obj")
+	Lucy::Lucy(std::string guid, std::string name) : MeshObject(guid, name, L"assets/meshes/lucy.obj")
 	{
 		this->texture = TextureLibrary::getInstance()->getTexture(TextureName::DEFAULT);
-		this->setScale(4, 4, 4);
+		this->setScale(0.001f, 0.001f, 0.001f);
+		this->setRotation(90, 0, 0);
 	}
 
-	Bunny::~Bunny()
+	Lucy::~Lucy()
 	{
 		MeshObject::~MeshObject();
 	}
 
-	void Bunny::onCreate()
+	void Lucy::onCreate()
 	{
 		AGameObject::onCreate();
 	}
 
-	void Bunny::update(float deltaTime)
+	void Lucy::update(float deltaTime)
 	{
 		RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
 		CBObjectData cbObjectData;
@@ -44,7 +46,7 @@ namespace GDEngine {
 		m_constantBuffer->update(renderSystem->getImmediateDeviceContext(), &cbObjectData);
 	}
 
-	void Bunny::draw(int width, int height)
+	void Lucy::draw(int width, int height)
 	{
 		ShaderNames shaderNames;
 		DeviceContext* deviceContext = GraphicsEngine::getInstance()->getRenderSystem()->getImmediateDeviceContext();
@@ -79,7 +81,7 @@ namespace GDEngine {
 		MeshObject::draw(width, height);
 	}
 
-	void Bunny::onDestroy()
+	void Lucy::onDestroy()
 	{
 		AGameObject::onDestroy();
 	}

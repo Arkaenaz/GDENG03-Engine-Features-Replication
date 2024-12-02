@@ -317,16 +317,23 @@ namespace GDEngine
 
 	void AGameObject::setLocalMatrix(float matrix[16])
 	{
-		Matrix4x4 transform;
-		Matrix4x4 scaleMatrix;
-		Matrix4x4 rotationMatrix;
-		Matrix4x4 translationMatrix;
-		Matrix4x4 temp;
+		Matrix4x4 transform, scale, translate, temp;
 
-		transform.setIdentity();
+		/*transform.setIdentity();
+		transform.setScale(this->m_localScale);
 
-		scaleMatrix.setIdentity();
-		scaleMatrix.setScale(this->m_worldScale);
+		temp.setIdentity();
+		temp.setMatrix(matrix);
+
+		transform *= temp;
+		this->m_localMatrix = transform;*/
+
+		//temp.setIdentity();
+		//temp.setTranslation(this->m_localPosition);
+		//transform *= temp;
+
+		scale.setIdentity();
+		scale.setScale(this->m_localScale);
 
 		translate.setIdentity();
 		translate.setTranslation(this->m_localPosition);
@@ -336,7 +343,10 @@ namespace GDEngine
 		//temp.getMatrix();
 		//debug::Logger::log(temp.getTranslation().toString());
 
-		transform = scaleMatrix * rotationMatrix * translationMatrix;
+		translate *= temp;
+		//translate.getMatrix();
+		scale *= translate;
+		transform = scale;
 
 		this->m_localMatrix = transform;
 

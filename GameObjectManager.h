@@ -31,6 +31,7 @@ namespace GDEngine
 		void createTeapot();
 		void createBunny();
 		void createArmadillo();
+		void createLucy();
 
 		void update(float deltaTime);
 		void draw(int width, int height);
