@@ -3,6 +3,9 @@
 #include "AComponent.h"
 #include <reactphysics3d/reactphysics3d.h>
 
+#include "Vector3D.h"
+#include "Vector4D.h"
+
 namespace GDEngine
 {
 	using namespace reactphysics3d;
@@ -46,6 +49,7 @@ namespace GDEngine
 		uint8_t getConstraints();
 
 		void setTransformFromOpenGL(float* matrix);
+		void setTransform(Vector3D position, Vector4D quaternion);
 		void setMass(float mass);
 		void setUseGravity(bool isUsingGravity);
 		void setBodyType(BodyType type) const;

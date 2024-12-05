@@ -18,10 +18,10 @@ PhysicsComponent::PhysicsComponent(std::string name, AGameObject* owner) : AComp
 	const Vector3D rotation = this->getOwner()->getLocalRotation();
 
 	Quaternion quaternion = Quaternion::fromEulerAngles(rotation.x, rotation.y, rotation.z);
-	//Transform transform = Transform(Vector3(position.x, position.y, position.z), quaternion);
+	Transform transform = Transform(Vector3(position.x, position.y, position.z), quaternion);
 
-	Transform transform;
-	transform.setFromOpenGL(this->getOwner()->getPhysicsLocalMatrix());
+	//Transform transform;
+	//transform.setFromOpenGL(this->getOwner()->getPhysicsLocalMatrix());
 
 	BoxShape* boxShape = physicsCommon->createBoxShape(Vector3(scale.x / 1.0f, scale.y / 1.0f, scale.z / 1.0f));
 
@@ -55,9 +55,10 @@ PhysicsComponent::PhysicsComponent(std::string guid, std::string name, AGameObje
 	const Vector3D rotation = this->getOwner()->getLocalRotation();
 
 	Quaternion quaternion = Quaternion::fromEulerAngles(rotation.x, rotation.y, rotation.z);
+	Vector3 pos = Vector3(position.x / 2.0f, position.y / 2.0f, position.z / 2.0f);
 
-	Transform transform;
-	transform.setFromOpenGL(this->getOwner()->getPhysicsLocalMatrix());
+	Transform transform = Transform(pos, quaternion);
+	//transform.setFromOpenGL(this->getOwner()->getPhysicsLocalMatrix());
 
 	BoxShape* boxShape = physicsCommon->createBoxShape(Vector3(scale.x / 1.0f, scale.y / 1.0f, scale.z / 1.0f));
 
@@ -157,6 +158,12 @@ void PhysicsComponent::setTransformFromOpenGL(float* matrix)
 {
 	Transform transform;
 	transform.setFromOpenGL(matrix);
+	this->m_rigidBody->setTransform(transform);
+}
+
+void PhysicsComponent::setTransform(Vector3D position, Vector4D quaternion)
+{
+	Transform transform = Transform(Vector3(position.x, position.y, position.z), Quaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
 	this->m_rigidBody->setTransform(transform);
 }
 
