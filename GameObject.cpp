@@ -122,6 +122,13 @@ namespace GDEngine
 			this->m_worldPosition = m_localPosition;
 		}
 
+		ComponentList physicsList = getComponentsOfType(AComponent::Physics);
+		for (AComponent* component : physicsList)
+		{
+			PhysicsComponent* physicsComponent = dynamic_cast<PhysicsComponent*>(component);
+			physicsComponent->setTransform(Vector3D(0, 0, 0), m_orientation);
+		}
+
 		for (AGameObject* child : m_children)
 		{
 			if (child)
@@ -134,7 +141,12 @@ namespace GDEngine
 	void AGameObject::setPosition(float x, float y, float z)
 	{
 		this->m_localPosition = Vector3D(x, y, z);
-
+		ComponentList physicsList = getComponentsOfType(AComponent::Physics);
+		for (AComponent* component : physicsList)
+		{
+			PhysicsComponent* physicsComponent = dynamic_cast<PhysicsComponent*>(component);
+			physicsComponent->setTransform(Vector3D(0, 0, 0), m_orientation);
+		}
 	}
 
 	Vector3D AGameObject::getLocalPosition()
@@ -206,6 +218,13 @@ namespace GDEngine
 		reactphysics3d::Quaternion quat = reactphysics3d::Quaternion::fromEulerAngles(m_worldRotation.x, m_worldRotation.y, m_worldRotation.z);
 		this->m_orientation = Vector4D(quat.x, quat.y, quat.z, quat.w);
 
+		ComponentList physicsList = getComponentsOfType(AComponent::Physics);
+		for (AComponent* component : physicsList)
+		{
+			PhysicsComponent* physicsComponent = dynamic_cast<PhysicsComponent*>(component);
+			physicsComponent->setTransform(Vector3D(0, 0, 0), m_orientation);
+		}
+
 		for (AGameObject* child : m_children)
 		{
 			if (child)
@@ -230,7 +249,12 @@ namespace GDEngine
 
 		reactphysics3d::Quaternion quat = reactphysics3d::Quaternion::fromEulerAngles(m_worldRotation.x, m_worldRotation.y, m_worldRotation.z);
 		this->m_orientation = Vector4D(quat.x, quat.y, quat.z, quat.w);
-
+		ComponentList physicsList = getComponentsOfType(AComponent::Physics);
+		for (AComponent* component : physicsList)
+		{
+			PhysicsComponent* physicsComponent = dynamic_cast<PhysicsComponent*>(component);
+			physicsComponent->setTransform(Vector3D(0, 0, 0), m_orientation);
+		}
 		for (AGameObject* child : m_children)
 		{
 			if (child)

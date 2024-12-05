@@ -230,7 +230,7 @@ void Cube::onCreate()
 
 void Cube::update(float deltaTime)
 {
-	AGameObject::update(deltaTime);
+	//AGameObject::update(deltaTime);
 	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
 	CBObjectData cbObjectData;
 

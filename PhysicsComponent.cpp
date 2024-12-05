@@ -35,7 +35,11 @@ PhysicsComponent::PhysicsComponent(std::string name, AGameObject* owner) : AComp
 	float matrix[16];
 	transform.getOpenGLMatrix(matrix);
 
-	//this->getOwner()->setLocalMatrix(matrix);
+	this->setTransform(Vector3D(0, 0, 0), this->getOwner()->getOrientation());
+	transform.getOpenGLMatrix(matrix);
+	//this->getOwner()->setLocalMatrix(Vector4D(orientation.x, orientation.y, orientation.z, orientation.w), matrix);
+	this->getOwner()->setLocalMatrix(matrix);
+
 	//const Vector3 position1 = transform.getPosition();
 	//const Quaternion orientation = transform.getOrientation();
 	//const Vector3 rotation1 = orientation.getVectorV();
@@ -55,7 +59,7 @@ PhysicsComponent::PhysicsComponent(std::string guid, std::string name, AGameObje
 	const Vector3D rotation = this->getOwner()->getLocalRotation();
 
 	Quaternion quaternion = Quaternion::fromEulerAngles(rotation.x, rotation.y, rotation.z);
-	Vector3 pos = Vector3(position.x / 2.0f, position.y / 2.0f, position.z / 2.0f);
+	Vector3 pos = Vector3(position.x, position.y, position.z);
 
 	Transform transform = Transform(pos, quaternion);
 	//transform.setFromOpenGL(this->getOwner()->getPhysicsLocalMatrix());
@@ -72,7 +76,11 @@ PhysicsComponent::PhysicsComponent(std::string guid, std::string name, AGameObje
 	float matrix[16];
 	transform.getOpenGLMatrix(matrix);
 
+	this->setTransform(Vector3D(0, 0, 0), this->getOwner()->getOrientation());
+	transform.getOpenGLMatrix(matrix);
+	//this->getOwner()->setLocalMatrix(Vector4D(orientation.x, orientation.y, orientation.z, orientation.w), matrix);
 	this->getOwner()->setLocalMatrix(matrix);
+
 }
 
 PhysicsComponent::~PhysicsComponent()

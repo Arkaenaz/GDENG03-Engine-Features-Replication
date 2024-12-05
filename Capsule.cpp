@@ -18,8 +18,8 @@ Capsule::Capsule(std::string name) : AGameObject(name)
 	// Initialize Default Values
 	this->stacks = 32;
 	this->slices = 32;
-	this->radius = 0.5f;
-	this->height = 1.0f;
+	this->radius = 1.0f;
+	this->height = 2.0f;
 
 	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
 
@@ -175,8 +175,8 @@ GDEngine::Capsule::Capsule(std::string guid, std::string name) : AGameObject(gui
 	// Initialize Default Values
 	this->stacks = 32;
 	this->slices = 32;
-	this->radius = 0.5f;
-	this->height = 1.0f;
+	this->radius = 1.0f;
+	this->height = 2.0f;
 
 	RenderSystem* renderSystem = GraphicsEngine::getInstance()->getRenderSystem();
 

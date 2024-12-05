@@ -50,15 +50,15 @@ namespace GDEngine {
 
 		Vector3D positionList[] =
 		{
-			Vector3D(-0.8f,0.0f,-0.8f),
-			Vector3D(-0.8f,0.0f, -0.8f),
-			Vector3D(0.8f, 0.0f, -0.8f),
-			Vector3D(0.8f, 0.0f,-0.8f),
+			Vector3D(-1.0f,0.0f,-1.0f),
+			Vector3D(-1.0f,0.0f, -1.0f),
+			Vector3D(1.0f, 0.0f, -1.0f),
+			Vector3D(1.0f, 0.0f,-1.0f),
 
-			Vector3D(0.8f, 0.0f,0.8f),
-			Vector3D(0.8f, 0.0f, 0.8f),
-			Vector3D(-0.8f,0.0f, 0.8f),
-			Vector3D(-0.8f,0.0f,0.8f)
+			Vector3D(1.0f, 0.0f,1.0f),
+			Vector3D(1.0f, 0.0f, 1.0f),
+			Vector3D(-1.0f,0.0f, 1.0f),
+			Vector3D(-1.0f,0.0f,1.0f)
 		};
 
 		Vector2D texCoordList[] =

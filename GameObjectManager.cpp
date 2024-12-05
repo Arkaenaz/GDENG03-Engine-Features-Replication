@@ -20,6 +20,7 @@
 #include "EmptyGameObject.h"
 
 #include "Logger.h"
+#include "Random.h"
 
 using namespace GDEngine;
 
@@ -39,6 +40,21 @@ void GameObjectManager::createPhysicsCube()
 	this->addObject(cube);
 	cube->attachComponent(new PhysicsComponent("PhysicsComponent " + cube->getName(), cube));
 	cube->setPhysics(true);
+}
+
+void GameObjectManager::createPhysicsCubeRandom(int count)
+{
+	for (int i = 0; i < count;i++)
+	{
+		float x = Random::range(-10.0f, 10.0f);
+		float y = Random::range(10.0f, 25.0f);
+		float z = Random::range(-10.0f, 10.0f);
+		Cube* cube = new Cube("Physics Cube");
+		this->addObject(cube);
+		cube->setPosition(Vector3D(x, y, z));
+		cube->attachComponent(new PhysicsComponent("PhysicsComponent " + cube->getName(), cube));
+		cube->setPhysics(true);
+	}
 }
 
 void GameObjectManager::createPhysicsPlane()

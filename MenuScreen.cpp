@@ -125,6 +125,9 @@ namespace GDEngine {
                                 GameObjectManager::getInstance()->createPhysicsCube();
                             }
                         }
+                        if (ImGui::MenuItem("50 Random Physics Cube")) {
+                            GameObjectManager::getInstance()->createPhysicsCubeRandom(50);
+                        }
                         if (ImGui::MenuItem("Physics Plane")) {
                             GameObjectManager::getInstance()->createPhysicsPlane();
                         }

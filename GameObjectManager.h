@@ -26,6 +26,7 @@ namespace GDEngine
 	public:
 		void createCube();
 		void createPhysicsCube();
+		void createPhysicsCubeRandom(int count);
 		void createPhysicsPlane();
 		void createTexturedCube();
 		void createTexturedCapsule();
