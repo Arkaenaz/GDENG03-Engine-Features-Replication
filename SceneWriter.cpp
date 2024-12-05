@@ -24,9 +24,9 @@ namespace GDEngine
 
 	void SceneWriter::writeToFile()
 	{
-		std::string fileDirectory = m_directory + ".iet";
+		std::string fileDirectory = m_directory + ".level";
 
-		if (m_directory.find(".iet") != std::string::npos)
+		if (m_directory.find(".level") != std::string::npos)
 		{
 			
 		}
@@ -41,15 +41,34 @@ namespace GDEngine
 		for (AGameObject* gameObject : objectList)
 		{
 			sceneFile <<  gameObject->getGuidString() << std::endl;
-			sceneFile << "Name: " << gameObject->getName() << std::endl;
+			sceneFile << gameObject->getName() << std::endl;
+			sceneFile << gameObject->getType() << std::endl;
 
 			Vector3D position = gameObject->getLocalPosition();
 			Vector3D rotation = gameObject->getLocalRotation();
 			Vector3D scale = gameObject->getLocalScale();
 
-			sceneFile << "Position: " << position.x << " " << position.y << " " << position.z << std::endl;
-			sceneFile << "Rotation: " << rotation.x << " " << rotation.y << " " << rotation.z << std::endl;
-			sceneFile << "Scale: " << scale.x << " " << scale.y << " " << scale.z << std::endl;
+			sceneFile << position.x << " " << position.y << " " << position.z << std::endl;
+			sceneFile << rotation.x << " " << rotation.y << " " << rotation.z << std::endl;
+			sceneFile << scale.x << " " << scale.y << " " << scale.z << std::endl;
+
+			AGameObject::ComponentList physicsList = gameObject->getComponentsOfType(AComponent::ComponentType::Physics);
+			if (physicsList.empty())
+				sceneFile << "none" << std::endl;
+			for (AComponent* component : physicsList)
+			{
+				PhysicsComponent* physicsComponent = dynamic_cast<PhysicsComponent*>(component);
+				sceneFile << "Rigidbody" << std::endl;
+				sceneFile << component->getGuidString() << std::endl;
+				sceneFile << component->getName() << std::endl;
+				sceneFile << component->getType() << std::endl;
+				sceneFile << component->getClassType() << std::endl;
+				sceneFile << physicsComponent->getMass() << std::endl;
+				sceneFile << physicsComponent->getUseGravity() << std::endl;
+				sceneFile << static_cast<int>(physicsComponent->getBodyType()) << std::endl;
+				sceneFile << physicsComponent->getLinearDrag() << std::endl;
+				sceneFile << physicsComponent->getAngularDrag() << std::endl;;
+			}
 		}
 		sceneFile.close();
 	}

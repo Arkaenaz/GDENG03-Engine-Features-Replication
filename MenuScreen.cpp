@@ -196,7 +196,7 @@ namespace GDEngine {
         if (m_saveSceneDialog->HasSelected())
         {
             SceneWriter writer = SceneWriter(m_saveSceneDialog->GetSelected().string());
-            writer.writeToJson();
+            writer.writeToFile();
 
             m_saveSceneDialog->ClearSelected();
             m_saveSceneDialog->Close();
@@ -204,7 +204,7 @@ namespace GDEngine {
 
         else if (m_openSceneDialog->HasSelected()) {
             SceneReader reader = SceneReader(m_openSceneDialog->GetSelected().string());
-            reader.readFromJson();
+            reader.readFromFile();
 
             m_openSceneDialog->ClearSelected();
             m_openSceneDialog->Close();

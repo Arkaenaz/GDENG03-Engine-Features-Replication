@@ -15,12 +15,22 @@ namespace GDEngine
 
 	AComponent::AComponent(std::string guid, std::string name, ComponentType type, AGameObject* owner) : m_name(name), m_type(type), m_owner(owner)
 	{
-		std::wstring temp = std::wstring(guid.begin(), guid.end());
-		LPCWSTR guidstr = temp.c_str();
+		if (guid == "{}" || guid == "")
+		{
+			HRESULT result = CoCreateGuid(&m_guid);
+			if (!Logger::log(this, result)) {
+				Logger::throw_exception("Component GUID creation failed");
+			}
+		}
+		else
+		{
+			std::wstring temp = std::wstring(guid.begin(), guid.end());
+			LPCWSTR guidstr = temp.c_str();
 
-		HRESULT result = IIDFromString(guidstr, &m_guid);
-		if (!Logger::log(this, result)) {
-			Logger::throw_exception("Conversion of GUID failed");
+			HRESULT result = IIDFromString(guidstr, &m_guid);
+			if (!Logger::log(this, result)) {
+				Logger::throw_exception("Conversion of GUID failed");
+			}
 		}
 	}
 

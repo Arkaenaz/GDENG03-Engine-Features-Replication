@@ -26,8 +26,8 @@ namespace GDEngine
 
 	void SceneReader::readFromFile()
 	{
-		std::string fileDirectory = m_directory + ".iet";
-		if (m_directory.find(".iet") != std::string::npos)
+		std::string fileDirectory = m_directory + ".level";
+		if (m_directory.find(".level") != std::string::npos)
 		{
 			fileDirectory = m_directory;
 		}
@@ -40,12 +40,26 @@ namespace GDEngine
 
 		std::string objectGuid;
 		std::string objectName;
+		std::string objectType;
 
 		Vector3D position;
 		Vector3D rotation;
 		Vector3D scale;
+
+		std::string componentGuid;
+		std::string componentName;
+		int componentType;
+		std::string componentClass;
+		float mass;
+		bool gravity;
+		int bodyType;
+		float linearDrag;
+		float angularDrag;
+
 		while (std::getline(sceneFile, readLine))
 		{
+			bool hasRigidbody = false;
+			Logger::log(std::to_string(index));
 			if (index == 0)
 			{
 				objectGuid = readLine;
@@ -53,28 +67,92 @@ namespace GDEngine
 			}
 			else if (index == 1)
 			{
-				std::vector<std::string> stringSplit = StringUtility::split(readLine, ' ');
-				objectName = stringSplit[1];
+				objectName = readLine;
 				index++;
 			}
-			else if (index == 2) {
-				std::vector<std::string> stringSplit = StringUtility::split(readLine, ' ');
-				position = Vector3D(std::stof(stringSplit[1]), std::stof(stringSplit[2]), std::stof(stringSplit[3]));
+			else if (index == 2)
+			{
+				objectType = readLine;
 				index++;
 			}
 			else if (index == 3) {
 				std::vector<std::string> stringSplit = StringUtility::split(readLine, ' ');
-				rotation = Vector3D(std::stof(stringSplit[1]), std::stof(stringSplit[2]), std::stof(stringSplit[3]));
+				position = Vector3D(std::stof(stringSplit[0]), std::stof(stringSplit[1]), std::stof(stringSplit[2]));
 				index++;
 			}
 			else if (index == 4) {
 				std::vector<std::string> stringSplit = StringUtility::split(readLine, ' ');
-				scale = Vector3D(std::stof(stringSplit[1]), std::stof(stringSplit[2]), std::stof(stringSplit[3]));
+				rotation = Vector3D(std::stof(stringSplit[0]), std::stof(stringSplit[1]), std::stof(stringSplit[2]));
+				index++;
+			}
+			else if (index == 5) {
+				std::vector<std::string> stringSplit = StringUtility::split(readLine, ' ');
+				scale = Vector3D(std::stof(stringSplit[0]), std::stof(stringSplit[1]), std::stof(stringSplit[2]));
+				index++;
+			}
+			else if (index == 6)
+			{
+				if (readLine == "Rigidbody")
+				{
+					hasRigidbody = true;
+					index++;
+				}
+				else
+				{
+					index = 0;
+					AGameObject* gameObject = GameObjectManager::getInstance()->createObjectFromFile(objectGuid, objectName, objectType, position, rotation, scale);
+				}
+			}
+			else if (index == 7)
+			{
+				componentGuid = readLine;
+				index++;
+			}
+			else if (index == 8)
+			{
+				componentName = readLine;
+				index++;
+			}
+			else if (index == 9)
+			{
+				componentType = std::stoi(readLine);
+				index++;
+			}
+			else if (index == 10)
+			{
+				componentClass = readLine;
+				index++;
+			}
+			else if (index == 11)
+			{
+				mass = std::stof(readLine);
+				index++;
+			}
+			else if (index == 12)
+			{
+				gravity = std::stoi(readLine);
+				index++;
+			}
+			else if (index == 13)
+			{
+				bodyType = std::stoi(readLine);
+				index++;
+			}
+			else if (index == 14)
+			{
+				linearDrag = std::stof(readLine);
+				index++;
+			}
+			else if (index == 15)
+			{
 				index = 0;
-
-				//GameObjectManager::getInstance()->createObjectFromFile(objectGuid, objectName, position, rotation, scale);
+				AGameObject* gameObject = GameObjectManager::getInstance()->createObjectFromFile(objectGuid, objectName, objectType, position, rotation, scale);
+				angularDrag = std::stof(readLine);
+				BaseComponentSystem::getInstance()->getPhysicsSystem()->createComponentFromFile(componentGuid, componentName, gameObject, static_cast<AComponent::ComponentType>(componentType),
+					mass, gravity, static_cast<BodyType>(bodyType), linearDrag, angularDrag, 0);
 			}
 		}
+		sceneFile.close();
 	}
 
 	void SceneReader::readFromJson()
