@@ -1,0 +1,880 @@
+{3e528b05-c451-4041-a1d1-45b82c64865c}
+Physics Plane
+.?AVCube@GDEngine@@
+0 0 0
+0 0 0
+64 0.5 64
+Rigidbody
+{4e9bec76-2b4c-4b46-9be8-88f9799c5c59}
+PhysicsComponent Physics Plane
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+1
+0
+0
+{69d4cb57-c607-4266-a913-382b992d4863}
+Physics Cube
+.?AVCube@GDEngine@@
+2.45783 14.4451 0.270537
+0 0 0
+1 1 1
+Rigidbody
+{d1af6e6c-6005-4e44-8cc3-6eb0d625ab93}
+PhysicsComponent Physics Cube
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{b92453e8-d99f-4e0a-87f1-6e072f45a12c}
+Physics Cube 1
+.?AVCube@GDEngine@@
+0.730762 15.5496 1.38216
+0 0 0
+1 1 1
+Rigidbody
+{4ba25c5f-1ddf-4a1a-88c4-aba5753c366b}
+PhysicsComponent Physics Cube 1
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{91796ddc-e75c-47b2-9f41-b56f8f27779b}
+Physics Cube 2
+.?AVCube@GDEngine@@
+3.52451 16.914 1.37085
+0 0 0
+1 1 1
+Rigidbody
+{1eac6614-9527-4ea1-aa62-5faa1921d4ef}
+PhysicsComponent Physics Cube 2
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{17b085d6-2a22-4b82-8022-cfbf8166693b}
+Physics Cube 3
+.?AVCube@GDEngine@@
+9.17066 11.9723 -2.90345
+0 0 0
+1 1 1
+Rigidbody
+{3d7f316e-a719-41a5-ad11-8b7921877005}
+PhysicsComponent Physics Cube 3
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{c5d2aaa0-dec2-49e4-9cba-91c18d7a312e}
+Physics Cube 4
+.?AVCube@GDEngine@@
+1.50388 18.8919 -8.25234
+0 0 0
+1 1 1
+Rigidbody
+{b65d7fbc-5e55-4748-8ea7-e092f0490b89}
+PhysicsComponent Physics Cube 4
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{61f6c2d9-2686-449e-8e46-5a14d7310a81}
+Physics Cube 5
+.?AVCube@GDEngine@@
+1.08051 17.2369 2.47377
+0 0 0
+1 1 1
+Rigidbody
+{e66177d5-f944-41dd-8154-723208c9569a}
+PhysicsComponent Physics Cube 5
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{966cc757-e45c-45e9-b4b0-3f62cf8e9b17}
+Physics Cube 6
+.?AVCube@GDEngine@@
+-4.7064 15.8577 -1.37041
+0 0 0
+1 1 1
+Rigidbody
+{dc3c2ee9-a52b-481f-b35f-e5a9e1879446}
+PhysicsComponent Physics Cube 6
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{d94e33b4-7568-4670-91c6-7e8d5536aed7}
+Physics Cube 7
+.?AVCube@GDEngine@@
+-2.05076 19.8121 1.69308
+0 0 0
+1 1 1
+Rigidbody
+{dbfb7058-bfba-4743-bbcf-668a766daa39}
+PhysicsComponent Physics Cube 7
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{1e15f647-dea0-4571-8b61-e5dad4417824}
+Physics Cube 8
+.?AVCube@GDEngine@@
+-2.93497 24.5147 4.60955
+0 0 0
+1 1 1
+Rigidbody
+{05d6175a-887c-4562-b922-ab2c87cb5f83}
+PhysicsComponent Physics Cube 8
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{a057b327-604c-40f0-af5d-d908385d4f07}
+Physics Cube 9
+.?AVCube@GDEngine@@
+-9.09989 12.0045 -4.06595
+0 0 0
+1 1 1
+Rigidbody
+{2111b6f6-9229-4b1c-9d5b-4e6c4a5dc1dd}
+PhysicsComponent Physics Cube 9
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{1658b096-aff8-4869-bd90-420413832c83}
+Physics Cube 10
+.?AVCube@GDEngine@@
+4.78133 16.8428 9.4601
+0 0 0
+1 1 1
+Rigidbody
+{97e00bf8-9e26-4f7f-9dc2-3a96015105b5}
+PhysicsComponent Physics Cube 10
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{4413b13c-ba4a-4af3-9098-cfe607c4032f}
+Physics Cube 11
+.?AVCube@GDEngine@@
+4.59712 13.586 -5.0329
+0 0 0
+1 1 1
+Rigidbody
+{93bb05da-b91d-40ab-bc9d-a44a06d903ad}
+PhysicsComponent Physics Cube 11
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{52e06e19-6673-4721-b34b-672b9c89efbe}
+Physics Cube 12
+.?AVCube@GDEngine@@
+7.6771 14.524 -2.27766
+0 0 0
+1 1 1
+Rigidbody
+{3bddc4be-2ad3-43b7-8070-d48538166e67}
+PhysicsComponent Physics Cube 12
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{0edb03ab-144a-40d0-a17e-495b342a96a0}
+Physics Cube 13
+.?AVCube@GDEngine@@
+-8.77057 12.2081 2.84557
+0 0 0
+1 1 1
+Rigidbody
+{09900a0f-8df4-4632-8996-2756b8e6dbce}
+PhysicsComponent Physics Cube 13
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{7f7b0fe5-248a-4383-b768-2732dedf68b2}
+Physics Cube 14
+.?AVCube@GDEngine@@
+-8.57657 23.5633 -6.46706
+0 0 0
+1 1 1
+Rigidbody
+{c917ab4f-df13-458c-964c-810a5fc50b3d}
+PhysicsComponent Physics Cube 14
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{a8c8f4f3-fb38-4030-a1a1-d205f925632f}
+Physics Cube 15
+.?AVCube@GDEngine@@
+-0.622138 22.2007 8.9562
+0 0 0
+1 1 1
+Rigidbody
+{40c1b5f5-0afc-45b8-aec5-442699d622ff}
+PhysicsComponent Physics Cube 15
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{e85a7bd9-3b46-4f34-aa99-f141de5823ef}
+Physics Cube 16
+.?AVCube@GDEngine@@
+9.37722 21.0691 -4.27742
+0 0 0
+1 1 1
+Rigidbody
+{42e9c6a2-c224-45c5-9d43-58133f753ce0}
+PhysicsComponent Physics Cube 16
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{e3ed04e0-e3f1-4ddf-b493-2ec1b44b50e5}
+Physics Cube 17
+.?AVCube@GDEngine@@
+1.67012 13.803 1.3844
+0 0 0
+1 1 1
+Rigidbody
+{0ba67dfa-cd56-4f25-8327-32b7157a0251}
+PhysicsComponent Physics Cube 17
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{e2d26a09-1e2c-4a43-94bd-09fca00d0e4c}
+Physics Cube 18
+.?AVCube@GDEngine@@
+-0.318939 20.8865 6.07901
+0 0 0
+1 1 1
+Rigidbody
+{e9ffd7cf-722d-40ae-99a2-4418b342bb84}
+PhysicsComponent Physics Cube 18
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{5b0b7ebe-ce0c-4301-85c2-57eb1357c902}
+Physics Cube 19
+.?AVCube@GDEngine@@
+9.70861 13.828 -5.27501
+0 0 0
+1 1 1
+Rigidbody
+{a76f7bb9-63f1-405d-bf10-2dcc00e0c5fb}
+PhysicsComponent Physics Cube 19
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{b9305ed9-7506-45e2-b2b0-004f4457a647}
+Physics Cube 20
+.?AVCube@GDEngine@@
+-8.18871 21.1171 1.83411
+0 0 0
+1 1 1
+Rigidbody
+{7e7840b6-f873-4d72-a6a4-14ee326669a3}
+PhysicsComponent Physics Cube 20
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{56901675-09d5-4e8c-91f4-5e564cb001bf}
+Physics Cube 21
+.?AVCube@GDEngine@@
+-3.2561 13.0075 7.43246
+0 0 0
+1 1 1
+Rigidbody
+{5d7a6354-50c9-4ac4-b82a-cc505a9eaf78}
+PhysicsComponent Physics Cube 21
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{5ce41b6c-ee53-4b8a-bdf4-1cb2482d1f54}
+Physics Cube 22
+.?AVCube@GDEngine@@
+-0.10079 12.7245 -2.66689
+0 0 0
+1 1 1
+Rigidbody
+{2c913c55-33ea-433b-a021-491e8ab93bc5}
+PhysicsComponent Physics Cube 22
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{de16ac30-e23c-4fef-b9ef-60483755003d}
+Physics Cube 23
+.?AVCube@GDEngine@@
+-2.64642 21.8088 -5.1325
+0 0 0
+1 1 1
+Rigidbody
+{9de44cd6-6f58-4177-832d-f67e47cc38b4}
+PhysicsComponent Physics Cube 23
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{c8544546-1ce4-4754-b3fb-769278916418}
+Physics Cube 24
+.?AVCube@GDEngine@@
+-8.50695 14.1352 -5.64873
+0 0 0
+1 1 1
+Rigidbody
+{555bf1c8-ef48-48c2-b1d6-3795e53e445e}
+PhysicsComponent Physics Cube 24
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{9e855415-80d4-446f-b85c-b204b120b4b7}
+Physics Cube 25
+.?AVCube@GDEngine@@
+6.11959 21.96 9.32225
+0 0 0
+1 1 1
+Rigidbody
+{e8aabdee-448a-4132-bb97-1d05c4781b04}
+PhysicsComponent Physics Cube 25
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{436fbb0f-359f-473c-8d59-a71e8c32145f}
+Physics Cube 26
+.?AVCube@GDEngine@@
+-2.56739 11.1347 3.15449
+0 0 0
+1 1 1
+Rigidbody
+{b6703a91-5e2b-4a17-a06c-db663423f633}
+PhysicsComponent Physics Cube 26
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{8ff6c8b2-6e65-4240-9c59-4709bff07cff}
+Physics Cube 27
+.?AVCube@GDEngine@@
+0.111708 14.6164 3.89629
+0 0 0
+1 1 1
+Rigidbody
+{05718ed3-2366-46ae-a5f9-98eee15f738e}
+PhysicsComponent Physics Cube 27
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{acd36959-7363-40a3-adca-bd37357a93fe}
+Physics Cube 28
+.?AVCube@GDEngine@@
+7.29728 17.0549 -4.67726
+0 0 0
+1 1 1
+Rigidbody
+{f8ebdc43-964b-4300-ac05-f70bacb312d8}
+PhysicsComponent Physics Cube 28
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{8844d0e8-7c0c-41a8-a89f-447921a1bf42}
+Physics Cube 29
+.?AVCube@GDEngine@@
+-5.38631 22.2945 -6.25092
+0 0 0
+1 1 1
+Rigidbody
+{86a390cd-21bd-4662-807d-f6391db912be}
+PhysicsComponent Physics Cube 29
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{5f3cf1d8-d2b3-4fff-83f2-e87c1754c59c}
+Physics Cube 30
+.?AVCube@GDEngine@@
+-9.7208 14.0339 -5.43204
+0 0 0
+1 1 1
+Rigidbody
+{d13bc6e0-8b77-4d50-aa0e-09ba0c4a7732}
+PhysicsComponent Physics Cube 30
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{ab742a89-63e9-40a3-9e3a-0674b0ed6444}
+Physics Cube 31
+.?AVCube@GDEngine@@
+7.47819 22.4323 6.81606
+0 0 0
+1 1 1
+Rigidbody
+{1770dca5-802a-4cdf-a369-a93146d78975}
+PhysicsComponent Physics Cube 31
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{7164317e-03d7-4fae-aabf-83a0fafec837}
+Physics Cube 32
+.?AVCube@GDEngine@@
+3.59643 21.2621 2.91672
+0 0 0
+1 1 1
+Rigidbody
+{a30b3b8a-2611-4657-beb0-59c77794e37a}
+PhysicsComponent Physics Cube 32
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{af594c0c-cb4e-4708-ab2f-d41bb36c4ad2}
+Physics Cube 33
+.?AVCube@GDEngine@@
+-9.7117 10.9364 -5.85948
+0 0 0
+1 1 1
+Rigidbody
+{862fda24-a47d-4908-9315-02422d0dff15}
+PhysicsComponent Physics Cube 33
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{3935a67a-6bd6-47db-8fd4-0ce3816ce353}
+Physics Cube 34
+.?AVCube@GDEngine@@
+9.76121 22.636 2.6361
+0 0 0
+1 1 1
+Rigidbody
+{1af9329c-9d56-4e15-990f-9b4df9499567}
+PhysicsComponent Physics Cube 34
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{f6cb16dd-b6fd-47bc-bce4-cb4ca998c7fc}
+Physics Cube 35
+.?AVCube@GDEngine@@
+-9.2937 11.292 -6.64524
+0 0 0
+1 1 1
+Rigidbody
+{efa2ebfd-9943-4377-8e17-12e91a7207ed}
+PhysicsComponent Physics Cube 35
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{2c098a83-6d33-410a-a91f-4dd321e9bd56}
+Physics Cube 36
+.?AVCube@GDEngine@@
+-8.57123 19.8938 9.97521
+0 0 0
+1 1 1
+Rigidbody
+{fdd46ffc-95aa-4d3a-b153-ec89f16fe82f}
+PhysicsComponent Physics Cube 36
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{a01eba20-31e1-4a78-bc50-99323b389e8f}
+Physics Cube 37
+.?AVCube@GDEngine@@
+-4.11505 10.7263 3.44853
+0 0 0
+1 1 1
+Rigidbody
+{31728a8c-739a-4788-8b95-949b65d73539}
+PhysicsComponent Physics Cube 37
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{be553a71-95c6-4ef1-b8f7-68a5d931d5ec}
+Physics Cube 38
+.?AVCube@GDEngine@@
+7.74151 17.9673 2.44442
+0 0 0
+1 1 1
+Rigidbody
+{478387b2-50d3-4da5-bf38-946f4252ec77}
+PhysicsComponent Physics Cube 38
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{6b2f2745-081b-4ae8-90cc-6e5cfd9b82ba}
+Physics Cube 39
+.?AVCube@GDEngine@@
+-1.05097 11.4006 -5.18223
+0 0 0
+1 1 1
+Rigidbody
+{a88e675b-2a34-4061-98f8-e31f7e7fc376}
+PhysicsComponent Physics Cube 39
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{2844b24f-c588-4a6a-a601-cb5aef0343cf}
+Physics Cube 40
+.?AVCube@GDEngine@@
+6.78859 22.5975 8.80835
+0 0 0
+1 1 1
+Rigidbody
+{aa60d75c-2d22-4be0-8ca1-d447e25405fd}
+PhysicsComponent Physics Cube 40
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{64927b56-caa9-4d21-861e-9b56d6ee22dc}
+Physics Cube 41
+.?AVCube@GDEngine@@
+8.63212 19.2893 5.21982
+0 0 0
+1 1 1
+Rigidbody
+{80ba5b7c-a6d2-4348-bb6c-f339456015c0}
+PhysicsComponent Physics Cube 41
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{613b6c43-c6ba-42df-887b-5ee45bf40003}
+Physics Cube 42
+.?AVCube@GDEngine@@
+1.61244 13.1859 0.544989
+0 0 0
+1 1 1
+Rigidbody
+{e36a5702-3f24-4f71-a8dd-bdc809ec2023}
+PhysicsComponent Physics Cube 42
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{4d2202d7-78d3-4530-ad81-55816aa50e5a}
+Physics Cube 43
+.?AVCube@GDEngine@@
+-9.01162 14.592 2.05983
+0 0 0
+1 1 1
+Rigidbody
+{bd6c7de3-cbe1-435e-a79e-52c749824bef}
+PhysicsComponent Physics Cube 43
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{3b496cef-f629-4256-9711-8d493b2bab92}
+Physics Cube 44
+.?AVCube@GDEngine@@
+4.89783 10.0041 8.81484
+0 0 0
+1 1 1
+Rigidbody
+{532f0507-2fd0-4fcd-bea9-a40552b9801d}
+PhysicsComponent Physics Cube 44
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{44ff3b4f-1117-4ea8-8871-3831738d2d22}
+Physics Cube 45
+.?AVCube@GDEngine@@
+6.3842 21.1173 -6.0052
+0 0 0
+1 1 1
+Rigidbody
+{c7baab37-508e-4ae6-969f-5115d845a06c}
+PhysicsComponent Physics Cube 45
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{db4a995f-8795-4259-8b7c-df8decbf1f9c}
+Physics Cube 46
+.?AVCube@GDEngine@@
+-9.29877 10.9366 -2.31838
+0 0 0
+1 1 1
+Rigidbody
+{c4bc6bcf-f2a2-46af-92a4-f5704ce473d1}
+PhysicsComponent Physics Cube 46
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{19b56b09-2655-41bd-818f-a047aa63e710}
+Physics Cube 47
+.?AVCube@GDEngine@@
+6.79659 21.9314 4.8659
+0 0 0
+1 1 1
+Rigidbody
+{71b25a1c-99de-4836-8ae2-3929e19e6e47}
+PhysicsComponent Physics Cube 47
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{92c65052-89d8-48c9-b138-c9be184a94ee}
+Physics Cube 48
+.?AVCube@GDEngine@@
+7.46729 21.9104 0.749695
+0 0 0
+1 1 1
+Rigidbody
+{ff970b48-b5a1-48fe-8126-9cd12346eb6d}
+PhysicsComponent Physics Cube 48
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{567589b3-fcec-46d0-9893-edc1f75ee842}
+Physics Cube 49
+.?AVCube@GDEngine@@
+-0.706941 23.3943 -7.70146
+0 0 0
+1 1 1
+Rigidbody
+{c539cde4-3e48-496f-a54d-7729eb496291}
+PhysicsComponent Physics Cube 49
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+2
+0
+0
+{dcf9b320-0185-4b14-8792-2c36350e3431}
+Physics Plane 1
+.?AVCube@GDEngine@@
+0 0 10
+0 0 0
+10 10 0.5
+Rigidbody
+{5e428c03-9576-44d3-9c26-2ecba28c0224}
+PhysicsComponent Physics Plane 1
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+1
+0
+0
+{5ce2a0e4-62ad-4c75-bec0-68d9ca56d07f}
+Physics Plane 2
+.?AVCube@GDEngine@@
+-10 0 0
+0 0 0
+0.5 10 10
+Rigidbody
+{61d3946a-2f96-49a2-871a-bdcaae4ad3fe}
+PhysicsComponent Physics Plane 2
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+1
+0
+0
+{e423a70b-574a-4818-b86e-7ddbb065d04b}
+Physics Plane 3
+.?AVCube@GDEngine@@
+0 0 -10
+0 0 0
+10 5 0.5
+Rigidbody
+{6785c463-0b6b-434a-9c20-0e5b831093db}
+PhysicsComponent Physics Plane 3
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+1
+0
+0
+{046bd0d9-5964-4444-b020-20e09678740e}
+Physics Plane 4
+.?AVCube@GDEngine@@
+10 0 0
+0 0 0
+0.5 5 10
+Rigidbody
+{0be010f8-92f9-47ac-9499-ba2a17e1ad70}
+PhysicsComponent Physics Plane 4
+3
+.?AVPhysicsComponent@GDEngine@@
+1000
+1
+1
+0
+0

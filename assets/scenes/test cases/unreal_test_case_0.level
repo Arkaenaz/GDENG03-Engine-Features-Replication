@@ -1,0 +1,28 @@
+{5b2645c3-6f6b-4894-a7d8-030ef7007927}
+Plane
+.?AVPlane@GDEngine@@
+0 0 0
+0 0 0
+10 10 10
+none
+{e87ee7fd-e312-4496-a457-a668bff80c58}
+Cube
+.?AVCube@GDEngine@@
+0 1.8 0
+0 0 0
+1 1 1
+none
+{fa282141-b4a8-43da-861f-e9ab48c4011f}
+Cube 1
+.?AVCube@GDEngine@@
+-4 4 0
+0 0 0
+1 1 1
+none
+{b7d47092-383c-468a-8198-a9817e2c63b7}
+Cube 2
+.?AVCube@GDEngine@@
+-4 6 -4
+0 0 0
+1 1 1
+none

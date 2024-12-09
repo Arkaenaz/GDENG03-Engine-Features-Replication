@@ -1,0 +1,42 @@
+{}
+Plane
+.?AVPlane@GDEngine@@
+0.0 0.0 0.0
+0.0 0.0 0.0
+10.0 10.0 10.0
+none
+{}
+Capsule
+.?AVCapsule@GDEngine@@
+0.0 2.0 0.0
+0.0 0.0 0.0
+1.0 1.0 1.0
+none
+{}
+Cube
+.?AVCube@GDEngine@@
+0.0 0.0 5.0
+0.0 0.0 0.0
+5.0 5.0 0.1
+none
+{}
+Cube2
+.?AVCube@GDEngine@@
+0.0 0.0 -5.0
+0.0 0.0 0.0
+5.0 2.5 0.1
+none
+{}
+Cube3
+.?AVCube@GDEngine@@
+-5.0 0.0 0.0
+0.0 0.0 0.0
+0.1 2.5 5.0
+none
+{}
+Cube4
+.?AVCube@GDEngine@@
+5.0 0.0 0.0
+0.0 0.0 0.0
+0.1 5.0 5.0
+none

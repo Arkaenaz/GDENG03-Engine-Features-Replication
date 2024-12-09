@@ -1,0 +1,42 @@
+{c42dadbd-6ca8-4876-8994-8d459eef367b}
+Cube (3)
+.?AVCube@GDEngine@@
+-10 0 0
+0 0 0
+0.1 5 10
+none
+{cced4bb3-cbd0-4139-a6b0-99aed5477775}
+Cube (2)
+.?AVCube@GDEngine@@
+0 0 -10
+0 0 0
+10 5 0.1
+none
+{fe6812a8-0d0e-4a2d-b433-597441e7e1f9}
+Cube (1)
+.?AVCube@GDEngine@@
+10 0 0
+0 0 0
+0.1 10 10
+none
+{b3065164-50a6-43e7-a809-1fc81de03d7f}
+Cube
+.?AVCube@GDEngine@@
+0 0 10
+0 0 0
+10 10 0.1
+none
+{ed4a9e33-ce5d-4497-941d-60719f8495b9}
+Capsule
+.?AVCapsule@GDEngine@@
+0 4 0
+0 0 0
+1 1 1
+none
+{678e4c56-1271-41b7-b2c1-854a96d37262}
+Plane
+.?AVPlane@GDEngine@@
+0 0 0
+0 0 0
+100 100 100
+none
